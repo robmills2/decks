@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Build the precon page mockup from a TSV of decks.
 
-Real: deck names, commanders, colors, and Federation Fleet's Archidekt link.
+Real: deck names, commanders, colors, each commander's card image (linked
+from Scryfall, filled in by images.py), and Federation Fleet's Archidekt link.
 Placeholder: every description, and every other Archidekt link.
 
 Usage: python3 build.py decks.tsv index.html
@@ -70,6 +71,15 @@ def deck_html(d, is_open):
         if len(cmdrs) == 1
         else f"What {e(' and '.join(cmdrs))} do together, and how the rest of the deck feeds them."
     )
+    grids = [u for u in d.get("commander_grid", "").split(" + ") if u]
+    displays = [u for u in d.get("commander_display", "").split(" + ") if u]
+    sizes = "(min-width: 40rem) 13rem, " + ("11rem" if len(grids) > 1 else "15rem")
+    imgs = "".join(
+        f'<img src="{e(g)}" srcset="{e(g)} 488w, {e(big)} 672w" sizes="{sizes}" '
+        f'width="488" height="680" alt="{e(c)}" loading="lazy" decoding="async">'
+        for g, big, c in zip(grids, displays, cmdrs)
+    )
+    cards = f'<div class="cards{" two" if len(grids) > 1 else ""}">{imgs}</div>' if imgs else ""
     return f"""
       <details class="deck" id="{slug(name)}" style="--spine: {spine(ident)}"{" open" if is_open else ""}>
         <summary>
@@ -79,7 +89,9 @@ def deck_html(d, is_open):
           </span>
           <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </summary>
-        <div class="panel">
+        <div class="panel"><div class="panel-body">
+          {cards}
+          <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>{colors_line(ident)}</dd></div>
             <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
@@ -94,7 +106,8 @@ def deck_html(d, is_open):
             <li>Two cards that work better together than apart.</li>
           </ul>
           <a class="arch" href="{href}">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
-        </div>
+          </div>
+        </div></div>
       </details>"""
 
 
@@ -183,7 +196,19 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
 .chev { width: 20px; height: 20px; color: var(--muted); transition: transform .2s ease; }
 .deck[open] .chev { transform: rotate(180deg); }
 .panel { padding: 0 1.25rem 1.25rem 1.5rem; }
-.facts { display: grid; gap: .5rem; margin: .25rem 0 0; padding-top: 1rem; border-top: 1px solid var(--line); }
+.panel-body { display: grid; gap: 1rem; margin-top: .25rem; padding-top: 1rem; border-top: 1px solid var(--line); }
+.cards { display: flex; gap: .75rem; }
+.cards img {
+  display: block; width: 15rem; max-width: 100%; height: auto; border-radius: 4.76% / 3.41%;
+  background: var(--line); box-shadow: 0 1px 2px rgb(0 0 0 / .18), 0 6px 18px rgb(0 0 0 / .12);
+}
+.cards.two img { width: calc(50% - .375rem); max-width: 11rem; }
+@media (min-width: 40rem) {
+  .panel-body { grid-template-columns: 13rem 1fr; gap: 1.5rem; align-items: start; }
+  .cards { flex-direction: column; }
+  .cards img, .cards.two img { width: 13rem; max-width: 100%; }
+}
+.facts { display: grid; gap: .5rem; margin: 0; }
 .facts > div { display: grid; grid-template-columns: 5.5rem 1fr; gap: .75rem; align-items: baseline; }
 .facts dt { font-size: .75rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
 .facts dd { margin: 0; }
@@ -199,6 +224,9 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
 }
 .arch:hover { background: var(--accent); color: var(--surface); }
 .arch:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.foot { max-width: 60ch; margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--line); font-size: .8125rem; color: var(--muted); }
+.foot p { margin: 0 0 .5rem; }
+.foot a { color: var(--accent); }
 @media (max-width: 420px) {
   .facts > div { grid-template-columns: 1fr; gap: .1rem; }
 }
@@ -242,8 +270,12 @@ def main(src, out):
     <header class="top">
       <h1>Rob&#8217;s Precons</h1>
       <p class="lede">{len(decks)} Commander decks you can borrow. Tap one to see what it does.</p>
-      <p class="note"><strong>Mockup.</strong> Deck names, commanders and colors are real. The descriptions are placeholder text, and only Federation Fleet links to its own Archidekt page; the others go to Archidekt&#8217;s list of precons.</p>
+      <p class="note"><strong>Mockup.</strong> Deck names, commanders, colors and card images are real. The descriptions are placeholder text, and only Federation Fleet links to its own Archidekt page; the others go to Archidekt&#8217;s list of precons.</p>
     </header>{"".join(parts)}
+    <footer class="foot">
+      <p>Rob&#8217;s Precons is unofficial Fan Content permitted under the Fan Content Policy. Not approved/endorsed by Wizards. Portions of the materials used are property of Wizards of the Coast. &#169;Wizards of the Coast LLC.</p>
+      <p>Card images come from <a href="https://scryfall.com">Scryfall</a>.</p>
+    </footer>
   </main>
 </body>
 </html>

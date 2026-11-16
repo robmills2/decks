@@ -1,58 +1,58 @@
-name	set_code	set_name	commanders	identity
-Federation Fleet	trc	Star Trek Commander	Jean-Luc Picard, Luminary	WUR
-Klingon Fury	trc	Star Trek Commander	Worf, Defiant Commander	WBR
-Landing Party	trc	Star Trek Commander	Commander Spock	WUG
-We Are the Borg	trc	Star Trek Commander	The Borg Queen	WUB
-Multiverse Reforged	frc	Reality Fracture Commander	Jace, Multiverse Architect	WUBR
-Avengers Assemble	msc	Marvel Super Heroes Commander	Captain America, Team Leader	WUR
-Doom Prevails	msc	Marvel Super Heroes Commander	Doctor Doom, King of Latveria	UBR
-The Fantastic Four	msc	Marvel Super Heroes Commander	Invisible Woman	WURG
-Wakanda Forever	msc	Marvel Super Heroes Commander	T'Challa, the Black Panther	WG
-Lorehold Spirit	soc	Secrets of Strixhaven Commander	Quintorius, History Chaser	WR
-Prismari Artistry	soc	Secrets of Strixhaven Commander	Rootha, Mastering the Moment	UR
-Quandrix Unlimited	soc	Secrets of Strixhaven Commander	Zimone, Infinite Analyst	UG
-Silverquill Influence	soc	Secrets of Strixhaven Commander	Killian, Decisive Mentor	WB
-Turtle Power!	tmc	Teenage Mutant Ninja Turtles Eternal	Heroes in a Half Shell	WUBRG
-Dance of the Elements	ecc	Lorwyn Eclipsed Commander	Ashling, the Limitless	WUBRG
-Counter Intelligence	eoc	Edge of Eternities Commander	Inspirit, Flagship Vessel	WUR
-Abzan Armor	tdc	Tarkir: Dragonstorm Commander	Felothar the Steadfast	WBG
-Mardu Surge	tdc	Tarkir: Dragonstorm Commander	Zurgo Stormrender	WBR
-Sultai Arisen	tdc	Tarkir: Dragonstorm Commander	Teval, the Balanced Scale	UBG
-Temur Roar	tdc	Tarkir: Dragonstorm Commander	Eshki, Temur's Roar	URG
-Eternal Might	drc	Aetherdrift Commander	Temmet, Naktamun's Will	WUB
-Living Energy	drc	Aetherdrift Commander	Saheeli, Radiant Creator	URG
-Calling All Angels	fdc	Foundations Commander	Giada, Font of Hope	W
-Keen Engineering	fdc	Foundations Commander	Sai, Master Thopterist	U
-Reign of Dragons	fdc	Foundations Commander	Lathliss, Dragon Queen	R
-Tramplesaurus Rex	fdc	Foundations Commander	Ghalta, Primal Hunger	G
-Wretched Ranks	fdc	Foundations Commander	Ghoulcaller Gisa	B
-Death Toll	dsc	Duskmourn: House of Horror Commander	Winter, Cynical Opportunist	BG
-Endless Punishment	dsc	Duskmourn: House of Horror Commander	Valgavoth, Harrower of Souls	BR
-Jump Scare!	dsc	Duskmourn: House of Horror Commander	Zimone, Mystery Unraveler	UG
-Miracle Worker	dsc	Duskmourn: House of Horror Commander	Aminatou, Veil Piercer	WUB
-Animated Army	blc	Bloomburrow Commander	Bello, Bard of the Brambles	RG
-Family Matters	blc	Bloomburrow Commander	Zinnia, Valley's Voice	WUR
-Peace Offering	blc	Bloomburrow Commander	Ms. Bumbleflower	WUG
-Creative Energy	m3c	Modern Horizons 3 Commander	Satya, Aetherflux Genius	WUR
-Eldrazi Incursion	m3c	Modern Horizons 3 Commander	Ulalek, Fused Atrocity	WUBRG
-Graveyard Overdrive	m3c	Modern Horizons 3 Commander	Disa the Restless	BRG
-Tricky Terrain	m3c	Modern Horizons 3 Commander	Omo, Queen of Vesuva	UG
-Most Wanted	otc	Outlaws of Thunder Junction Commander	Olivia, Opulent Outlaw	WBR
-Blame Game	mkc	Murders at Karlov Manor Commander	Nelly Borca, Impulsive Accuser	WR
-Deadly Disguise	mkc	Murders at Karlov Manor Commander	Kaust, Eyes of the Glade	WRG
-Deep Clue Sea	mkc	Murders at Karlov Manor Commander	Morska, Undersea Sleuth	WUG
-Revenant Recon	mkc	Murders at Karlov Manor Commander	Mirko, Obsessive Theorist	UB
-Ahoy Mateys	lcc	The Lost Caverns of Ixalan Commander	Admiral Brass, Unsinkable	UBR
-Blood Rites	lcc	The Lost Caverns of Ixalan Commander	Clavileño, First of the Blessed	WB
-Explorers of the Deep	lcc	The Lost Caverns of Ixalan Commander	Hakbal of the Surging Soul	UG
-Veloci-Ramp-Tor	lcc	The Lost Caverns of Ixalan Commander	Pantlaza, Sun-Favored	WRG
-Elven Council	ltc	Tales of Middle-earth Commander	Galadriel, Elven-Queen	UG
-Food and Fellowship	ltc	Tales of Middle-earth Commander	Frodo, Adventurous Hobbit + Sam, Loyal Attendant	WBG
-Riders of Rohan	ltc	Tales of Middle-earth Commander	Éowyn, Shieldmaiden	WUR
-The Hosts of Mordor	ltc	Tales of Middle-earth Commander	Sauron, Lord of the Rings	UBR
-Chaos Incarnate	scd	Starter Commander Decks	Kardur, Doomscourge	BR
-Draconic Destruction	scd	Starter Commander Decks	Atarka, World Render	RG
-First Flight	scd	Starter Commander Decks	Isperia, Supreme Judge	WU
-Grave Danger	scd	Starter Commander Decks	Gisa and Geralf	UB
-Token Triumph	scd	Starter Commander Decks	Emmara, Soul of the Accord	WG
-Odds and Ends	sld	Secret Lair Drop	Yennett, Cryptic Sovereign	WUB
+name	set_code	set_name	commanders	identity	commander_cards	commander_grid	commander_display
+Federation Fleet	trc	Star Trek Commander	Jean-Luc Picard, Luminary	WUR	trc 3	https://cards.scryfall.io/grid/front/9/0/901eaed9-dbea-4a31-87b0-e17e9bcabfed.webp?1792507924	https://cards.scryfall.io/display/front/9/0/901eaed9-dbea-4a31-87b0-e17e9bcabfed.webp?1792507924
+Klingon Fury	trc	Star Trek Commander	Worf, Defiant Commander	WBR	trc 4	https://cards.scryfall.io/grid/front/d/a/da030114-a4ee-46d7-a6fd-6c0d8e779bcf.webp?1792507927	https://cards.scryfall.io/display/front/d/a/da030114-a4ee-46d7-a6fd-6c0d8e779bcf.webp?1792507927
+Landing Party	trc	Star Trek Commander	Commander Spock	WUG	trc 2	https://cards.scryfall.io/grid/front/c/f/cf114392-a38d-4117-aa41-911d6dc1051b.webp?1792551005	https://cards.scryfall.io/display/front/c/f/cf114392-a38d-4117-aa41-911d6dc1051b.webp?1792551005
+We Are the Borg	trc	Star Trek Commander	The Borg Queen	WUB	trc 1	https://cards.scryfall.io/grid/front/8/e/8ed939ba-bf8d-4a68-ae9f-f8ca4eb301ab.webp?1792507909	https://cards.scryfall.io/display/front/8/e/8ed939ba-bf8d-4a68-ae9f-f8ca4eb301ab.webp?1792507909
+Multiverse Reforged	frc	Reality Fracture Commander	Jace, Multiverse Architect	WUBR	frc 1	https://cards.scryfall.io/grid/front/5/5/55cd03d9-2535-4cf3-a8b2-1418e1190f4a.webp?1789644316	https://cards.scryfall.io/display/front/5/5/55cd03d9-2535-4cf3-a8b2-1418e1190f4a.webp?1789644316
+Avengers Assemble	msc	Marvel Super Heroes Commander	Captain America, Team Leader	WUR	msc 5	https://cards.scryfall.io/grid/front/6/1/61a51b67-d941-4e07-9c12-ffe583cb65d4.webp?1783903303	https://cards.scryfall.io/display/front/6/1/61a51b67-d941-4e07-9c12-ffe583cb65d4.webp?1783903303
+Doom Prevails	msc	Marvel Super Heroes Commander	Doctor Doom, King of Latveria	UBR	msc 6	https://cards.scryfall.io/grid/front/0/9/099ed408-9178-4403-8b2d-479ca3cbda9b.webp?1783903303	https://cards.scryfall.io/display/front/0/9/099ed408-9178-4403-8b2d-479ca3cbda9b.webp?1783903303
+The Fantastic Four	msc	Marvel Super Heroes Commander	Invisible Woman	WURG	msc 1	https://cards.scryfall.io/grid/front/d/8/d8e13ecb-98be-4d9b-86a2-24eaa98f7f0d.webp?1783903304	https://cards.scryfall.io/display/front/d/8/d8e13ecb-98be-4d9b-86a2-24eaa98f7f0d.webp?1783903304
+Wakanda Forever	msc	Marvel Super Heroes Commander	T'Challa, the Black Panther	WG	msc 7	https://cards.scryfall.io/grid/front/c/1/c1c8ad61-b7e1-446c-8b74-6e29371ea1d5.webp?1783903301	https://cards.scryfall.io/display/front/c/1/c1c8ad61-b7e1-446c-8b74-6e29371ea1d5.webp?1783903301
+Lorehold Spirit	soc	Secrets of Strixhaven Commander	Quintorius, History Chaser	WR	soc 7	https://cards.scryfall.io/grid/front/0/7/0742f19d-179c-43c4-ab95-4160c56b4384.webp?1783903867	https://cards.scryfall.io/display/front/0/7/0742f19d-179c-43c4-ab95-4160c56b4384.webp?1783903867
+Prismari Artistry	soc	Secrets of Strixhaven Commander	Rootha, Mastering the Moment	UR	soc 8	https://cards.scryfall.io/grid/front/a/5/a5b3dbb2-c090-4118-9e47-56c16202572c.webp?1783903866	https://cards.scryfall.io/display/front/a/5/a5b3dbb2-c090-4118-9e47-56c16202572c.webp?1783903866
+Quandrix Unlimited	soc	Secrets of Strixhaven Commander	Zimone, Infinite Analyst	UG	soc 10	https://cards.scryfall.io/grid/front/6/0/605afac4-d2e5-4e68-97d2-3ac2ead5f3a9.webp?1783903866	https://cards.scryfall.io/display/front/6/0/605afac4-d2e5-4e68-97d2-3ac2ead5f3a9.webp?1783903866
+Silverquill Influence	soc	Secrets of Strixhaven Commander	Killian, Decisive Mentor	WB	soc 4	https://cards.scryfall.io/grid/front/7/6/76b6c35a-bb92-4ad3-8f85-88b9bafc6266.webp?1783903867	https://cards.scryfall.io/display/front/7/6/76b6c35a-bb92-4ad3-8f85-88b9bafc6266.webp?1783903867
+Turtle Power!	tmc	Teenage Mutant Ninja Turtles Eternal	Heroes in a Half Shell	WUBRG	tmc 6	https://cards.scryfall.io/grid/front/c/c/ccc2a4e6-f505-4040-9d8a-c7b8e1a2b55e.webp?1783904172	https://cards.scryfall.io/display/front/c/c/ccc2a4e6-f505-4040-9d8a-c7b8e1a2b55e.webp?1783904172
+Dance of the Elements	ecc	Lorwyn Eclipsed Commander	Ashling, the Limitless	WUBRG	ecc 1	https://cards.scryfall.io/grid/front/5/9/5924c01f-2815-4e37-b700-3ba6cc81e0e4.webp?1783904607	https://cards.scryfall.io/display/front/5/9/5924c01f-2815-4e37-b700-3ba6cc81e0e4.webp?1783904607
+Counter Intelligence	eoc	Edge of Eternities Commander	Inspirit, Flagship Vessel	WUR	eoc 2	https://cards.scryfall.io/grid/front/4/6/46900ec7-eb18-45c4-8e90-a48b665cfdee.webp?1783906067	https://cards.scryfall.io/display/front/4/6/46900ec7-eb18-45c4-8e90-a48b665cfdee.webp?1783906067
+Abzan Armor	tdc	Tarkir: Dragonstorm Commander	Felothar the Steadfast	WBG	tdc 4	https://cards.scryfall.io/grid/front/2/c/2c3549f6-25df-4ea7-84ad-922ccd4af6b2.webp?1783907190	https://cards.scryfall.io/display/front/2/c/2c3549f6-25df-4ea7-84ad-922ccd4af6b2.webp?1783907190
+Mardu Surge	tdc	Tarkir: Dragonstorm Commander	Zurgo Stormrender	WBR	tdc 10	https://cards.scryfall.io/grid/front/d/c/dc8eb325-75c9-4331-830d-3f7d62d77290.webp?1783907186	https://cards.scryfall.io/display/front/d/c/dc8eb325-75c9-4331-830d-3f7d62d77290.webp?1783907186
+Sultai Arisen	tdc	Tarkir: Dragonstorm Commander	Teval, the Balanced Scale	UBG	tdc 8	https://cards.scryfall.io/grid/front/b/5/b5d1955a-9ff0-4f8b-9af8-341371957299.webp?1783907184	https://cards.scryfall.io/display/front/b/5/b5d1955a-9ff0-4f8b-9af8-341371957299.webp?1783907184
+Temur Roar	tdc	Tarkir: Dragonstorm Commander	Eshki, Temur's Roar	URG	tdc 3	https://cards.scryfall.io/grid/front/f/f/ff9aa863-8773-452d-946c-ae334c632e11.webp?1790528795	https://cards.scryfall.io/display/front/f/f/ff9aa863-8773-452d-946c-ae334c632e11.webp?1790528795
+Eternal Might	drc	Aetherdrift Commander	Temmet, Naktamun's Will	WUB	drc 4	https://cards.scryfall.io/grid/front/c/0/c0629894-0b72-4abe-9771-03becfdb241c.webp?1783907753	https://cards.scryfall.io/display/front/c/0/c0629894-0b72-4abe-9771-03becfdb241c.webp?1783907753
+Living Energy	drc	Aetherdrift Commander	Saheeli, Radiant Creator	URG	drc 3	https://cards.scryfall.io/grid/front/5/f/5fea0781-e933-47ef-9414-92c8652a7778.webp?1783907753	https://cards.scryfall.io/display/front/5/f/5fea0781-e933-47ef-9414-92c8652a7778.webp?1783907753
+Calling All Angels	fdc	Foundations Commander	Giada, Font of Hope	W	fdc 4	https://cards.scryfall.io/grid/front/4/e/4ebc7622-08a1-4f43-92dd-8675d395e8f6.webp?1789752341	https://cards.scryfall.io/display/front/4/e/4ebc7622-08a1-4f43-92dd-8675d395e8f6.webp?1789752341
+Keen Engineering	fdc	Foundations Commander	Sai, Master Thopterist	U	fdc 5	https://cards.scryfall.io/grid/front/5/6/5650587a-27a5-4d68-97e2-5745627bd094.webp?1789776685	https://cards.scryfall.io/display/front/5/6/5650587a-27a5-4d68-97e2-5745627bd094.webp?1789776685
+Reign of Dragons	fdc	Foundations Commander	Lathliss, Dragon Queen	R	fdc 7	https://cards.scryfall.io/grid/front/8/a/8a17ec4e-b508-41af-803b-32acd863e598.webp?1789752347	https://cards.scryfall.io/display/front/8/a/8a17ec4e-b508-41af-803b-32acd863e598.webp?1789752347
+Tramplesaurus Rex	fdc	Foundations Commander	Ghalta, Primal Hunger	G	fdc 8	https://cards.scryfall.io/grid/front/5/d/5d9951d1-3228-4d69-8e63-6e6f0a893a86.webp?1789752351	https://cards.scryfall.io/display/front/5/d/5d9951d1-3228-4d69-8e63-6e6f0a893a86.webp?1789752351
+Wretched Ranks	fdc	Foundations Commander	Ghoulcaller Gisa	B	fdc 6	https://cards.scryfall.io/grid/front/9/0/909e62fa-4585-495e-812b-5df56af24610.webp?1789752353	https://cards.scryfall.io/display/front/9/0/909e62fa-4585-495e-812b-5df56af24610.webp?1789752353
+Death Toll	dsc	Duskmourn: House of Horror Commander	Winter, Cynical Opportunist	BG	dsc 7	https://cards.scryfall.io/grid/front/9/4/94dc35e4-a492-4019-afcd-cbef6f59a512.webp?1783909662	https://cards.scryfall.io/display/front/9/4/94dc35e4-a492-4019-afcd-cbef6f59a512.webp?1783909662
+Endless Punishment	dsc	Duskmourn: House of Horror Commander	Valgavoth, Harrower of Souls	BR	dsc 6	https://cards.scryfall.io/grid/front/8/d/8d7c1f6c-af45-4449-8cf8-e13830b3df8a.webp?1783909662	https://cards.scryfall.io/display/front/8/d/8d7c1f6c-af45-4449-8cf8-e13830b3df8a.webp?1783909662
+Jump Scare!	dsc	Duskmourn: House of Horror Commander	Zimone, Mystery Unraveler	UG	dsc 8	https://cards.scryfall.io/grid/front/3/0/30f23588-5064-48d9-a271-039df757f8d2.webp?1783909663	https://cards.scryfall.io/display/front/3/0/30f23588-5064-48d9-a271-039df757f8d2.webp?1783909663
+Miracle Worker	dsc	Duskmourn: House of Horror Commander	Aminatou, Veil Piercer	WUB	dsc 1	https://cards.scryfall.io/grid/front/9/f/9f868023-6035-403d-ba91-7a4840c6c392.webp?1783909663	https://cards.scryfall.io/display/front/9/f/9f868023-6035-403d-ba91-7a4840c6c392.webp?1783909663
+Animated Army	blc	Bloomburrow Commander	Bello, Bard of the Brambles	RG	blc 1	https://cards.scryfall.io/grid/front/3/1/31e4b7a1-b377-49d2-a92e-4bcb0db35f16.webp?1783910738	https://cards.scryfall.io/display/front/3/1/31e4b7a1-b377-49d2-a92e-4bcb0db35f16.webp?1783910738
+Family Matters	blc	Bloomburrow Commander	Zinnia, Valley's Voice	WUR	blc 4	https://cards.scryfall.io/grid/front/d/f/dfe36901-5841-4942-8b61-c273111f715e.webp?1783910737	https://cards.scryfall.io/display/front/d/f/dfe36901-5841-4942-8b61-c273111f715e.webp?1783910737
+Peace Offering	blc	Bloomburrow Commander	Ms. Bumbleflower	WUG	blc 3	https://cards.scryfall.io/grid/front/4/2/42bbedc1-6b83-46b4-8b3b-a4e05ce77d87.webp?1783910739	https://cards.scryfall.io/display/front/4/2/42bbedc1-6b83-46b4-8b3b-a4e05ce77d87.webp?1783910739
+Creative Energy	m3c	Modern Horizons 3 Commander	Satya, Aetherflux Genius	WUR	m3c 3	https://cards.scryfall.io/grid/front/3/b/3b964bbe-54cc-425c-9cc6-c877f82af7ba.webp?1783911437	https://cards.scryfall.io/display/front/3/b/3b964bbe-54cc-425c-9cc6-c877f82af7ba.webp?1783911437
+Eldrazi Incursion	m3c	Modern Horizons 3 Commander	Ulalek, Fused Atrocity	WUBRG	m3c 4	https://cards.scryfall.io/grid/front/f/d/fdad1b0e-d3cc-4d76-ae7e-fee12558cf2c.webp?1783911439	https://cards.scryfall.io/display/front/f/d/fdad1b0e-d3cc-4d76-ae7e-fee12558cf2c.webp?1783911439
+Graveyard Overdrive	m3c	Modern Horizons 3 Commander	Disa the Restless	BRG	m3c 1	https://cards.scryfall.io/grid/front/c/9/c976edeb-0fa1-4647-a16c-870d8a3c30c6.webp?1783911438	https://cards.scryfall.io/display/front/c/9/c976edeb-0fa1-4647-a16c-870d8a3c30c6.webp?1783911438
+Tricky Terrain	m3c	Modern Horizons 3 Commander	Omo, Queen of Vesuva	UG	m3c 2	https://cards.scryfall.io/grid/front/e/5/e5d1c814-4c22-4917-95ae-dffaf491db32.webp?1783911439	https://cards.scryfall.io/display/front/e/5/e5d1c814-4c22-4917-95ae-dffaf491db32.webp?1783911439
+Most Wanted	otc	Outlaws of Thunder Junction Commander	Olivia, Opulent Outlaw	WBR	otc 2	https://cards.scryfall.io/grid/front/5/5/55e6c31b-f9e9-4e42-a875-985d99300d9d.webp?1783911972	https://cards.scryfall.io/display/front/5/5/55e6c31b-f9e9-4e42-a875-985d99300d9d.webp?1783911972
+Blame Game	mkc	Murders at Karlov Manor Commander	Nelly Borca, Impulsive Accuser	WR	mkc 4	https://cards.scryfall.io/grid/front/2/e/2ef59aa9-f5e1-413a-869b-d287db95efd0.webp?1783913057	https://cards.scryfall.io/display/front/2/e/2ef59aa9-f5e1-413a-869b-d287db95efd0.webp?1783913057
+Deadly Disguise	mkc	Murders at Karlov Manor Commander	Kaust, Eyes of the Glade	WRG	mkc 1	https://cards.scryfall.io/grid/front/6/4/648c15d1-a2a2-4f59-9b0a-5448be3e990f.webp?1783913056	https://cards.scryfall.io/display/front/6/4/648c15d1-a2a2-4f59-9b0a-5448be3e990f.webp?1783913056
+Deep Clue Sea	mkc	Murders at Karlov Manor Commander	Morska, Undersea Sleuth	WUG	mkc 3	https://cards.scryfall.io/grid/front/a/e/ae9ccfec-05c6-469e-b1dd-dfbafa1e927f.webp?1783913056	https://cards.scryfall.io/display/front/a/e/ae9ccfec-05c6-469e-b1dd-dfbafa1e927f.webp?1783913056
+Revenant Recon	mkc	Murders at Karlov Manor Commander	Mirko, Obsessive Theorist	UB	mkc 2	https://cards.scryfall.io/grid/front/6/9/690acbbf-5e92-4323-b939-31bdb07f9905.webp?1783913056	https://cards.scryfall.io/display/front/6/9/690acbbf-5e92-4323-b939-31bdb07f9905.webp?1783913056
+Ahoy Mateys	lcc	The Lost Caverns of Ixalan Commander	Admiral Brass, Unsinkable	UBR	lcc 1	https://cards.scryfall.io/grid/front/b/d/bdc2d492-9d1e-4543-8b9c-c66ee67992ce.webp?1783913937	https://cards.scryfall.io/display/front/b/d/bdc2d492-9d1e-4543-8b9c-c66ee67992ce.webp?1783913937
+Blood Rites	lcc	The Lost Caverns of Ixalan Commander	Clavileño, First of the Blessed	WB	lcc 2	https://cards.scryfall.io/grid/front/9/f/9f55b648-b1ec-407a-a0c7-7647755793d1.webp?1783913936	https://cards.scryfall.io/display/front/9/f/9f55b648-b1ec-407a-a0c7-7647755793d1.webp?1783913936
+Explorers of the Deep	lcc	The Lost Caverns of Ixalan Commander	Hakbal of the Surging Soul	UG	lcc 3	https://cards.scryfall.io/grid/front/e/7/e738e675-4fd1-4bc3-97f5-71d0e2fc3f2e.webp?1783913937	https://cards.scryfall.io/display/front/e/7/e738e675-4fd1-4bc3-97f5-71d0e2fc3f2e.webp?1783913937
+Veloci-Ramp-Tor	lcc	The Lost Caverns of Ixalan Commander	Pantlaza, Sun-Favored	WRG	lcc 4	https://cards.scryfall.io/grid/front/2/5/2524645e-b066-4351-885b-10faa8d819d7.webp?1783913937	https://cards.scryfall.io/display/front/2/5/2524645e-b066-4351-885b-10faa8d819d7.webp?1783913937
+Elven Council	ltc	Tales of Middle-earth Commander	Galadriel, Elven-Queen	UG	ltc 3	https://cards.scryfall.io/grid/front/8/f/8fa46d54-563d-4b5c-9c69-5ab37dd529b3.webp?1783916039	https://cards.scryfall.io/display/front/8/f/8fa46d54-563d-4b5c-9c69-5ab37dd529b3.webp?1783916039
+Food and Fellowship	ltc	Tales of Middle-earth Commander	Frodo, Adventurous Hobbit + Sam, Loyal Attendant	WBG	ltc 2 + ltc 7	https://cards.scryfall.io/grid/front/3/2/328df403-7428-4b17-bdd1-9759fc0f32d8.webp?1783916041 + https://cards.scryfall.io/grid/front/6/8/687a2b76-3f05-4732-bd9b-513d06d16300.webp?1783916039	https://cards.scryfall.io/display/front/3/2/328df403-7428-4b17-bdd1-9759fc0f32d8.webp?1783916041 + https://cards.scryfall.io/display/front/6/8/687a2b76-3f05-4732-bd9b-513d06d16300.webp?1783916039
+Riders of Rohan	ltc	Tales of Middle-earth Commander	Éowyn, Shieldmaiden	WUR	ltc 1	https://cards.scryfall.io/grid/front/d/d/dd4a00ff-2206-4e12-a0ab-61ed82c9e6c5.webp?1783916039	https://cards.scryfall.io/display/front/d/d/dd4a00ff-2206-4e12-a0ab-61ed82c9e6c5.webp?1783916039
+The Hosts of Mordor	ltc	Tales of Middle-earth Commander	Sauron, Lord of the Rings	UBR	ltc 4	https://cards.scryfall.io/grid/front/f/c/fc53dec0-79fe-4f6f-9d5b-cf298588e808.webp?1783916038	https://cards.scryfall.io/display/front/f/c/fc53dec0-79fe-4f6f-9d5b-cf298588e808.webp?1783916038
+Chaos Incarnate	scd	Starter Commander Decks	Kardur, Doomscourge	BR	scd 5	https://cards.scryfall.io/grid/front/1/9/19e4d494-e8b3-4ae2-93e3-70c65ab90f15.webp?1783918741	https://cards.scryfall.io/display/front/1/9/19e4d494-e8b3-4ae2-93e3-70c65ab90f15.webp?1783918741
+Draconic Destruction	scd	Starter Commander Decks	Atarka, World Render	RG	scd 1	https://cards.scryfall.io/grid/front/7/1/719f172b-f9ad-4960-af66-757eb54147f6.webp?1783918742	https://cards.scryfall.io/display/front/7/1/719f172b-f9ad-4960-af66-757eb54147f6.webp?1783918742
+First Flight	scd	Starter Commander Decks	Isperia, Supreme Judge	WU	scd 4	https://cards.scryfall.io/grid/front/d/e/de3278de-a045-4290-b05f-3b19e7055091.webp?1783918741	https://cards.scryfall.io/display/front/d/e/de3278de-a045-4290-b05f-3b19e7055091.webp?1783918741
+Grave Danger	scd	Starter Commander Decks	Gisa and Geralf	UB	scd 3	https://cards.scryfall.io/grid/front/4/d/4d8fd87c-caf7-402e-b543-e35ba3007bcb.webp?1783918740	https://cards.scryfall.io/display/front/4/d/4d8fd87c-caf7-402e-b543-e35ba3007bcb.webp?1783918740
+Token Triumph	scd	Starter Commander Decks	Emmara, Soul of the Accord	WG	scd 2	https://cards.scryfall.io/grid/front/e/8/e8510a1e-62ca-462c-b036-d1312729f27d.webp?1783918741	https://cards.scryfall.io/display/front/e/8/e8510a1e-62ca-462c-b036-d1312729f27d.webp?1783918741
+Odds and Ends	sld	Secret Lair Drop	Yennett, Cryptic Sovereign	WUB	sld 2121	https://cards.scryfall.io/grid/front/0/b/0ba9362f-eb35-4e72-8c51-7047c0a3f648.webp?1790743631	https://cards.scryfall.io/display/front/0/b/0ba9362f-eb35-4e72-8c51-7047c0a3f648.webp?1790743631

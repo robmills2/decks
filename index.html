@@ -92,7 +92,19 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
 .chev { width: 20px; height: 20px; color: var(--muted); transition: transform .2s ease; }
 .deck[open] .chev { transform: rotate(180deg); }
 .panel { padding: 0 1.25rem 1.25rem 1.5rem; }
-.facts { display: grid; gap: .5rem; margin: .25rem 0 0; padding-top: 1rem; border-top: 1px solid var(--line); }
+.panel-body { display: grid; gap: 1rem; margin-top: .25rem; padding-top: 1rem; border-top: 1px solid var(--line); }
+.cards { display: flex; gap: .75rem; }
+.cards img {
+  display: block; width: 15rem; max-width: 100%; height: auto; border-radius: 4.76% / 3.41%;
+  background: var(--line); box-shadow: 0 1px 2px rgb(0 0 0 / .18), 0 6px 18px rgb(0 0 0 / .12);
+}
+.cards.two img { width: calc(50% - .375rem); max-width: 11rem; }
+@media (min-width: 40rem) {
+  .panel-body { grid-template-columns: 13rem 1fr; gap: 1.5rem; align-items: start; }
+  .cards { flex-direction: column; }
+  .cards img, .cards.two img { width: 13rem; max-width: 100%; }
+}
+.facts { display: grid; gap: .5rem; margin: 0; }
 .facts > div { display: grid; grid-template-columns: 5.5rem 1fr; gap: .75rem; align-items: baseline; }
 .facts dt { font-size: .75rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
 .facts dd { margin: 0; }
@@ -108,6 +120,9 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
 }
 .arch:hover { background: var(--accent); color: var(--surface); }
 .arch:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.foot { max-width: 60ch; margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--line); font-size: .8125rem; color: var(--muted); }
+.foot p { margin: 0 0 .5rem; }
+.foot a { color: var(--accent); }
 @media (max-width: 420px) {
   .facts > div { grid-template-columns: 1fr; gap: .1rem; }
 }
@@ -121,7 +136,7 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
     <header class="top">
       <h1>Rob&#8217;s Precons</h1>
       <p class="lede">57 Commander decks you can borrow. Tap one to see what it does.</p>
-      <p class="note"><strong>Mockup.</strong> Deck names, commanders and colors are real. The descriptions are placeholder text, and only Federation Fleet links to its own Archidekt page; the others go to Archidekt&#8217;s list of precons.</p>
+      <p class="note"><strong>Mockup.</strong> Deck names, commanders, colors and card images are real. The descriptions are placeholder text, and only Federation Fleet links to its own Archidekt page; the others go to Archidekt&#8217;s list of precons.</p>
     </header>
     <section class="set" aria-labelledby="set-trc">
       <h2 id="set-trc"><span>Star Trek Commander</span><span class="set-count">4 decks</span></h2>
@@ -134,7 +149,9 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           </span>
           <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </summary>
-        <div class="panel">
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/9/0/901eaed9-dbea-4a31-87b0-e17e9bcabfed.webp?1792507924" srcset="https://cards.scryfall.io/grid/front/9/0/901eaed9-dbea-4a31-87b0-e17e9bcabfed.webp?1792507924 488w, https://cards.scryfall.io/display/front/9/0/901eaed9-dbea-4a31-87b0-e17e9bcabfed.webp?1792507924 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Jean-Luc Picard, Luminary" loading="lazy" decoding="async"></div>
+          <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Jeskai: white, blue and red</dd></div>
             <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
@@ -149,7 +166,8 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
             <li>Two cards that work better together than apart.</li>
           </ul>
           <a class="arch" href="https://archidekt.com/decks/27859380/federation_fleet_star_trek_commander">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
-        </div>
+          </div>
+        </div></div>
       </details>
       <details class="deck" id="klingon-fury" style="--spine: linear-gradient(to bottom, var(--m-w) 0.000% 33.333%, var(--m-b) 33.333% 66.667%, var(--m-r) 66.667% 100.000%)">
         <summary>
@@ -159,7 +177,9 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           </span>
           <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </summary>
-        <div class="panel">
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/d/a/da030114-a4ee-46d7-a6fd-6c0d8e779bcf.webp?1792507927" srcset="https://cards.scryfall.io/grid/front/d/a/da030114-a4ee-46d7-a6fd-6c0d8e779bcf.webp?1792507927 488w, https://cards.scryfall.io/display/front/d/a/da030114-a4ee-46d7-a6fd-6c0d8e779bcf.webp?1792507927 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Worf, Defiant Commander" loading="lazy" decoding="async"></div>
+          <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Mardu: white, black and red</dd></div>
             <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
@@ -174,7 +194,8 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
             <li>Two cards that work better together than apart.</li>
           </ul>
           <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
-        </div>
+          </div>
+        </div></div>
       </details>
       <details class="deck" id="landing-party" style="--spine: linear-gradient(to bottom, var(--m-w) 0.000% 33.333%, var(--m-u) 33.333% 66.667%, var(--m-g) 66.667% 100.000%)">
         <summary>
@@ -184,7 +205,9 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           </span>
           <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </summary>
-        <div class="panel">
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/c/f/cf114392-a38d-4117-aa41-911d6dc1051b.webp?1792551005" srcset="https://cards.scryfall.io/grid/front/c/f/cf114392-a38d-4117-aa41-911d6dc1051b.webp?1792551005 488w, https://cards.scryfall.io/display/front/c/f/cf114392-a38d-4117-aa41-911d6dc1051b.webp?1792551005 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Commander Spock" loading="lazy" decoding="async"></div>
+          <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Bant: white, blue and green</dd></div>
             <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
@@ -199,7 +222,8 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
             <li>Two cards that work better together than apart.</li>
           </ul>
           <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
-        </div>
+          </div>
+        </div></div>
       </details>
       <details class="deck" id="we-are-the-borg" style="--spine: linear-gradient(to bottom, var(--m-w) 0.000% 33.333%, var(--m-u) 33.333% 66.667%, var(--m-b) 66.667% 100.000%)">
         <summary>
@@ -209,7 +233,9 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           </span>
           <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </summary>
-        <div class="panel">
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/8/e/8ed939ba-bf8d-4a68-ae9f-f8ca4eb301ab.webp?1792507909" srcset="https://cards.scryfall.io/grid/front/8/e/8ed939ba-bf8d-4a68-ae9f-f8ca4eb301ab.webp?1792507909 488w, https://cards.scryfall.io/display/front/8/e/8ed939ba-bf8d-4a68-ae9f-f8ca4eb301ab.webp?1792507909 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="The Borg Queen" loading="lazy" decoding="async"></div>
+          <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Esper: white, blue and black</dd></div>
             <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
@@ -224,7 +250,8 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
             <li>Two cards that work better together than apart.</li>
           </ul>
           <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
-        </div>
+          </div>
+        </div></div>
       </details>
       </div>
     </section>
@@ -239,7 +266,9 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           </span>
           <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </summary>
-        <div class="panel">
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/5/5/55cd03d9-2535-4cf3-a8b2-1418e1190f4a.webp?1789644316" srcset="https://cards.scryfall.io/grid/front/5/5/55cd03d9-2535-4cf3-a8b2-1418e1190f4a.webp?1789644316 488w, https://cards.scryfall.io/display/front/5/5/55cd03d9-2535-4cf3-a8b2-1418e1190f4a.webp?1789644316 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Jace, Multiverse Architect" loading="lazy" decoding="async"></div>
+          <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Four colors: white, blue, black and red</dd></div>
             <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
@@ -254,7 +283,8 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
             <li>Two cards that work better together than apart.</li>
           </ul>
           <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
-        </div>
+          </div>
+        </div></div>
       </details>
       </div>
     </section>
@@ -269,7 +299,9 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           </span>
           <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </summary>
-        <div class="panel">
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/6/1/61a51b67-d941-4e07-9c12-ffe583cb65d4.webp?1783903303" srcset="https://cards.scryfall.io/grid/front/6/1/61a51b67-d941-4e07-9c12-ffe583cb65d4.webp?1783903303 488w, https://cards.scryfall.io/display/front/6/1/61a51b67-d941-4e07-9c12-ffe583cb65d4.webp?1783903303 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Captain America, Team Leader" loading="lazy" decoding="async"></div>
+          <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Jeskai: white, blue and red</dd></div>
             <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
@@ -284,7 +316,8 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
             <li>Two cards that work better together than apart.</li>
           </ul>
           <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
-        </div>
+          </div>
+        </div></div>
       </details>
       <details class="deck" id="doom-prevails" style="--spine: linear-gradient(to bottom, var(--m-u) 0.000% 33.333%, var(--m-b) 33.333% 66.667%, var(--m-r) 66.667% 100.000%)">
         <summary>
@@ -294,7 +327,9 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           </span>
           <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </summary>
-        <div class="panel">
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/0/9/099ed408-9178-4403-8b2d-479ca3cbda9b.webp?1783903303" srcset="https://cards.scryfall.io/grid/front/0/9/099ed408-9178-4403-8b2d-479ca3cbda9b.webp?1783903303 488w, https://cards.scryfall.io/display/front/0/9/099ed408-9178-4403-8b2d-479ca3cbda9b.webp?1783903303 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Doctor Doom, King of Latveria" loading="lazy" decoding="async"></div>
+          <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Grixis: blue, black and red</dd></div>
             <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
@@ -309,7 +344,8 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
             <li>Two cards that work better together than apart.</li>
           </ul>
           <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
-        </div>
+          </div>
+        </div></div>
       </details>
       <details class="deck" id="the-fantastic-four" style="--spine: linear-gradient(to bottom, var(--m-w) 0.000% 25.000%, var(--m-u) 25.000% 50.000%, var(--m-r) 50.000% 75.000%, var(--m-g) 75.000% 100.000%)">
         <summary>
@@ -319,7 +355,9 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           </span>
           <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </summary>
-        <div class="panel">
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/d/8/d8e13ecb-98be-4d9b-86a2-24eaa98f7f0d.webp?1783903304" srcset="https://cards.scryfall.io/grid/front/d/8/d8e13ecb-98be-4d9b-86a2-24eaa98f7f0d.webp?1783903304 488w, https://cards.scryfall.io/display/front/d/8/d8e13ecb-98be-4d9b-86a2-24eaa98f7f0d.webp?1783903304 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Invisible Woman" loading="lazy" decoding="async"></div>
+          <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Four colors: white, blue, red and green</dd></div>
             <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
@@ -334,7 +372,8 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
             <li>Two cards that work better together than apart.</li>
           </ul>
           <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
-        </div>
+          </div>
+        </div></div>
       </details>
       <details class="deck" id="wakanda-forever" style="--spine: linear-gradient(to bottom, var(--m-w) 0.000% 50.000%, var(--m-g) 50.000% 100.000%)">
         <summary>
@@ -344,7 +383,9 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           </span>
           <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </summary>
-        <div class="panel">
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/c/1/c1c8ad61-b7e1-446c-8b74-6e29371ea1d5.webp?1783903301" srcset="https://cards.scryfall.io/grid/front/c/1/c1c8ad61-b7e1-446c-8b74-6e29371ea1d5.webp?1783903301 488w, https://cards.scryfall.io/display/front/c/1/c1c8ad61-b7e1-446c-8b74-6e29371ea1d5.webp?1783903301 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="T&#x27;Challa, the Black Panther" loading="lazy" decoding="async"></div>
+          <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Selesnya: white and green</dd></div>
             <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
@@ -359,7 +400,8 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
             <li>Two cards that work better together than apart.</li>
           </ul>
           <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
-        </div>
+          </div>
+        </div></div>
       </details>
       </div>
     </section>
@@ -374,7 +416,9 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           </span>
           <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </summary>
-        <div class="panel">
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/0/7/0742f19d-179c-43c4-ab95-4160c56b4384.webp?1783903867" srcset="https://cards.scryfall.io/grid/front/0/7/0742f19d-179c-43c4-ab95-4160c56b4384.webp?1783903867 488w, https://cards.scryfall.io/display/front/0/7/0742f19d-179c-43c4-ab95-4160c56b4384.webp?1783903867 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Quintorius, History Chaser" loading="lazy" decoding="async"></div>
+          <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Boros: white and red</dd></div>
             <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
@@ -389,7 +433,8 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
             <li>Two cards that work better together than apart.</li>
           </ul>
           <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
-        </div>
+          </div>
+        </div></div>
       </details>
       <details class="deck" id="prismari-artistry" style="--spine: linear-gradient(to bottom, var(--m-u) 0.000% 50.000%, var(--m-r) 50.000% 100.000%)">
         <summary>
@@ -399,7 +444,9 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           </span>
           <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </summary>
-        <div class="panel">
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/a/5/a5b3dbb2-c090-4118-9e47-56c16202572c.webp?1783903866" srcset="https://cards.scryfall.io/grid/front/a/5/a5b3dbb2-c090-4118-9e47-56c16202572c.webp?1783903866 488w, https://cards.scryfall.io/display/front/a/5/a5b3dbb2-c090-4118-9e47-56c16202572c.webp?1783903866 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Rootha, Mastering the Moment" loading="lazy" decoding="async"></div>
+          <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Izzet: blue and red</dd></div>
             <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
@@ -414,7 +461,8 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
             <li>Two cards that work better together than apart.</li>
           </ul>
           <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
-        </div>
+          </div>
+        </div></div>
       </details>
       <details class="deck" id="quandrix-unlimited" style="--spine: linear-gradient(to bottom, var(--m-u) 0.000% 50.000%, var(--m-g) 50.000% 100.000%)">
         <summary>
@@ -424,7 +472,9 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           </span>
           <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </summary>
-        <div class="panel">
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/6/0/605afac4-d2e5-4e68-97d2-3ac2ead5f3a9.webp?1783903866" srcset="https://cards.scryfall.io/grid/front/6/0/605afac4-d2e5-4e68-97d2-3ac2ead5f3a9.webp?1783903866 488w, https://cards.scryfall.io/display/front/6/0/605afac4-d2e5-4e68-97d2-3ac2ead5f3a9.webp?1783903866 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Zimone, Infinite Analyst" loading="lazy" decoding="async"></div>
+          <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Simic: blue and green</dd></div>
             <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
@@ -439,7 +489,8 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
             <li>Two cards that work better together than apart.</li>
           </ul>
           <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
-        </div>
+          </div>
+        </div></div>
       </details>
       <details class="deck" id="silverquill-influence" style="--spine: linear-gradient(to bottom, var(--m-w) 0.000% 50.000%, var(--m-b) 50.000% 100.000%)">
         <summary>
@@ -449,7 +500,9 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           </span>
           <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </summary>
-        <div class="panel">
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/7/6/76b6c35a-bb92-4ad3-8f85-88b9bafc6266.webp?1783903867" srcset="https://cards.scryfall.io/grid/front/7/6/76b6c35a-bb92-4ad3-8f85-88b9bafc6266.webp?1783903867 488w, https://cards.scryfall.io/display/front/7/6/76b6c35a-bb92-4ad3-8f85-88b9bafc6266.webp?1783903867 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Killian, Decisive Mentor" loading="lazy" decoding="async"></div>
+          <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Orzhov: white and black</dd></div>
             <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
@@ -464,7 +517,8 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
             <li>Two cards that work better together than apart.</li>
           </ul>
           <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
-        </div>
+          </div>
+        </div></div>
       </details>
       </div>
     </section>
@@ -479,7 +533,9 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           </span>
           <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </summary>
-        <div class="panel">
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/c/c/ccc2a4e6-f505-4040-9d8a-c7b8e1a2b55e.webp?1783904172" srcset="https://cards.scryfall.io/grid/front/c/c/ccc2a4e6-f505-4040-9d8a-c7b8e1a2b55e.webp?1783904172 488w, https://cards.scryfall.io/display/front/c/c/ccc2a4e6-f505-4040-9d8a-c7b8e1a2b55e.webp?1783904172 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Heroes in a Half Shell" loading="lazy" decoding="async"></div>
+          <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>All five colors</dd></div>
             <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
@@ -494,7 +550,8 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
             <li>Two cards that work better together than apart.</li>
           </ul>
           <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
-        </div>
+          </div>
+        </div></div>
       </details>
       </div>
     </section>
@@ -509,7 +566,9 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           </span>
           <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </summary>
-        <div class="panel">
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/5/9/5924c01f-2815-4e37-b700-3ba6cc81e0e4.webp?1783904607" srcset="https://cards.scryfall.io/grid/front/5/9/5924c01f-2815-4e37-b700-3ba6cc81e0e4.webp?1783904607 488w, https://cards.scryfall.io/display/front/5/9/5924c01f-2815-4e37-b700-3ba6cc81e0e4.webp?1783904607 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Ashling, the Limitless" loading="lazy" decoding="async"></div>
+          <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>All five colors</dd></div>
             <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
@@ -524,7 +583,8 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
             <li>Two cards that work better together than apart.</li>
           </ul>
           <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
-        </div>
+          </div>
+        </div></div>
       </details>
       </div>
     </section>
@@ -539,7 +599,9 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           </span>
           <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </summary>
-        <div class="panel">
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/4/6/46900ec7-eb18-45c4-8e90-a48b665cfdee.webp?1783906067" srcset="https://cards.scryfall.io/grid/front/4/6/46900ec7-eb18-45c4-8e90-a48b665cfdee.webp?1783906067 488w, https://cards.scryfall.io/display/front/4/6/46900ec7-eb18-45c4-8e90-a48b665cfdee.webp?1783906067 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Inspirit, Flagship Vessel" loading="lazy" decoding="async"></div>
+          <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Jeskai: white, blue and red</dd></div>
             <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
@@ -554,7 +616,8 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
             <li>Two cards that work better together than apart.</li>
           </ul>
           <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
-        </div>
+          </div>
+        </div></div>
       </details>
       </div>
     </section>
@@ -569,7 +632,9 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           </span>
           <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </summary>
-        <div class="panel">
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/2/c/2c3549f6-25df-4ea7-84ad-922ccd4af6b2.webp?1783907190" srcset="https://cards.scryfall.io/grid/front/2/c/2c3549f6-25df-4ea7-84ad-922ccd4af6b2.webp?1783907190 488w, https://cards.scryfall.io/display/front/2/c/2c3549f6-25df-4ea7-84ad-922ccd4af6b2.webp?1783907190 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Felothar the Steadfast" loading="lazy" decoding="async"></div>
+          <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Abzan: white, black and green</dd></div>
             <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
@@ -584,7 +649,8 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
             <li>Two cards that work better together than apart.</li>
           </ul>
           <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
-        </div>
+          </div>
+        </div></div>
       </details>
       <details class="deck" id="mardu-surge" style="--spine: linear-gradient(to bottom, var(--m-w) 0.000% 33.333%, var(--m-b) 33.333% 66.667%, var(--m-r) 66.667% 100.000%)">
         <summary>
@@ -594,7 +660,9 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           </span>
           <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </summary>
-        <div class="panel">
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/d/c/dc8eb325-75c9-4331-830d-3f7d62d77290.webp?1783907186" srcset="https://cards.scryfall.io/grid/front/d/c/dc8eb325-75c9-4331-830d-3f7d62d77290.webp?1783907186 488w, https://cards.scryfall.io/display/front/d/c/dc8eb325-75c9-4331-830d-3f7d62d77290.webp?1783907186 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Zurgo Stormrender" loading="lazy" decoding="async"></div>
+          <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Mardu: white, black and red</dd></div>
             <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
@@ -609,7 +677,8 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
             <li>Two cards that work better together than apart.</li>
           </ul>
           <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
-        </div>
+          </div>
+        </div></div>
       </details>
       <details class="deck" id="sultai-arisen" style="--spine: linear-gradient(to bottom, var(--m-u) 0.000% 33.333%, var(--m-b) 33.333% 66.667%, var(--m-g) 66.667% 100.000%)">
         <summary>
@@ -619,7 +688,9 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           </span>
           <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </summary>
-        <div class="panel">
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/b/5/b5d1955a-9ff0-4f8b-9af8-341371957299.webp?1783907184" srcset="https://cards.scryfall.io/grid/front/b/5/b5d1955a-9ff0-4f8b-9af8-341371957299.webp?1783907184 488w, https://cards.scryfall.io/display/front/b/5/b5d1955a-9ff0-4f8b-9af8-341371957299.webp?1783907184 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Teval, the Balanced Scale" loading="lazy" decoding="async"></div>
+          <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Sultai: blue, black and green</dd></div>
             <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
@@ -634,7 +705,8 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
             <li>Two cards that work better together than apart.</li>
           </ul>
           <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
-        </div>
+          </div>
+        </div></div>
       </details>
       <details class="deck" id="temur-roar" style="--spine: linear-gradient(to bottom, var(--m-u) 0.000% 33.333%, var(--m-r) 33.333% 66.667%, var(--m-g) 66.667% 100.000%)">
         <summary>
@@ -644,7 +716,9 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           </span>
           <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </summary>
-        <div class="panel">
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/f/f/ff9aa863-8773-452d-946c-ae334c632e11.webp?1790528795" srcset="https://cards.scryfall.io/grid/front/f/f/ff9aa863-8773-452d-946c-ae334c632e11.webp?1790528795 488w, https://cards.scryfall.io/display/front/f/f/ff9aa863-8773-452d-946c-ae334c632e11.webp?1790528795 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Eshki, Temur&#x27;s Roar" loading="lazy" decoding="async"></div>
+          <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Temur: blue, red and green</dd></div>
             <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
@@ -659,7 +733,8 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
             <li>Two cards that work better together than apart.</li>
           </ul>
           <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
-        </div>
+          </div>
+        </div></div>
       </details>
       </div>
     </section>
@@ -674,7 +749,9 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           </span>
           <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </summary>
-        <div class="panel">
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/c/0/c0629894-0b72-4abe-9771-03becfdb241c.webp?1783907753" srcset="https://cards.scryfall.io/grid/front/c/0/c0629894-0b72-4abe-9771-03becfdb241c.webp?1783907753 488w, https://cards.scryfall.io/display/front/c/0/c0629894-0b72-4abe-9771-03becfdb241c.webp?1783907753 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Temmet, Naktamun&#x27;s Will" loading="lazy" decoding="async"></div>
+          <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Esper: white, blue and black</dd></div>
             <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
@@ -689,7 +766,8 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
             <li>Two cards that work better together than apart.</li>
           </ul>
           <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
-        </div>
+          </div>
+        </div></div>
       </details>
       <details class="deck" id="living-energy" style="--spine: linear-gradient(to bottom, var(--m-u) 0.000% 33.333%, var(--m-r) 33.333% 66.667%, var(--m-g) 66.667% 100.000%)">
         <summary>
@@ -699,7 +777,9 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           </span>
           <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </summary>
-        <div class="panel">
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/5/f/5fea0781-e933-47ef-9414-92c8652a7778.webp?1783907753" srcset="https://cards.scryfall.io/grid/front/5/f/5fea0781-e933-47ef-9414-92c8652a7778.webp?1783907753 488w, https://cards.scryfall.io/display/front/5/f/5fea0781-e933-47ef-9414-92c8652a7778.webp?1783907753 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Saheeli, Radiant Creator" loading="lazy" decoding="async"></div>
+          <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Temur: blue, red and green</dd></div>
             <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
@@ -714,7 +794,8 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
             <li>Two cards that work better together than apart.</li>
           </ul>
           <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
-        </div>
+          </div>
+        </div></div>
       </details>
       </div>
     </section>
@@ -729,7 +810,9 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           </span>
           <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </summary>
-        <div class="panel">
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/4/e/4ebc7622-08a1-4f43-92dd-8675d395e8f6.webp?1789752341" srcset="https://cards.scryfall.io/grid/front/4/e/4ebc7622-08a1-4f43-92dd-8675d395e8f6.webp?1789752341 488w, https://cards.scryfall.io/display/front/4/e/4ebc7622-08a1-4f43-92dd-8675d395e8f6.webp?1789752341 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Giada, Font of Hope" loading="lazy" decoding="async"></div>
+          <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Mono-white</dd></div>
             <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
@@ -744,7 +827,8 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
             <li>Two cards that work better together than apart.</li>
           </ul>
           <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
-        </div>
+          </div>
+        </div></div>
       </details>
       <details class="deck" id="keen-engineering" style="--spine: linear-gradient(to bottom, var(--m-u) 0.000% 100.000%)">
         <summary>
@@ -754,7 +838,9 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           </span>
           <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </summary>
-        <div class="panel">
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/5/6/5650587a-27a5-4d68-97e2-5745627bd094.webp?1789776685" srcset="https://cards.scryfall.io/grid/front/5/6/5650587a-27a5-4d68-97e2-5745627bd094.webp?1789776685 488w, https://cards.scryfall.io/display/front/5/6/5650587a-27a5-4d68-97e2-5745627bd094.webp?1789776685 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Sai, Master Thopterist" loading="lazy" decoding="async"></div>
+          <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Mono-blue</dd></div>
             <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
@@ -769,7 +855,8 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
             <li>Two cards that work better together than apart.</li>
           </ul>
           <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
-        </div>
+          </div>
+        </div></div>
       </details>
       <details class="deck" id="reign-of-dragons" style="--spine: linear-gradient(to bottom, var(--m-r) 0.000% 100.000%)">
         <summary>
@@ -779,7 +866,9 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           </span>
           <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </summary>
-        <div class="panel">
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/8/a/8a17ec4e-b508-41af-803b-32acd863e598.webp?1789752347" srcset="https://cards.scryfall.io/grid/front/8/a/8a17ec4e-b508-41af-803b-32acd863e598.webp?1789752347 488w, https://cards.scryfall.io/display/front/8/a/8a17ec4e-b508-41af-803b-32acd863e598.webp?1789752347 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Lathliss, Dragon Queen" loading="lazy" decoding="async"></div>
+          <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Mono-red</dd></div>
             <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
@@ -794,7 +883,8 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
             <li>Two cards that work better together than apart.</li>
           </ul>
           <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
-        </div>
+          </div>
+        </div></div>
       </details>
       <details class="deck" id="tramplesaurus-rex" style="--spine: linear-gradient(to bottom, var(--m-g) 0.000% 100.000%)">
         <summary>
@@ -804,7 +894,9 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           </span>
           <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </summary>
-        <div class="panel">
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/5/d/5d9951d1-3228-4d69-8e63-6e6f0a893a86.webp?1789752351" srcset="https://cards.scryfall.io/grid/front/5/d/5d9951d1-3228-4d69-8e63-6e6f0a893a86.webp?1789752351 488w, https://cards.scryfall.io/display/front/5/d/5d9951d1-3228-4d69-8e63-6e6f0a893a86.webp?1789752351 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Ghalta, Primal Hunger" loading="lazy" decoding="async"></div>
+          <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Mono-green</dd></div>
             <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
@@ -819,7 +911,8 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
             <li>Two cards that work better together than apart.</li>
           </ul>
           <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
-        </div>
+          </div>
+        </div></div>
       </details>
       <details class="deck" id="wretched-ranks" style="--spine: linear-gradient(to bottom, var(--m-b) 0.000% 100.000%)">
         <summary>
@@ -829,7 +922,9 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           </span>
           <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </summary>
-        <div class="panel">
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/9/0/909e62fa-4585-495e-812b-5df56af24610.webp?1789752353" srcset="https://cards.scryfall.io/grid/front/9/0/909e62fa-4585-495e-812b-5df56af24610.webp?1789752353 488w, https://cards.scryfall.io/display/front/9/0/909e62fa-4585-495e-812b-5df56af24610.webp?1789752353 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Ghoulcaller Gisa" loading="lazy" decoding="async"></div>
+          <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Mono-black</dd></div>
             <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
@@ -844,7 +939,8 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
             <li>Two cards that work better together than apart.</li>
           </ul>
           <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
-        </div>
+          </div>
+        </div></div>
       </details>
       </div>
     </section>
@@ -859,7 +955,9 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           </span>
           <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </summary>
-        <div class="panel">
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/9/4/94dc35e4-a492-4019-afcd-cbef6f59a512.webp?1783909662" srcset="https://cards.scryfall.io/grid/front/9/4/94dc35e4-a492-4019-afcd-cbef6f59a512.webp?1783909662 488w, https://cards.scryfall.io/display/front/9/4/94dc35e4-a492-4019-afcd-cbef6f59a512.webp?1783909662 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Winter, Cynical Opportunist" loading="lazy" decoding="async"></div>
+          <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Golgari: black and green</dd></div>
             <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
@@ -874,7 +972,8 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
             <li>Two cards that work better together than apart.</li>
           </ul>
           <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
-        </div>
+          </div>
+        </div></div>
       </details>
       <details class="deck" id="endless-punishment" style="--spine: linear-gradient(to bottom, var(--m-b) 0.000% 50.000%, var(--m-r) 50.000% 100.000%)">
         <summary>
@@ -884,7 +983,9 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           </span>
           <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </summary>
-        <div class="panel">
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/8/d/8d7c1f6c-af45-4449-8cf8-e13830b3df8a.webp?1783909662" srcset="https://cards.scryfall.io/grid/front/8/d/8d7c1f6c-af45-4449-8cf8-e13830b3df8a.webp?1783909662 488w, https://cards.scryfall.io/display/front/8/d/8d7c1f6c-af45-4449-8cf8-e13830b3df8a.webp?1783909662 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Valgavoth, Harrower of Souls" loading="lazy" decoding="async"></div>
+          <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Rakdos: black and red</dd></div>
             <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
@@ -899,7 +1000,8 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
             <li>Two cards that work better together than apart.</li>
           </ul>
           <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
-        </div>
+          </div>
+        </div></div>
       </details>
       <details class="deck" id="jump-scare" style="--spine: linear-gradient(to bottom, var(--m-u) 0.000% 50.000%, var(--m-g) 50.000% 100.000%)">
         <summary>
@@ -909,7 +1011,9 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           </span>
           <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </summary>
-        <div class="panel">
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/3/0/30f23588-5064-48d9-a271-039df757f8d2.webp?1783909663" srcset="https://cards.scryfall.io/grid/front/3/0/30f23588-5064-48d9-a271-039df757f8d2.webp?1783909663 488w, https://cards.scryfall.io/display/front/3/0/30f23588-5064-48d9-a271-039df757f8d2.webp?1783909663 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Zimone, Mystery Unraveler" loading="lazy" decoding="async"></div>
+          <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Simic: blue and green</dd></div>
             <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
@@ -924,7 +1028,8 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
             <li>Two cards that work better together than apart.</li>
           </ul>
           <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
-        </div>
+          </div>
+        </div></div>
       </details>
       <details class="deck" id="miracle-worker" style="--spine: linear-gradient(to bottom, var(--m-w) 0.000% 33.333%, var(--m-u) 33.333% 66.667%, var(--m-b) 66.667% 100.000%)">
         <summary>
@@ -934,7 +1039,9 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           </span>
           <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </summary>
-        <div class="panel">
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/9/f/9f868023-6035-403d-ba91-7a4840c6c392.webp?1783909663" srcset="https://cards.scryfall.io/grid/front/9/f/9f868023-6035-403d-ba91-7a4840c6c392.webp?1783909663 488w, https://cards.scryfall.io/display/front/9/f/9f868023-6035-403d-ba91-7a4840c6c392.webp?1783909663 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Aminatou, Veil Piercer" loading="lazy" decoding="async"></div>
+          <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Esper: white, blue and black</dd></div>
             <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
@@ -949,7 +1056,8 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
             <li>Two cards that work better together than apart.</li>
           </ul>
           <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
-        </div>
+          </div>
+        </div></div>
       </details>
       </div>
     </section>
@@ -964,7 +1072,9 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           </span>
           <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </summary>
-        <div class="panel">
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/3/1/31e4b7a1-b377-49d2-a92e-4bcb0db35f16.webp?1783910738" srcset="https://cards.scryfall.io/grid/front/3/1/31e4b7a1-b377-49d2-a92e-4bcb0db35f16.webp?1783910738 488w, https://cards.scryfall.io/display/front/3/1/31e4b7a1-b377-49d2-a92e-4bcb0db35f16.webp?1783910738 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Bello, Bard of the Brambles" loading="lazy" decoding="async"></div>
+          <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Gruul: red and green</dd></div>
             <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
@@ -979,7 +1089,8 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
             <li>Two cards that work better together than apart.</li>
           </ul>
           <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
-        </div>
+          </div>
+        </div></div>
       </details>
       <details class="deck" id="family-matters" style="--spine: linear-gradient(to bottom, var(--m-w) 0.000% 33.333%, var(--m-u) 33.333% 66.667%, var(--m-r) 66.667% 100.000%)">
         <summary>
@@ -989,7 +1100,9 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           </span>
           <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </summary>
-        <div class="panel">
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/d/f/dfe36901-5841-4942-8b61-c273111f715e.webp?1783910737" srcset="https://cards.scryfall.io/grid/front/d/f/dfe36901-5841-4942-8b61-c273111f715e.webp?1783910737 488w, https://cards.scryfall.io/display/front/d/f/dfe36901-5841-4942-8b61-c273111f715e.webp?1783910737 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Zinnia, Valley&#x27;s Voice" loading="lazy" decoding="async"></div>
+          <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Jeskai: white, blue and red</dd></div>
             <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
@@ -1004,7 +1117,8 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
             <li>Two cards that work better together than apart.</li>
           </ul>
           <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
-        </div>
+          </div>
+        </div></div>
       </details>
       <details class="deck" id="peace-offering" style="--spine: linear-gradient(to bottom, var(--m-w) 0.000% 33.333%, var(--m-u) 33.333% 66.667%, var(--m-g) 66.667% 100.000%)">
         <summary>
@@ -1014,7 +1128,9 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           </span>
           <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </summary>
-        <div class="panel">
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/4/2/42bbedc1-6b83-46b4-8b3b-a4e05ce77d87.webp?1783910739" srcset="https://cards.scryfall.io/grid/front/4/2/42bbedc1-6b83-46b4-8b3b-a4e05ce77d87.webp?1783910739 488w, https://cards.scryfall.io/display/front/4/2/42bbedc1-6b83-46b4-8b3b-a4e05ce77d87.webp?1783910739 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Ms. Bumbleflower" loading="lazy" decoding="async"></div>
+          <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Bant: white, blue and green</dd></div>
             <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
@@ -1029,7 +1145,8 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
             <li>Two cards that work better together than apart.</li>
           </ul>
           <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
-        </div>
+          </div>
+        </div></div>
       </details>
       </div>
     </section>
@@ -1044,7 +1161,9 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           </span>
           <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </summary>
-        <div class="panel">
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/3/b/3b964bbe-54cc-425c-9cc6-c877f82af7ba.webp?1783911437" srcset="https://cards.scryfall.io/grid/front/3/b/3b964bbe-54cc-425c-9cc6-c877f82af7ba.webp?1783911437 488w, https://cards.scryfall.io/display/front/3/b/3b964bbe-54cc-425c-9cc6-c877f82af7ba.webp?1783911437 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Satya, Aetherflux Genius" loading="lazy" decoding="async"></div>
+          <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Jeskai: white, blue and red</dd></div>
             <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
@@ -1059,7 +1178,8 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
             <li>Two cards that work better together than apart.</li>
           </ul>
           <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
-        </div>
+          </div>
+        </div></div>
       </details>
       <details class="deck" id="eldrazi-incursion" style="--spine: linear-gradient(to bottom, var(--m-w) 0.000% 20.000%, var(--m-u) 20.000% 40.000%, var(--m-b) 40.000% 60.000%, var(--m-r) 60.000% 80.000%, var(--m-g) 80.000% 100.000%)">
         <summary>
@@ -1069,7 +1189,9 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           </span>
           <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </summary>
-        <div class="panel">
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/f/d/fdad1b0e-d3cc-4d76-ae7e-fee12558cf2c.webp?1783911439" srcset="https://cards.scryfall.io/grid/front/f/d/fdad1b0e-d3cc-4d76-ae7e-fee12558cf2c.webp?1783911439 488w, https://cards.scryfall.io/display/front/f/d/fdad1b0e-d3cc-4d76-ae7e-fee12558cf2c.webp?1783911439 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Ulalek, Fused Atrocity" loading="lazy" decoding="async"></div>
+          <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>All five colors</dd></div>
             <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
@@ -1084,7 +1206,8 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
             <li>Two cards that work better together than apart.</li>
           </ul>
           <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
-        </div>
+          </div>
+        </div></div>
       </details>
       <details class="deck" id="graveyard-overdrive" style="--spine: linear-gradient(to bottom, var(--m-b) 0.000% 33.333%, var(--m-r) 33.333% 66.667%, var(--m-g) 66.667% 100.000%)">
         <summary>
@@ -1094,7 +1217,9 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           </span>
           <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </summary>
-        <div class="panel">
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/c/9/c976edeb-0fa1-4647-a16c-870d8a3c30c6.webp?1783911438" srcset="https://cards.scryfall.io/grid/front/c/9/c976edeb-0fa1-4647-a16c-870d8a3c30c6.webp?1783911438 488w, https://cards.scryfall.io/display/front/c/9/c976edeb-0fa1-4647-a16c-870d8a3c30c6.webp?1783911438 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Disa the Restless" loading="lazy" decoding="async"></div>
+          <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Jund: black, red and green</dd></div>
             <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
@@ -1109,7 +1234,8 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
             <li>Two cards that work better together than apart.</li>
           </ul>
           <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
-        </div>
+          </div>
+        </div></div>
       </details>
       <details class="deck" id="tricky-terrain" style="--spine: linear-gradient(to bottom, var(--m-u) 0.000% 50.000%, var(--m-g) 50.000% 100.000%)">
         <summary>
@@ -1119,7 +1245,9 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           </span>
           <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </summary>
-        <div class="panel">
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/e/5/e5d1c814-4c22-4917-95ae-dffaf491db32.webp?1783911439" srcset="https://cards.scryfall.io/grid/front/e/5/e5d1c814-4c22-4917-95ae-dffaf491db32.webp?1783911439 488w, https://cards.scryfall.io/display/front/e/5/e5d1c814-4c22-4917-95ae-dffaf491db32.webp?1783911439 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Omo, Queen of Vesuva" loading="lazy" decoding="async"></div>
+          <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Simic: blue and green</dd></div>
             <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
@@ -1134,7 +1262,8 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
             <li>Two cards that work better together than apart.</li>
           </ul>
           <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
-        </div>
+          </div>
+        </div></div>
       </details>
       </div>
     </section>
@@ -1149,7 +1278,9 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           </span>
           <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </summary>
-        <div class="panel">
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/5/5/55e6c31b-f9e9-4e42-a875-985d99300d9d.webp?1783911972" srcset="https://cards.scryfall.io/grid/front/5/5/55e6c31b-f9e9-4e42-a875-985d99300d9d.webp?1783911972 488w, https://cards.scryfall.io/display/front/5/5/55e6c31b-f9e9-4e42-a875-985d99300d9d.webp?1783911972 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Olivia, Opulent Outlaw" loading="lazy" decoding="async"></div>
+          <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Mardu: white, black and red</dd></div>
             <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
@@ -1164,7 +1295,8 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
             <li>Two cards that work better together than apart.</li>
           </ul>
           <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
-        </div>
+          </div>
+        </div></div>
       </details>
       </div>
     </section>
@@ -1179,7 +1311,9 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           </span>
           <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </summary>
-        <div class="panel">
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/2/e/2ef59aa9-f5e1-413a-869b-d287db95efd0.webp?1783913057" srcset="https://cards.scryfall.io/grid/front/2/e/2ef59aa9-f5e1-413a-869b-d287db95efd0.webp?1783913057 488w, https://cards.scryfall.io/display/front/2/e/2ef59aa9-f5e1-413a-869b-d287db95efd0.webp?1783913057 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Nelly Borca, Impulsive Accuser" loading="lazy" decoding="async"></div>
+          <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Boros: white and red</dd></div>
             <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
@@ -1194,7 +1328,8 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
             <li>Two cards that work better together than apart.</li>
           </ul>
           <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
-        </div>
+          </div>
+        </div></div>
       </details>
       <details class="deck" id="deadly-disguise" style="--spine: linear-gradient(to bottom, var(--m-w) 0.000% 33.333%, var(--m-r) 33.333% 66.667%, var(--m-g) 66.667% 100.000%)">
         <summary>
@@ -1204,7 +1339,9 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           </span>
           <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </summary>
-        <div class="panel">
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/6/4/648c15d1-a2a2-4f59-9b0a-5448be3e990f.webp?1783913056" srcset="https://cards.scryfall.io/grid/front/6/4/648c15d1-a2a2-4f59-9b0a-5448be3e990f.webp?1783913056 488w, https://cards.scryfall.io/display/front/6/4/648c15d1-a2a2-4f59-9b0a-5448be3e990f.webp?1783913056 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Kaust, Eyes of the Glade" loading="lazy" decoding="async"></div>
+          <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Naya: white, red and green</dd></div>
             <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
@@ -1219,7 +1356,8 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
             <li>Two cards that work better together than apart.</li>
           </ul>
           <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
-        </div>
+          </div>
+        </div></div>
       </details>
       <details class="deck" id="deep-clue-sea" style="--spine: linear-gradient(to bottom, var(--m-w) 0.000% 33.333%, var(--m-u) 33.333% 66.667%, var(--m-g) 66.667% 100.000%)">
         <summary>
@@ -1229,7 +1367,9 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           </span>
           <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </summary>
-        <div class="panel">
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/a/e/ae9ccfec-05c6-469e-b1dd-dfbafa1e927f.webp?1783913056" srcset="https://cards.scryfall.io/grid/front/a/e/ae9ccfec-05c6-469e-b1dd-dfbafa1e927f.webp?1783913056 488w, https://cards.scryfall.io/display/front/a/e/ae9ccfec-05c6-469e-b1dd-dfbafa1e927f.webp?1783913056 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Morska, Undersea Sleuth" loading="lazy" decoding="async"></div>
+          <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Bant: white, blue and green</dd></div>
             <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
@@ -1244,7 +1384,8 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
             <li>Two cards that work better together than apart.</li>
           </ul>
           <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
-        </div>
+          </div>
+        </div></div>
       </details>
       <details class="deck" id="revenant-recon" style="--spine: linear-gradient(to bottom, var(--m-u) 0.000% 50.000%, var(--m-b) 50.000% 100.000%)">
         <summary>
@@ -1254,7 +1395,9 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           </span>
           <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </summary>
-        <div class="panel">
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/6/9/690acbbf-5e92-4323-b939-31bdb07f9905.webp?1783913056" srcset="https://cards.scryfall.io/grid/front/6/9/690acbbf-5e92-4323-b939-31bdb07f9905.webp?1783913056 488w, https://cards.scryfall.io/display/front/6/9/690acbbf-5e92-4323-b939-31bdb07f9905.webp?1783913056 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Mirko, Obsessive Theorist" loading="lazy" decoding="async"></div>
+          <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Dimir: blue and black</dd></div>
             <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
@@ -1269,7 +1412,8 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
             <li>Two cards that work better together than apart.</li>
           </ul>
           <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
-        </div>
+          </div>
+        </div></div>
       </details>
       </div>
     </section>
@@ -1284,7 +1428,9 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           </span>
           <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </summary>
-        <div class="panel">
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/b/d/bdc2d492-9d1e-4543-8b9c-c66ee67992ce.webp?1783913937" srcset="https://cards.scryfall.io/grid/front/b/d/bdc2d492-9d1e-4543-8b9c-c66ee67992ce.webp?1783913937 488w, https://cards.scryfall.io/display/front/b/d/bdc2d492-9d1e-4543-8b9c-c66ee67992ce.webp?1783913937 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Admiral Brass, Unsinkable" loading="lazy" decoding="async"></div>
+          <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Grixis: blue, black and red</dd></div>
             <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
@@ -1299,7 +1445,8 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
             <li>Two cards that work better together than apart.</li>
           </ul>
           <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
-        </div>
+          </div>
+        </div></div>
       </details>
       <details class="deck" id="blood-rites" style="--spine: linear-gradient(to bottom, var(--m-w) 0.000% 50.000%, var(--m-b) 50.000% 100.000%)">
         <summary>
@@ -1309,7 +1456,9 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           </span>
           <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </summary>
-        <div class="panel">
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/9/f/9f55b648-b1ec-407a-a0c7-7647755793d1.webp?1783913936" srcset="https://cards.scryfall.io/grid/front/9/f/9f55b648-b1ec-407a-a0c7-7647755793d1.webp?1783913936 488w, https://cards.scryfall.io/display/front/9/f/9f55b648-b1ec-407a-a0c7-7647755793d1.webp?1783913936 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Clavileño, First of the Blessed" loading="lazy" decoding="async"></div>
+          <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Orzhov: white and black</dd></div>
             <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
@@ -1324,7 +1473,8 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
             <li>Two cards that work better together than apart.</li>
           </ul>
           <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
-        </div>
+          </div>
+        </div></div>
       </details>
       <details class="deck" id="explorers-of-the-deep" style="--spine: linear-gradient(to bottom, var(--m-u) 0.000% 50.000%, var(--m-g) 50.000% 100.000%)">
         <summary>
@@ -1334,7 +1484,9 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           </span>
           <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </summary>
-        <div class="panel">
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/e/7/e738e675-4fd1-4bc3-97f5-71d0e2fc3f2e.webp?1783913937" srcset="https://cards.scryfall.io/grid/front/e/7/e738e675-4fd1-4bc3-97f5-71d0e2fc3f2e.webp?1783913937 488w, https://cards.scryfall.io/display/front/e/7/e738e675-4fd1-4bc3-97f5-71d0e2fc3f2e.webp?1783913937 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Hakbal of the Surging Soul" loading="lazy" decoding="async"></div>
+          <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Simic: blue and green</dd></div>
             <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
@@ -1349,7 +1501,8 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
             <li>Two cards that work better together than apart.</li>
           </ul>
           <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
-        </div>
+          </div>
+        </div></div>
       </details>
       <details class="deck" id="veloci-ramp-tor" style="--spine: linear-gradient(to bottom, var(--m-w) 0.000% 33.333%, var(--m-r) 33.333% 66.667%, var(--m-g) 66.667% 100.000%)">
         <summary>
@@ -1359,7 +1512,9 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           </span>
           <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </summary>
-        <div class="panel">
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/2/5/2524645e-b066-4351-885b-10faa8d819d7.webp?1783913937" srcset="https://cards.scryfall.io/grid/front/2/5/2524645e-b066-4351-885b-10faa8d819d7.webp?1783913937 488w, https://cards.scryfall.io/display/front/2/5/2524645e-b066-4351-885b-10faa8d819d7.webp?1783913937 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Pantlaza, Sun-Favored" loading="lazy" decoding="async"></div>
+          <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Naya: white, red and green</dd></div>
             <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
@@ -1374,7 +1529,8 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
             <li>Two cards that work better together than apart.</li>
           </ul>
           <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
-        </div>
+          </div>
+        </div></div>
       </details>
       </div>
     </section>
@@ -1389,7 +1545,9 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           </span>
           <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </summary>
-        <div class="panel">
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/8/f/8fa46d54-563d-4b5c-9c69-5ab37dd529b3.webp?1783916039" srcset="https://cards.scryfall.io/grid/front/8/f/8fa46d54-563d-4b5c-9c69-5ab37dd529b3.webp?1783916039 488w, https://cards.scryfall.io/display/front/8/f/8fa46d54-563d-4b5c-9c69-5ab37dd529b3.webp?1783916039 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Galadriel, Elven-Queen" loading="lazy" decoding="async"></div>
+          <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Simic: blue and green</dd></div>
             <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
@@ -1404,7 +1562,8 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
             <li>Two cards that work better together than apart.</li>
           </ul>
           <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
-        </div>
+          </div>
+        </div></div>
       </details>
       <details class="deck" id="food-and-fellowship" style="--spine: linear-gradient(to bottom, var(--m-w) 0.000% 33.333%, var(--m-b) 33.333% 66.667%, var(--m-g) 66.667% 100.000%)">
         <summary>
@@ -1414,7 +1573,9 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           </span>
           <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </summary>
-        <div class="panel">
+        <div class="panel"><div class="panel-body">
+          <div class="cards two"><img src="https://cards.scryfall.io/grid/front/3/2/328df403-7428-4b17-bdd1-9759fc0f32d8.webp?1783916041" srcset="https://cards.scryfall.io/grid/front/3/2/328df403-7428-4b17-bdd1-9759fc0f32d8.webp?1783916041 488w, https://cards.scryfall.io/display/front/3/2/328df403-7428-4b17-bdd1-9759fc0f32d8.webp?1783916041 672w" sizes="(min-width: 40rem) 13rem, 11rem" width="488" height="680" alt="Frodo, Adventurous Hobbit" loading="lazy" decoding="async"><img src="https://cards.scryfall.io/grid/front/6/8/687a2b76-3f05-4732-bd9b-513d06d16300.webp?1783916039" srcset="https://cards.scryfall.io/grid/front/6/8/687a2b76-3f05-4732-bd9b-513d06d16300.webp?1783916039 488w, https://cards.scryfall.io/display/front/6/8/687a2b76-3f05-4732-bd9b-513d06d16300.webp?1783916039 672w" sizes="(min-width: 40rem) 13rem, 11rem" width="488" height="680" alt="Sam, Loyal Attendant" loading="lazy" decoding="async"></div>
+          <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Abzan: white, black and green</dd></div>
             <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
@@ -1429,7 +1590,8 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
             <li>Two cards that work better together than apart.</li>
           </ul>
           <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
-        </div>
+          </div>
+        </div></div>
       </details>
       <details class="deck" id="riders-of-rohan" style="--spine: linear-gradient(to bottom, var(--m-w) 0.000% 33.333%, var(--m-u) 33.333% 66.667%, var(--m-r) 66.667% 100.000%)">
         <summary>
@@ -1439,7 +1601,9 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           </span>
           <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </summary>
-        <div class="panel">
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/d/d/dd4a00ff-2206-4e12-a0ab-61ed82c9e6c5.webp?1783916039" srcset="https://cards.scryfall.io/grid/front/d/d/dd4a00ff-2206-4e12-a0ab-61ed82c9e6c5.webp?1783916039 488w, https://cards.scryfall.io/display/front/d/d/dd4a00ff-2206-4e12-a0ab-61ed82c9e6c5.webp?1783916039 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Éowyn, Shieldmaiden" loading="lazy" decoding="async"></div>
+          <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Jeskai: white, blue and red</dd></div>
             <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
@@ -1454,7 +1618,8 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
             <li>Two cards that work better together than apart.</li>
           </ul>
           <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
-        </div>
+          </div>
+        </div></div>
       </details>
       <details class="deck" id="the-hosts-of-mordor" style="--spine: linear-gradient(to bottom, var(--m-u) 0.000% 33.333%, var(--m-b) 33.333% 66.667%, var(--m-r) 66.667% 100.000%)">
         <summary>
@@ -1464,7 +1629,9 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           </span>
           <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </summary>
-        <div class="panel">
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/f/c/fc53dec0-79fe-4f6f-9d5b-cf298588e808.webp?1783916038" srcset="https://cards.scryfall.io/grid/front/f/c/fc53dec0-79fe-4f6f-9d5b-cf298588e808.webp?1783916038 488w, https://cards.scryfall.io/display/front/f/c/fc53dec0-79fe-4f6f-9d5b-cf298588e808.webp?1783916038 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Sauron, Lord of the Rings" loading="lazy" decoding="async"></div>
+          <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Grixis: blue, black and red</dd></div>
             <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
@@ -1479,7 +1646,8 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
             <li>Two cards that work better together than apart.</li>
           </ul>
           <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
-        </div>
+          </div>
+        </div></div>
       </details>
       </div>
     </section>
@@ -1494,7 +1662,9 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           </span>
           <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </summary>
-        <div class="panel">
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/1/9/19e4d494-e8b3-4ae2-93e3-70c65ab90f15.webp?1783918741" srcset="https://cards.scryfall.io/grid/front/1/9/19e4d494-e8b3-4ae2-93e3-70c65ab90f15.webp?1783918741 488w, https://cards.scryfall.io/display/front/1/9/19e4d494-e8b3-4ae2-93e3-70c65ab90f15.webp?1783918741 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Kardur, Doomscourge" loading="lazy" decoding="async"></div>
+          <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Rakdos: black and red</dd></div>
             <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
@@ -1509,7 +1679,8 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
             <li>Two cards that work better together than apart.</li>
           </ul>
           <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
-        </div>
+          </div>
+        </div></div>
       </details>
       <details class="deck" id="draconic-destruction" style="--spine: linear-gradient(to bottom, var(--m-r) 0.000% 50.000%, var(--m-g) 50.000% 100.000%)">
         <summary>
@@ -1519,7 +1690,9 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           </span>
           <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </summary>
-        <div class="panel">
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/7/1/719f172b-f9ad-4960-af66-757eb54147f6.webp?1783918742" srcset="https://cards.scryfall.io/grid/front/7/1/719f172b-f9ad-4960-af66-757eb54147f6.webp?1783918742 488w, https://cards.scryfall.io/display/front/7/1/719f172b-f9ad-4960-af66-757eb54147f6.webp?1783918742 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Atarka, World Render" loading="lazy" decoding="async"></div>
+          <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Gruul: red and green</dd></div>
             <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
@@ -1534,7 +1707,8 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
             <li>Two cards that work better together than apart.</li>
           </ul>
           <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
-        </div>
+          </div>
+        </div></div>
       </details>
       <details class="deck" id="first-flight" style="--spine: linear-gradient(to bottom, var(--m-w) 0.000% 50.000%, var(--m-u) 50.000% 100.000%)">
         <summary>
@@ -1544,7 +1718,9 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           </span>
           <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </summary>
-        <div class="panel">
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/d/e/de3278de-a045-4290-b05f-3b19e7055091.webp?1783918741" srcset="https://cards.scryfall.io/grid/front/d/e/de3278de-a045-4290-b05f-3b19e7055091.webp?1783918741 488w, https://cards.scryfall.io/display/front/d/e/de3278de-a045-4290-b05f-3b19e7055091.webp?1783918741 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Isperia, Supreme Judge" loading="lazy" decoding="async"></div>
+          <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Azorius: white and blue</dd></div>
             <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
@@ -1559,7 +1735,8 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
             <li>Two cards that work better together than apart.</li>
           </ul>
           <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
-        </div>
+          </div>
+        </div></div>
       </details>
       <details class="deck" id="grave-danger" style="--spine: linear-gradient(to bottom, var(--m-u) 0.000% 50.000%, var(--m-b) 50.000% 100.000%)">
         <summary>
@@ -1569,7 +1746,9 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           </span>
           <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </summary>
-        <div class="panel">
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/4/d/4d8fd87c-caf7-402e-b543-e35ba3007bcb.webp?1783918740" srcset="https://cards.scryfall.io/grid/front/4/d/4d8fd87c-caf7-402e-b543-e35ba3007bcb.webp?1783918740 488w, https://cards.scryfall.io/display/front/4/d/4d8fd87c-caf7-402e-b543-e35ba3007bcb.webp?1783918740 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Gisa and Geralf" loading="lazy" decoding="async"></div>
+          <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Dimir: blue and black</dd></div>
             <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
@@ -1584,7 +1763,8 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
             <li>Two cards that work better together than apart.</li>
           </ul>
           <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
-        </div>
+          </div>
+        </div></div>
       </details>
       <details class="deck" id="token-triumph" style="--spine: linear-gradient(to bottom, var(--m-w) 0.000% 50.000%, var(--m-g) 50.000% 100.000%)">
         <summary>
@@ -1594,7 +1774,9 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           </span>
           <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </summary>
-        <div class="panel">
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/e/8/e8510a1e-62ca-462c-b036-d1312729f27d.webp?1783918741" srcset="https://cards.scryfall.io/grid/front/e/8/e8510a1e-62ca-462c-b036-d1312729f27d.webp?1783918741 488w, https://cards.scryfall.io/display/front/e/8/e8510a1e-62ca-462c-b036-d1312729f27d.webp?1783918741 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Emmara, Soul of the Accord" loading="lazy" decoding="async"></div>
+          <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Selesnya: white and green</dd></div>
             <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
@@ -1609,7 +1791,8 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
             <li>Two cards that work better together than apart.</li>
           </ul>
           <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
-        </div>
+          </div>
+        </div></div>
       </details>
       </div>
     </section>
@@ -1624,7 +1807,9 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           </span>
           <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </summary>
-        <div class="panel">
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/0/b/0ba9362f-eb35-4e72-8c51-7047c0a3f648.webp?1790743631" srcset="https://cards.scryfall.io/grid/front/0/b/0ba9362f-eb35-4e72-8c51-7047c0a3f648.webp?1790743631 488w, https://cards.scryfall.io/display/front/0/b/0ba9362f-eb35-4e72-8c51-7047c0a3f648.webp?1790743631 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Yennett, Cryptic Sovereign" loading="lazy" decoding="async"></div>
+          <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Esper: white, blue and black</dd></div>
             <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
@@ -1639,10 +1824,15 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
             <li>Two cards that work better together than apart.</li>
           </ul>
           <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
-        </div>
+          </div>
+        </div></div>
       </details>
       </div>
     </section>
+    <footer class="foot">
+      <p>Rob&#8217;s Precons is unofficial Fan Content permitted under the Fan Content Policy. Not approved/endorsed by Wizards. Portions of the materials used are property of Wizards of the Coast. &#169;Wizards of the Coast LLC.</p>
+      <p>Card images come from <a href="https://scryfall.com">Scryfall</a>.</p>
+    </footer>
   </main>
 </body>
 </html>
