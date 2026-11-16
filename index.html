@@ -1,0 +1,1648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rob&#8217;s Precons</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&amp;family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&amp;display=swap">
+<style>
+:root {
+  /* Layout: one narrow column of deck boxes under shelf labels, one label per set;
+     each deck's colors run down its left edge like the spine of a deck box. */
+  --bg: #ECEFEB;
+  --surface: #FAFBF9;
+  --ink: #16201B;
+  --muted: #56645D;
+  --line: #D2D9D4;
+  --accent: #1C6A51;
+  --m-w: #E3D294;
+  --m-u: #3D83CA;
+  --m-b: #564E4A;
+  --m-r: #D3513A;
+  --m-g: #3A9257;
+  --display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --body: "Atkinson Hyperlegible", "Segoe UI", system-ui, -apple-system, sans-serif;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0E1412;
+    --surface: #161F1B;
+    --ink: #E6ECE8;
+    --muted: #98A7A0;
+    --line: #27332E;
+    --accent: #69C7A0;
+    --m-b: #9A8E87;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0E1412;
+  --surface: #161F1B;
+  --ink: #E6ECE8;
+  --muted: #98A7A0;
+  --line: #27332E;
+  --accent: #69C7A0;
+  --m-b: #9A8E87;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 var(--body); }
+.wrap { max-width: 46rem; margin: 0 auto; padding: 2.5rem max(1rem, 4vw) 4rem; }
+.top h1 {
+  margin: 0; font-family: var(--display); font-weight: 760; font-variation-settings: "opsz" 96;
+  font-size: clamp(2.5rem, 1.75rem + 3.5vw, 3.75rem); line-height: .95; letter-spacing: -0.025em; text-wrap: balance;
+}
+.lede { margin: .75rem 0 0; max-width: 34ch; font-size: 1.125rem; color: var(--muted); text-wrap: pretty; }
+.note { margin: 1.5rem 0 0; max-width: 60ch; padding: .75rem 1rem; border: 1px dashed var(--muted); border-radius: 10px; font-size: .875rem; color: var(--muted); }
+.note strong { color: var(--ink); }
+.set { margin-top: 2.25rem; }
+.set h2 {
+  position: sticky; top: 0; z-index: 2; display: flex; justify-content: space-between; align-items: baseline; gap: 1rem;
+  margin: 0 0 .75rem; padding: .75rem 0 .5rem; background: var(--bg); border-bottom: 1px solid var(--line);
+  font-family: var(--display); font-weight: 700; font-variation-settings: "wdth" 75, "opsz" 14;
+  font-size: .875rem; line-height: 1.3; letter-spacing: .09em; text-transform: uppercase;
+}
+.set-count { flex: none; font-family: var(--body); font-weight: 400; font-size: .8125rem; letter-spacing: 0; text-transform: none; color: var(--muted); font-variant-numeric: tabular-nums; }
+.decks { display: grid; gap: .625rem; }
+.deck { position: relative; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+.deck::before { content: ""; position: absolute; top: 0; bottom: 0; left: 0; width: 8px; background: var(--spine); }
+.deck summary {
+  display: grid; grid-template-columns: 1fr auto; align-items: center; gap: .75rem;
+  padding: .875rem 1rem .875rem 1.5rem; cursor: pointer; list-style: none;
+}
+.deck summary::-webkit-details-marker { display: none; }
+.deck summary:hover { background: color-mix(in srgb, var(--accent) 6%, transparent); }
+.deck summary:focus-visible { outline: 2px solid var(--accent); outline-offset: -3px; border-radius: 12px; }
+.deck h3 { margin: 0; font-family: var(--display); font-weight: 680; font-size: 1.1875rem; line-height: 1.2; letter-spacing: -0.005em; text-wrap: balance; }
+.meta { display: flex; flex-wrap: wrap; align-items: center; gap: .25rem .5rem; margin-top: .3rem; font-size: .9375rem; line-height: 1.35; color: var(--muted); }
+.pips { display: inline-flex; gap: 3px; }
+.pip {
+  display: inline-grid; place-items: center; width: 18px; height: 18px; border-radius: 50%;
+  font: 700 10px/1 var(--body); color: #1D1A17; box-shadow: inset 0 0 0 1px rgb(0 0 0 / .2);
+}
+.pip-w { background: #F8F6D8; }
+.pip-u { background: #C1D7E9; }
+.pip-b { background: #BAB1AB; }
+.pip-r { background: #E49977; }
+.pip-g { background: #A3C095; }
+.chev { width: 20px; height: 20px; color: var(--muted); transition: transform .2s ease; }
+.deck[open] .chev { transform: rotate(180deg); }
+.panel { padding: 0 1.25rem 1.25rem 1.5rem; }
+.facts { display: grid; gap: .5rem; margin: .25rem 0 0; padding-top: 1rem; border-top: 1px solid var(--line); }
+.facts > div { display: grid; grid-template-columns: 5.5rem 1fr; gap: .75rem; align-items: baseline; }
+.facts dt { font-size: .75rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.facts dd { margin: 0; }
+.chips { display: flex; flex-wrap: wrap; gap: .375rem; }
+.chip { padding: .1rem .55rem; border: 1px dashed var(--muted); border-radius: 999px; font-size: .8125rem; font-style: italic; color: var(--muted); }
+.panel h4 { margin: 1.25rem 0 .25rem; font-family: var(--display); font-weight: 680; font-size: 1rem; }
+.panel p, .panel ul { margin: 0; max-width: 62ch; }
+.panel ul { display: grid; gap: .25rem; padding-left: 1.125rem; }
+.ph { font-style: italic; color: var(--muted); }
+.arch {
+  display: inline-flex; align-items: center; margin-top: 1.25rem; padding: .55rem .9rem;
+  border: 1px solid var(--accent); border-radius: 8px; color: var(--accent); font-weight: 700; text-decoration: none;
+}
+.arch:hover { background: var(--accent); color: var(--surface); }
+.arch:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+@media (max-width: 420px) {
+  .facts > div { grid-template-columns: 1fr; gap: .1rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .chev { transition: none; }
+}
+</style>
+</head>
+<body>
+  <main class="wrap">
+    <header class="top">
+      <h1>Rob&#8217;s Precons</h1>
+      <p class="lede">57 Commander decks you can borrow. Tap one to see what it does.</p>
+      <p class="note"><strong>Mockup.</strong> Deck names, commanders and colors are real. The descriptions are placeholder text, and only Federation Fleet links to its own Archidekt page; the others go to Archidekt&#8217;s list of precons.</p>
+    </header>
+    <section class="set" aria-labelledby="set-trc">
+      <h2 id="set-trc"><span>Star Trek Commander</span><span class="set-count">4 decks</span></h2>
+      <div class="decks">
+      <details class="deck" id="federation-fleet" style="--spine: linear-gradient(to bottom, var(--m-w) 0.000% 33.333%, var(--m-u) 33.333% 66.667%, var(--m-r) 66.667% 100.000%)" open>
+        <summary>
+          <span class="head">
+            <h3>Federation Fleet</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="White, blue and red"><span class="pip pip-w">W</span><span class="pip pip-u">U</span><span class="pip pip-r">R</span></span><span>Jean-Luc Picard, Luminary</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Jeskai: white, blue and red</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Jean-Luc Picard, Luminary does, and how the rest of the deck feeds it.</p>
+          <h4>Combos and synergies</h4>
+          <ul class="ph">
+            <li>A combo worth knowing, the cards it takes, and what happens when they come together.</li>
+            <li>Two cards that work better together than apart.</li>
+          </ul>
+          <a class="arch" href="https://archidekt.com/decks/27859380/federation_fleet_star_trek_commander">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+        </div>
+      </details>
+      <details class="deck" id="klingon-fury" style="--spine: linear-gradient(to bottom, var(--m-w) 0.000% 33.333%, var(--m-b) 33.333% 66.667%, var(--m-r) 66.667% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Klingon Fury</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="White, black and red"><span class="pip pip-w">W</span><span class="pip pip-b">B</span><span class="pip pip-r">R</span></span><span>Worf, Defiant Commander</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Mardu: white, black and red</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Worf, Defiant Commander does, and how the rest of the deck feeds it.</p>
+          <h4>Combos and synergies</h4>
+          <ul class="ph">
+            <li>A combo worth knowing, the cards it takes, and what happens when they come together.</li>
+            <li>Two cards that work better together than apart.</li>
+          </ul>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+        </div>
+      </details>
+      <details class="deck" id="landing-party" style="--spine: linear-gradient(to bottom, var(--m-w) 0.000% 33.333%, var(--m-u) 33.333% 66.667%, var(--m-g) 66.667% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Landing Party</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="White, blue and green"><span class="pip pip-w">W</span><span class="pip pip-u">U</span><span class="pip pip-g">G</span></span><span>Commander Spock</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Bant: white, blue and green</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Commander Spock does, and how the rest of the deck feeds it.</p>
+          <h4>Combos and synergies</h4>
+          <ul class="ph">
+            <li>A combo worth knowing, the cards it takes, and what happens when they come together.</li>
+            <li>Two cards that work better together than apart.</li>
+          </ul>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+        </div>
+      </details>
+      <details class="deck" id="we-are-the-borg" style="--spine: linear-gradient(to bottom, var(--m-w) 0.000% 33.333%, var(--m-u) 33.333% 66.667%, var(--m-b) 66.667% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>We Are the Borg</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="White, blue and black"><span class="pip pip-w">W</span><span class="pip pip-u">U</span><span class="pip pip-b">B</span></span><span>The Borg Queen</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Esper: white, blue and black</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What The Borg Queen does, and how the rest of the deck feeds it.</p>
+          <h4>Combos and synergies</h4>
+          <ul class="ph">
+            <li>A combo worth knowing, the cards it takes, and what happens when they come together.</li>
+            <li>Two cards that work better together than apart.</li>
+          </ul>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+        </div>
+      </details>
+      </div>
+    </section>
+    <section class="set" aria-labelledby="set-frc">
+      <h2 id="set-frc"><span>Reality Fracture Commander</span><span class="set-count">1 deck</span></h2>
+      <div class="decks">
+      <details class="deck" id="multiverse-reforged" style="--spine: linear-gradient(to bottom, var(--m-w) 0.000% 25.000%, var(--m-u) 25.000% 50.000%, var(--m-b) 50.000% 75.000%, var(--m-r) 75.000% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Multiverse Reforged</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="White, blue, black and red"><span class="pip pip-w">W</span><span class="pip pip-u">U</span><span class="pip pip-b">B</span><span class="pip pip-r">R</span></span><span>Jace, Multiverse Architect</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Four colors: white, blue, black and red</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Jace, Multiverse Architect does, and how the rest of the deck feeds it.</p>
+          <h4>Combos and synergies</h4>
+          <ul class="ph">
+            <li>A combo worth knowing, the cards it takes, and what happens when they come together.</li>
+            <li>Two cards that work better together than apart.</li>
+          </ul>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+        </div>
+      </details>
+      </div>
+    </section>
+    <section class="set" aria-labelledby="set-msc">
+      <h2 id="set-msc"><span>Marvel Super Heroes Commander</span><span class="set-count">4 decks</span></h2>
+      <div class="decks">
+      <details class="deck" id="avengers-assemble" style="--spine: linear-gradient(to bottom, var(--m-w) 0.000% 33.333%, var(--m-u) 33.333% 66.667%, var(--m-r) 66.667% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Avengers Assemble</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="White, blue and red"><span class="pip pip-w">W</span><span class="pip pip-u">U</span><span class="pip pip-r">R</span></span><span>Captain America, Team Leader</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Jeskai: white, blue and red</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Captain America, Team Leader does, and how the rest of the deck feeds it.</p>
+          <h4>Combos and synergies</h4>
+          <ul class="ph">
+            <li>A combo worth knowing, the cards it takes, and what happens when they come together.</li>
+            <li>Two cards that work better together than apart.</li>
+          </ul>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+        </div>
+      </details>
+      <details class="deck" id="doom-prevails" style="--spine: linear-gradient(to bottom, var(--m-u) 0.000% 33.333%, var(--m-b) 33.333% 66.667%, var(--m-r) 66.667% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Doom Prevails</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="Blue, black and red"><span class="pip pip-u">U</span><span class="pip pip-b">B</span><span class="pip pip-r">R</span></span><span>Doctor Doom, King of Latveria</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Grixis: blue, black and red</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Doctor Doom, King of Latveria does, and how the rest of the deck feeds it.</p>
+          <h4>Combos and synergies</h4>
+          <ul class="ph">
+            <li>A combo worth knowing, the cards it takes, and what happens when they come together.</li>
+            <li>Two cards that work better together than apart.</li>
+          </ul>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+        </div>
+      </details>
+      <details class="deck" id="the-fantastic-four" style="--spine: linear-gradient(to bottom, var(--m-w) 0.000% 25.000%, var(--m-u) 25.000% 50.000%, var(--m-r) 50.000% 75.000%, var(--m-g) 75.000% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>The Fantastic Four</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="White, blue, red and green"><span class="pip pip-w">W</span><span class="pip pip-u">U</span><span class="pip pip-r">R</span><span class="pip pip-g">G</span></span><span>Invisible Woman</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Four colors: white, blue, red and green</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Invisible Woman does, and how the rest of the deck feeds it.</p>
+          <h4>Combos and synergies</h4>
+          <ul class="ph">
+            <li>A combo worth knowing, the cards it takes, and what happens when they come together.</li>
+            <li>Two cards that work better together than apart.</li>
+          </ul>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+        </div>
+      </details>
+      <details class="deck" id="wakanda-forever" style="--spine: linear-gradient(to bottom, var(--m-w) 0.000% 50.000%, var(--m-g) 50.000% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Wakanda Forever</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="White and green"><span class="pip pip-w">W</span><span class="pip pip-g">G</span></span><span>T&#x27;Challa, the Black Panther</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Selesnya: white and green</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What T&#x27;Challa, the Black Panther does, and how the rest of the deck feeds it.</p>
+          <h4>Combos and synergies</h4>
+          <ul class="ph">
+            <li>A combo worth knowing, the cards it takes, and what happens when they come together.</li>
+            <li>Two cards that work better together than apart.</li>
+          </ul>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+        </div>
+      </details>
+      </div>
+    </section>
+    <section class="set" aria-labelledby="set-soc">
+      <h2 id="set-soc"><span>Secrets of Strixhaven Commander</span><span class="set-count">4 decks</span></h2>
+      <div class="decks">
+      <details class="deck" id="lorehold-spirit" style="--spine: linear-gradient(to bottom, var(--m-w) 0.000% 50.000%, var(--m-r) 50.000% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Lorehold Spirit</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="White and red"><span class="pip pip-w">W</span><span class="pip pip-r">R</span></span><span>Quintorius, History Chaser</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Boros: white and red</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Quintorius, History Chaser does, and how the rest of the deck feeds it.</p>
+          <h4>Combos and synergies</h4>
+          <ul class="ph">
+            <li>A combo worth knowing, the cards it takes, and what happens when they come together.</li>
+            <li>Two cards that work better together than apart.</li>
+          </ul>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+        </div>
+      </details>
+      <details class="deck" id="prismari-artistry" style="--spine: linear-gradient(to bottom, var(--m-u) 0.000% 50.000%, var(--m-r) 50.000% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Prismari Artistry</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="Blue and red"><span class="pip pip-u">U</span><span class="pip pip-r">R</span></span><span>Rootha, Mastering the Moment</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Izzet: blue and red</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Rootha, Mastering the Moment does, and how the rest of the deck feeds it.</p>
+          <h4>Combos and synergies</h4>
+          <ul class="ph">
+            <li>A combo worth knowing, the cards it takes, and what happens when they come together.</li>
+            <li>Two cards that work better together than apart.</li>
+          </ul>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+        </div>
+      </details>
+      <details class="deck" id="quandrix-unlimited" style="--spine: linear-gradient(to bottom, var(--m-u) 0.000% 50.000%, var(--m-g) 50.000% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Quandrix Unlimited</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="Blue and green"><span class="pip pip-u">U</span><span class="pip pip-g">G</span></span><span>Zimone, Infinite Analyst</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Simic: blue and green</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Zimone, Infinite Analyst does, and how the rest of the deck feeds it.</p>
+          <h4>Combos and synergies</h4>
+          <ul class="ph">
+            <li>A combo worth knowing, the cards it takes, and what happens when they come together.</li>
+            <li>Two cards that work better together than apart.</li>
+          </ul>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+        </div>
+      </details>
+      <details class="deck" id="silverquill-influence" style="--spine: linear-gradient(to bottom, var(--m-w) 0.000% 50.000%, var(--m-b) 50.000% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Silverquill Influence</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="White and black"><span class="pip pip-w">W</span><span class="pip pip-b">B</span></span><span>Killian, Decisive Mentor</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Orzhov: white and black</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Killian, Decisive Mentor does, and how the rest of the deck feeds it.</p>
+          <h4>Combos and synergies</h4>
+          <ul class="ph">
+            <li>A combo worth knowing, the cards it takes, and what happens when they come together.</li>
+            <li>Two cards that work better together than apart.</li>
+          </ul>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+        </div>
+      </details>
+      </div>
+    </section>
+    <section class="set" aria-labelledby="set-tmc">
+      <h2 id="set-tmc"><span>Teenage Mutant Ninja Turtles Eternal</span><span class="set-count">1 deck</span></h2>
+      <div class="decks">
+      <details class="deck" id="turtle-power" style="--spine: linear-gradient(to bottom, var(--m-w) 0.000% 20.000%, var(--m-u) 20.000% 40.000%, var(--m-b) 40.000% 60.000%, var(--m-r) 60.000% 80.000%, var(--m-g) 80.000% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Turtle Power!</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="White, blue, black, red and green"><span class="pip pip-w">W</span><span class="pip pip-u">U</span><span class="pip pip-b">B</span><span class="pip pip-r">R</span><span class="pip pip-g">G</span></span><span>Heroes in a Half Shell</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>All five colors</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Heroes in a Half Shell does, and how the rest of the deck feeds it.</p>
+          <h4>Combos and synergies</h4>
+          <ul class="ph">
+            <li>A combo worth knowing, the cards it takes, and what happens when they come together.</li>
+            <li>Two cards that work better together than apart.</li>
+          </ul>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+        </div>
+      </details>
+      </div>
+    </section>
+    <section class="set" aria-labelledby="set-ecc">
+      <h2 id="set-ecc"><span>Lorwyn Eclipsed Commander</span><span class="set-count">1 deck</span></h2>
+      <div class="decks">
+      <details class="deck" id="dance-of-the-elements" style="--spine: linear-gradient(to bottom, var(--m-w) 0.000% 20.000%, var(--m-u) 20.000% 40.000%, var(--m-b) 40.000% 60.000%, var(--m-r) 60.000% 80.000%, var(--m-g) 80.000% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Dance of the Elements</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="White, blue, black, red and green"><span class="pip pip-w">W</span><span class="pip pip-u">U</span><span class="pip pip-b">B</span><span class="pip pip-r">R</span><span class="pip pip-g">G</span></span><span>Ashling, the Limitless</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>All five colors</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Ashling, the Limitless does, and how the rest of the deck feeds it.</p>
+          <h4>Combos and synergies</h4>
+          <ul class="ph">
+            <li>A combo worth knowing, the cards it takes, and what happens when they come together.</li>
+            <li>Two cards that work better together than apart.</li>
+          </ul>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+        </div>
+      </details>
+      </div>
+    </section>
+    <section class="set" aria-labelledby="set-eoc">
+      <h2 id="set-eoc"><span>Edge of Eternities Commander</span><span class="set-count">1 deck</span></h2>
+      <div class="decks">
+      <details class="deck" id="counter-intelligence" style="--spine: linear-gradient(to bottom, var(--m-w) 0.000% 33.333%, var(--m-u) 33.333% 66.667%, var(--m-r) 66.667% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Counter Intelligence</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="White, blue and red"><span class="pip pip-w">W</span><span class="pip pip-u">U</span><span class="pip pip-r">R</span></span><span>Inspirit, Flagship Vessel</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Jeskai: white, blue and red</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Inspirit, Flagship Vessel does, and how the rest of the deck feeds it.</p>
+          <h4>Combos and synergies</h4>
+          <ul class="ph">
+            <li>A combo worth knowing, the cards it takes, and what happens when they come together.</li>
+            <li>Two cards that work better together than apart.</li>
+          </ul>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+        </div>
+      </details>
+      </div>
+    </section>
+    <section class="set" aria-labelledby="set-tdc">
+      <h2 id="set-tdc"><span>Tarkir: Dragonstorm Commander</span><span class="set-count">4 decks</span></h2>
+      <div class="decks">
+      <details class="deck" id="abzan-armor" style="--spine: linear-gradient(to bottom, var(--m-w) 0.000% 33.333%, var(--m-b) 33.333% 66.667%, var(--m-g) 66.667% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Abzan Armor</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="White, black and green"><span class="pip pip-w">W</span><span class="pip pip-b">B</span><span class="pip pip-g">G</span></span><span>Felothar the Steadfast</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Abzan: white, black and green</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Felothar the Steadfast does, and how the rest of the deck feeds it.</p>
+          <h4>Combos and synergies</h4>
+          <ul class="ph">
+            <li>A combo worth knowing, the cards it takes, and what happens when they come together.</li>
+            <li>Two cards that work better together than apart.</li>
+          </ul>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+        </div>
+      </details>
+      <details class="deck" id="mardu-surge" style="--spine: linear-gradient(to bottom, var(--m-w) 0.000% 33.333%, var(--m-b) 33.333% 66.667%, var(--m-r) 66.667% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Mardu Surge</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="White, black and red"><span class="pip pip-w">W</span><span class="pip pip-b">B</span><span class="pip pip-r">R</span></span><span>Zurgo Stormrender</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Mardu: white, black and red</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Zurgo Stormrender does, and how the rest of the deck feeds it.</p>
+          <h4>Combos and synergies</h4>
+          <ul class="ph">
+            <li>A combo worth knowing, the cards it takes, and what happens when they come together.</li>
+            <li>Two cards that work better together than apart.</li>
+          </ul>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+        </div>
+      </details>
+      <details class="deck" id="sultai-arisen" style="--spine: linear-gradient(to bottom, var(--m-u) 0.000% 33.333%, var(--m-b) 33.333% 66.667%, var(--m-g) 66.667% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Sultai Arisen</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="Blue, black and green"><span class="pip pip-u">U</span><span class="pip pip-b">B</span><span class="pip pip-g">G</span></span><span>Teval, the Balanced Scale</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Sultai: blue, black and green</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Teval, the Balanced Scale does, and how the rest of the deck feeds it.</p>
+          <h4>Combos and synergies</h4>
+          <ul class="ph">
+            <li>A combo worth knowing, the cards it takes, and what happens when they come together.</li>
+            <li>Two cards that work better together than apart.</li>
+          </ul>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+        </div>
+      </details>
+      <details class="deck" id="temur-roar" style="--spine: linear-gradient(to bottom, var(--m-u) 0.000% 33.333%, var(--m-r) 33.333% 66.667%, var(--m-g) 66.667% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Temur Roar</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="Blue, red and green"><span class="pip pip-u">U</span><span class="pip pip-r">R</span><span class="pip pip-g">G</span></span><span>Eshki, Temur&#x27;s Roar</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Temur: blue, red and green</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Eshki, Temur&#x27;s Roar does, and how the rest of the deck feeds it.</p>
+          <h4>Combos and synergies</h4>
+          <ul class="ph">
+            <li>A combo worth knowing, the cards it takes, and what happens when they come together.</li>
+            <li>Two cards that work better together than apart.</li>
+          </ul>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+        </div>
+      </details>
+      </div>
+    </section>
+    <section class="set" aria-labelledby="set-drc">
+      <h2 id="set-drc"><span>Aetherdrift Commander</span><span class="set-count">2 decks</span></h2>
+      <div class="decks">
+      <details class="deck" id="eternal-might" style="--spine: linear-gradient(to bottom, var(--m-w) 0.000% 33.333%, var(--m-u) 33.333% 66.667%, var(--m-b) 66.667% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Eternal Might</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="White, blue and black"><span class="pip pip-w">W</span><span class="pip pip-u">U</span><span class="pip pip-b">B</span></span><span>Temmet, Naktamun&#x27;s Will</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Esper: white, blue and black</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Temmet, Naktamun&#x27;s Will does, and how the rest of the deck feeds it.</p>
+          <h4>Combos and synergies</h4>
+          <ul class="ph">
+            <li>A combo worth knowing, the cards it takes, and what happens when they come together.</li>
+            <li>Two cards that work better together than apart.</li>
+          </ul>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+        </div>
+      </details>
+      <details class="deck" id="living-energy" style="--spine: linear-gradient(to bottom, var(--m-u) 0.000% 33.333%, var(--m-r) 33.333% 66.667%, var(--m-g) 66.667% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Living Energy</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="Blue, red and green"><span class="pip pip-u">U</span><span class="pip pip-r">R</span><span class="pip pip-g">G</span></span><span>Saheeli, Radiant Creator</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Temur: blue, red and green</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Saheeli, Radiant Creator does, and how the rest of the deck feeds it.</p>
+          <h4>Combos and synergies</h4>
+          <ul class="ph">
+            <li>A combo worth knowing, the cards it takes, and what happens when they come together.</li>
+            <li>Two cards that work better together than apart.</li>
+          </ul>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+        </div>
+      </details>
+      </div>
+    </section>
+    <section class="set" aria-labelledby="set-fdc">
+      <h2 id="set-fdc"><span>Foundations Commander</span><span class="set-count">5 decks</span></h2>
+      <div class="decks">
+      <details class="deck" id="calling-all-angels" style="--spine: linear-gradient(to bottom, var(--m-w) 0.000% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Calling All Angels</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="White"><span class="pip pip-w">W</span></span><span>Giada, Font of Hope</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Mono-white</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Giada, Font of Hope does, and how the rest of the deck feeds it.</p>
+          <h4>Combos and synergies</h4>
+          <ul class="ph">
+            <li>A combo worth knowing, the cards it takes, and what happens when they come together.</li>
+            <li>Two cards that work better together than apart.</li>
+          </ul>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+        </div>
+      </details>
+      <details class="deck" id="keen-engineering" style="--spine: linear-gradient(to bottom, var(--m-u) 0.000% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Keen Engineering</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="Blue"><span class="pip pip-u">U</span></span><span>Sai, Master Thopterist</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Mono-blue</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Sai, Master Thopterist does, and how the rest of the deck feeds it.</p>
+          <h4>Combos and synergies</h4>
+          <ul class="ph">
+            <li>A combo worth knowing, the cards it takes, and what happens when they come together.</li>
+            <li>Two cards that work better together than apart.</li>
+          </ul>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+        </div>
+      </details>
+      <details class="deck" id="reign-of-dragons" style="--spine: linear-gradient(to bottom, var(--m-r) 0.000% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Reign of Dragons</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="Red"><span class="pip pip-r">R</span></span><span>Lathliss, Dragon Queen</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Mono-red</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Lathliss, Dragon Queen does, and how the rest of the deck feeds it.</p>
+          <h4>Combos and synergies</h4>
+          <ul class="ph">
+            <li>A combo worth knowing, the cards it takes, and what happens when they come together.</li>
+            <li>Two cards that work better together than apart.</li>
+          </ul>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+        </div>
+      </details>
+      <details class="deck" id="tramplesaurus-rex" style="--spine: linear-gradient(to bottom, var(--m-g) 0.000% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Tramplesaurus Rex</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="Green"><span class="pip pip-g">G</span></span><span>Ghalta, Primal Hunger</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Mono-green</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Ghalta, Primal Hunger does, and how the rest of the deck feeds it.</p>
+          <h4>Combos and synergies</h4>
+          <ul class="ph">
+            <li>A combo worth knowing, the cards it takes, and what happens when they come together.</li>
+            <li>Two cards that work better together than apart.</li>
+          </ul>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+        </div>
+      </details>
+      <details class="deck" id="wretched-ranks" style="--spine: linear-gradient(to bottom, var(--m-b) 0.000% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Wretched Ranks</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="Black"><span class="pip pip-b">B</span></span><span>Ghoulcaller Gisa</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Mono-black</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Ghoulcaller Gisa does, and how the rest of the deck feeds it.</p>
+          <h4>Combos and synergies</h4>
+          <ul class="ph">
+            <li>A combo worth knowing, the cards it takes, and what happens when they come together.</li>
+            <li>Two cards that work better together than apart.</li>
+          </ul>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+        </div>
+      </details>
+      </div>
+    </section>
+    <section class="set" aria-labelledby="set-dsc">
+      <h2 id="set-dsc"><span>Duskmourn: House of Horror Commander</span><span class="set-count">4 decks</span></h2>
+      <div class="decks">
+      <details class="deck" id="death-toll" style="--spine: linear-gradient(to bottom, var(--m-b) 0.000% 50.000%, var(--m-g) 50.000% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Death Toll</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="Black and green"><span class="pip pip-b">B</span><span class="pip pip-g">G</span></span><span>Winter, Cynical Opportunist</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Golgari: black and green</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Winter, Cynical Opportunist does, and how the rest of the deck feeds it.</p>
+          <h4>Combos and synergies</h4>
+          <ul class="ph">
+            <li>A combo worth knowing, the cards it takes, and what happens when they come together.</li>
+            <li>Two cards that work better together than apart.</li>
+          </ul>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+        </div>
+      </details>
+      <details class="deck" id="endless-punishment" style="--spine: linear-gradient(to bottom, var(--m-b) 0.000% 50.000%, var(--m-r) 50.000% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Endless Punishment</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="Black and red"><span class="pip pip-b">B</span><span class="pip pip-r">R</span></span><span>Valgavoth, Harrower of Souls</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Rakdos: black and red</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Valgavoth, Harrower of Souls does, and how the rest of the deck feeds it.</p>
+          <h4>Combos and synergies</h4>
+          <ul class="ph">
+            <li>A combo worth knowing, the cards it takes, and what happens when they come together.</li>
+            <li>Two cards that work better together than apart.</li>
+          </ul>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+        </div>
+      </details>
+      <details class="deck" id="jump-scare" style="--spine: linear-gradient(to bottom, var(--m-u) 0.000% 50.000%, var(--m-g) 50.000% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Jump Scare!</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="Blue and green"><span class="pip pip-u">U</span><span class="pip pip-g">G</span></span><span>Zimone, Mystery Unraveler</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Simic: blue and green</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Zimone, Mystery Unraveler does, and how the rest of the deck feeds it.</p>
+          <h4>Combos and synergies</h4>
+          <ul class="ph">
+            <li>A combo worth knowing, the cards it takes, and what happens when they come together.</li>
+            <li>Two cards that work better together than apart.</li>
+          </ul>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+        </div>
+      </details>
+      <details class="deck" id="miracle-worker" style="--spine: linear-gradient(to bottom, var(--m-w) 0.000% 33.333%, var(--m-u) 33.333% 66.667%, var(--m-b) 66.667% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Miracle Worker</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="White, blue and black"><span class="pip pip-w">W</span><span class="pip pip-u">U</span><span class="pip pip-b">B</span></span><span>Aminatou, Veil Piercer</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Esper: white, blue and black</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Aminatou, Veil Piercer does, and how the rest of the deck feeds it.</p>
+          <h4>Combos and synergies</h4>
+          <ul class="ph">
+            <li>A combo worth knowing, the cards it takes, and what happens when they come together.</li>
+            <li>Two cards that work better together than apart.</li>
+          </ul>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+        </div>
+      </details>
+      </div>
+    </section>
+    <section class="set" aria-labelledby="set-blc">
+      <h2 id="set-blc"><span>Bloomburrow Commander</span><span class="set-count">3 decks</span></h2>
+      <div class="decks">
+      <details class="deck" id="animated-army" style="--spine: linear-gradient(to bottom, var(--m-r) 0.000% 50.000%, var(--m-g) 50.000% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Animated Army</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="Red and green"><span class="pip pip-r">R</span><span class="pip pip-g">G</span></span><span>Bello, Bard of the Brambles</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Gruul: red and green</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Bello, Bard of the Brambles does, and how the rest of the deck feeds it.</p>
+          <h4>Combos and synergies</h4>
+          <ul class="ph">
+            <li>A combo worth knowing, the cards it takes, and what happens when they come together.</li>
+            <li>Two cards that work better together than apart.</li>
+          </ul>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+        </div>
+      </details>
+      <details class="deck" id="family-matters" style="--spine: linear-gradient(to bottom, var(--m-w) 0.000% 33.333%, var(--m-u) 33.333% 66.667%, var(--m-r) 66.667% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Family Matters</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="White, blue and red"><span class="pip pip-w">W</span><span class="pip pip-u">U</span><span class="pip pip-r">R</span></span><span>Zinnia, Valley&#x27;s Voice</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Jeskai: white, blue and red</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Zinnia, Valley&#x27;s Voice does, and how the rest of the deck feeds it.</p>
+          <h4>Combos and synergies</h4>
+          <ul class="ph">
+            <li>A combo worth knowing, the cards it takes, and what happens when they come together.</li>
+            <li>Two cards that work better together than apart.</li>
+          </ul>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+        </div>
+      </details>
+      <details class="deck" id="peace-offering" style="--spine: linear-gradient(to bottom, var(--m-w) 0.000% 33.333%, var(--m-u) 33.333% 66.667%, var(--m-g) 66.667% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Peace Offering</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="White, blue and green"><span class="pip pip-w">W</span><span class="pip pip-u">U</span><span class="pip pip-g">G</span></span><span>Ms. Bumbleflower</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Bant: white, blue and green</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Ms. Bumbleflower does, and how the rest of the deck feeds it.</p>
+          <h4>Combos and synergies</h4>
+          <ul class="ph">
+            <li>A combo worth knowing, the cards it takes, and what happens when they come together.</li>
+            <li>Two cards that work better together than apart.</li>
+          </ul>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+        </div>
+      </details>
+      </div>
+    </section>
+    <section class="set" aria-labelledby="set-m3c">
+      <h2 id="set-m3c"><span>Modern Horizons 3 Commander</span><span class="set-count">4 decks</span></h2>
+      <div class="decks">
+      <details class="deck" id="creative-energy" style="--spine: linear-gradient(to bottom, var(--m-w) 0.000% 33.333%, var(--m-u) 33.333% 66.667%, var(--m-r) 66.667% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Creative Energy</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="White, blue and red"><span class="pip pip-w">W</span><span class="pip pip-u">U</span><span class="pip pip-r">R</span></span><span>Satya, Aetherflux Genius</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Jeskai: white, blue and red</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Satya, Aetherflux Genius does, and how the rest of the deck feeds it.</p>
+          <h4>Combos and synergies</h4>
+          <ul class="ph">
+            <li>A combo worth knowing, the cards it takes, and what happens when they come together.</li>
+            <li>Two cards that work better together than apart.</li>
+          </ul>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+        </div>
+      </details>
+      <details class="deck" id="eldrazi-incursion" style="--spine: linear-gradient(to bottom, var(--m-w) 0.000% 20.000%, var(--m-u) 20.000% 40.000%, var(--m-b) 40.000% 60.000%, var(--m-r) 60.000% 80.000%, var(--m-g) 80.000% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Eldrazi Incursion</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="White, blue, black, red and green"><span class="pip pip-w">W</span><span class="pip pip-u">U</span><span class="pip pip-b">B</span><span class="pip pip-r">R</span><span class="pip pip-g">G</span></span><span>Ulalek, Fused Atrocity</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>All five colors</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Ulalek, Fused Atrocity does, and how the rest of the deck feeds it.</p>
+          <h4>Combos and synergies</h4>
+          <ul class="ph">
+            <li>A combo worth knowing, the cards it takes, and what happens when they come together.</li>
+            <li>Two cards that work better together than apart.</li>
+          </ul>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+        </div>
+      </details>
+      <details class="deck" id="graveyard-overdrive" style="--spine: linear-gradient(to bottom, var(--m-b) 0.000% 33.333%, var(--m-r) 33.333% 66.667%, var(--m-g) 66.667% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Graveyard Overdrive</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="Black, red and green"><span class="pip pip-b">B</span><span class="pip pip-r">R</span><span class="pip pip-g">G</span></span><span>Disa the Restless</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Jund: black, red and green</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Disa the Restless does, and how the rest of the deck feeds it.</p>
+          <h4>Combos and synergies</h4>
+          <ul class="ph">
+            <li>A combo worth knowing, the cards it takes, and what happens when they come together.</li>
+            <li>Two cards that work better together than apart.</li>
+          </ul>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+        </div>
+      </details>
+      <details class="deck" id="tricky-terrain" style="--spine: linear-gradient(to bottom, var(--m-u) 0.000% 50.000%, var(--m-g) 50.000% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Tricky Terrain</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="Blue and green"><span class="pip pip-u">U</span><span class="pip pip-g">G</span></span><span>Omo, Queen of Vesuva</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Simic: blue and green</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Omo, Queen of Vesuva does, and how the rest of the deck feeds it.</p>
+          <h4>Combos and synergies</h4>
+          <ul class="ph">
+            <li>A combo worth knowing, the cards it takes, and what happens when they come together.</li>
+            <li>Two cards that work better together than apart.</li>
+          </ul>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+        </div>
+      </details>
+      </div>
+    </section>
+    <section class="set" aria-labelledby="set-otc">
+      <h2 id="set-otc"><span>Outlaws of Thunder Junction Commander</span><span class="set-count">1 deck</span></h2>
+      <div class="decks">
+      <details class="deck" id="most-wanted" style="--spine: linear-gradient(to bottom, var(--m-w) 0.000% 33.333%, var(--m-b) 33.333% 66.667%, var(--m-r) 66.667% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Most Wanted</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="White, black and red"><span class="pip pip-w">W</span><span class="pip pip-b">B</span><span class="pip pip-r">R</span></span><span>Olivia, Opulent Outlaw</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Mardu: white, black and red</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Olivia, Opulent Outlaw does, and how the rest of the deck feeds it.</p>
+          <h4>Combos and synergies</h4>
+          <ul class="ph">
+            <li>A combo worth knowing, the cards it takes, and what happens when they come together.</li>
+            <li>Two cards that work better together than apart.</li>
+          </ul>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+        </div>
+      </details>
+      </div>
+    </section>
+    <section class="set" aria-labelledby="set-mkc">
+      <h2 id="set-mkc"><span>Murders at Karlov Manor Commander</span><span class="set-count">4 decks</span></h2>
+      <div class="decks">
+      <details class="deck" id="blame-game" style="--spine: linear-gradient(to bottom, var(--m-w) 0.000% 50.000%, var(--m-r) 50.000% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Blame Game</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="White and red"><span class="pip pip-w">W</span><span class="pip pip-r">R</span></span><span>Nelly Borca, Impulsive Accuser</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Boros: white and red</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Nelly Borca, Impulsive Accuser does, and how the rest of the deck feeds it.</p>
+          <h4>Combos and synergies</h4>
+          <ul class="ph">
+            <li>A combo worth knowing, the cards it takes, and what happens when they come together.</li>
+            <li>Two cards that work better together than apart.</li>
+          </ul>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+        </div>
+      </details>
+      <details class="deck" id="deadly-disguise" style="--spine: linear-gradient(to bottom, var(--m-w) 0.000% 33.333%, var(--m-r) 33.333% 66.667%, var(--m-g) 66.667% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Deadly Disguise</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="White, red and green"><span class="pip pip-w">W</span><span class="pip pip-r">R</span><span class="pip pip-g">G</span></span><span>Kaust, Eyes of the Glade</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Naya: white, red and green</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Kaust, Eyes of the Glade does, and how the rest of the deck feeds it.</p>
+          <h4>Combos and synergies</h4>
+          <ul class="ph">
+            <li>A combo worth knowing, the cards it takes, and what happens when they come together.</li>
+            <li>Two cards that work better together than apart.</li>
+          </ul>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+        </div>
+      </details>
+      <details class="deck" id="deep-clue-sea" style="--spine: linear-gradient(to bottom, var(--m-w) 0.000% 33.333%, var(--m-u) 33.333% 66.667%, var(--m-g) 66.667% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Deep Clue Sea</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="White, blue and green"><span class="pip pip-w">W</span><span class="pip pip-u">U</span><span class="pip pip-g">G</span></span><span>Morska, Undersea Sleuth</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Bant: white, blue and green</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Morska, Undersea Sleuth does, and how the rest of the deck feeds it.</p>
+          <h4>Combos and synergies</h4>
+          <ul class="ph">
+            <li>A combo worth knowing, the cards it takes, and what happens when they come together.</li>
+            <li>Two cards that work better together than apart.</li>
+          </ul>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+        </div>
+      </details>
+      <details class="deck" id="revenant-recon" style="--spine: linear-gradient(to bottom, var(--m-u) 0.000% 50.000%, var(--m-b) 50.000% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Revenant Recon</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="Blue and black"><span class="pip pip-u">U</span><span class="pip pip-b">B</span></span><span>Mirko, Obsessive Theorist</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Dimir: blue and black</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Mirko, Obsessive Theorist does, and how the rest of the deck feeds it.</p>
+          <h4>Combos and synergies</h4>
+          <ul class="ph">
+            <li>A combo worth knowing, the cards it takes, and what happens when they come together.</li>
+            <li>Two cards that work better together than apart.</li>
+          </ul>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+        </div>
+      </details>
+      </div>
+    </section>
+    <section class="set" aria-labelledby="set-lcc">
+      <h2 id="set-lcc"><span>The Lost Caverns of Ixalan Commander</span><span class="set-count">4 decks</span></h2>
+      <div class="decks">
+      <details class="deck" id="ahoy-mateys" style="--spine: linear-gradient(to bottom, var(--m-u) 0.000% 33.333%, var(--m-b) 33.333% 66.667%, var(--m-r) 66.667% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Ahoy Mateys</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="Blue, black and red"><span class="pip pip-u">U</span><span class="pip pip-b">B</span><span class="pip pip-r">R</span></span><span>Admiral Brass, Unsinkable</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Grixis: blue, black and red</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Admiral Brass, Unsinkable does, and how the rest of the deck feeds it.</p>
+          <h4>Combos and synergies</h4>
+          <ul class="ph">
+            <li>A combo worth knowing, the cards it takes, and what happens when they come together.</li>
+            <li>Two cards that work better together than apart.</li>
+          </ul>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+        </div>
+      </details>
+      <details class="deck" id="blood-rites" style="--spine: linear-gradient(to bottom, var(--m-w) 0.000% 50.000%, var(--m-b) 50.000% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Blood Rites</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="White and black"><span class="pip pip-w">W</span><span class="pip pip-b">B</span></span><span>Clavileño, First of the Blessed</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Orzhov: white and black</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Clavileño, First of the Blessed does, and how the rest of the deck feeds it.</p>
+          <h4>Combos and synergies</h4>
+          <ul class="ph">
+            <li>A combo worth knowing, the cards it takes, and what happens when they come together.</li>
+            <li>Two cards that work better together than apart.</li>
+          </ul>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+        </div>
+      </details>
+      <details class="deck" id="explorers-of-the-deep" style="--spine: linear-gradient(to bottom, var(--m-u) 0.000% 50.000%, var(--m-g) 50.000% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Explorers of the Deep</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="Blue and green"><span class="pip pip-u">U</span><span class="pip pip-g">G</span></span><span>Hakbal of the Surging Soul</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Simic: blue and green</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Hakbal of the Surging Soul does, and how the rest of the deck feeds it.</p>
+          <h4>Combos and synergies</h4>
+          <ul class="ph">
+            <li>A combo worth knowing, the cards it takes, and what happens when they come together.</li>
+            <li>Two cards that work better together than apart.</li>
+          </ul>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+        </div>
+      </details>
+      <details class="deck" id="veloci-ramp-tor" style="--spine: linear-gradient(to bottom, var(--m-w) 0.000% 33.333%, var(--m-r) 33.333% 66.667%, var(--m-g) 66.667% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Veloci-Ramp-Tor</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="White, red and green"><span class="pip pip-w">W</span><span class="pip pip-r">R</span><span class="pip pip-g">G</span></span><span>Pantlaza, Sun-Favored</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Naya: white, red and green</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Pantlaza, Sun-Favored does, and how the rest of the deck feeds it.</p>
+          <h4>Combos and synergies</h4>
+          <ul class="ph">
+            <li>A combo worth knowing, the cards it takes, and what happens when they come together.</li>
+            <li>Two cards that work better together than apart.</li>
+          </ul>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+        </div>
+      </details>
+      </div>
+    </section>
+    <section class="set" aria-labelledby="set-ltc">
+      <h2 id="set-ltc"><span>Tales of Middle-earth Commander</span><span class="set-count">4 decks</span></h2>
+      <div class="decks">
+      <details class="deck" id="elven-council" style="--spine: linear-gradient(to bottom, var(--m-u) 0.000% 50.000%, var(--m-g) 50.000% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Elven Council</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="Blue and green"><span class="pip pip-u">U</span><span class="pip pip-g">G</span></span><span>Galadriel, Elven-Queen</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Simic: blue and green</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Galadriel, Elven-Queen does, and how the rest of the deck feeds it.</p>
+          <h4>Combos and synergies</h4>
+          <ul class="ph">
+            <li>A combo worth knowing, the cards it takes, and what happens when they come together.</li>
+            <li>Two cards that work better together than apart.</li>
+          </ul>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+        </div>
+      </details>
+      <details class="deck" id="food-and-fellowship" style="--spine: linear-gradient(to bottom, var(--m-w) 0.000% 33.333%, var(--m-b) 33.333% 66.667%, var(--m-g) 66.667% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Food and Fellowship</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="White, black and green"><span class="pip pip-w">W</span><span class="pip pip-b">B</span><span class="pip pip-g">G</span></span><span>Frodo, Adventurous Hobbit + Sam, Loyal Attendant</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Abzan: white, black and green</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Frodo, Adventurous Hobbit and Sam, Loyal Attendant do together, and how the rest of the deck feeds them.</p>
+          <h4>Combos and synergies</h4>
+          <ul class="ph">
+            <li>A combo worth knowing, the cards it takes, and what happens when they come together.</li>
+            <li>Two cards that work better together than apart.</li>
+          </ul>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+        </div>
+      </details>
+      <details class="deck" id="riders-of-rohan" style="--spine: linear-gradient(to bottom, var(--m-w) 0.000% 33.333%, var(--m-u) 33.333% 66.667%, var(--m-r) 66.667% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Riders of Rohan</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="White, blue and red"><span class="pip pip-w">W</span><span class="pip pip-u">U</span><span class="pip pip-r">R</span></span><span>Éowyn, Shieldmaiden</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Jeskai: white, blue and red</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Éowyn, Shieldmaiden does, and how the rest of the deck feeds it.</p>
+          <h4>Combos and synergies</h4>
+          <ul class="ph">
+            <li>A combo worth knowing, the cards it takes, and what happens when they come together.</li>
+            <li>Two cards that work better together than apart.</li>
+          </ul>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+        </div>
+      </details>
+      <details class="deck" id="the-hosts-of-mordor" style="--spine: linear-gradient(to bottom, var(--m-u) 0.000% 33.333%, var(--m-b) 33.333% 66.667%, var(--m-r) 66.667% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>The Hosts of Mordor</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="Blue, black and red"><span class="pip pip-u">U</span><span class="pip pip-b">B</span><span class="pip pip-r">R</span></span><span>Sauron, Lord of the Rings</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Grixis: blue, black and red</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Sauron, Lord of the Rings does, and how the rest of the deck feeds it.</p>
+          <h4>Combos and synergies</h4>
+          <ul class="ph">
+            <li>A combo worth knowing, the cards it takes, and what happens when they come together.</li>
+            <li>Two cards that work better together than apart.</li>
+          </ul>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+        </div>
+      </details>
+      </div>
+    </section>
+    <section class="set" aria-labelledby="set-scd">
+      <h2 id="set-scd"><span>Starter Commander Decks</span><span class="set-count">5 decks</span></h2>
+      <div class="decks">
+      <details class="deck" id="chaos-incarnate" style="--spine: linear-gradient(to bottom, var(--m-b) 0.000% 50.000%, var(--m-r) 50.000% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Chaos Incarnate</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="Black and red"><span class="pip pip-b">B</span><span class="pip pip-r">R</span></span><span>Kardur, Doomscourge</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Rakdos: black and red</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Kardur, Doomscourge does, and how the rest of the deck feeds it.</p>
+          <h4>Combos and synergies</h4>
+          <ul class="ph">
+            <li>A combo worth knowing, the cards it takes, and what happens when they come together.</li>
+            <li>Two cards that work better together than apart.</li>
+          </ul>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+        </div>
+      </details>
+      <details class="deck" id="draconic-destruction" style="--spine: linear-gradient(to bottom, var(--m-r) 0.000% 50.000%, var(--m-g) 50.000% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Draconic Destruction</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="Red and green"><span class="pip pip-r">R</span><span class="pip pip-g">G</span></span><span>Atarka, World Render</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Gruul: red and green</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Atarka, World Render does, and how the rest of the deck feeds it.</p>
+          <h4>Combos and synergies</h4>
+          <ul class="ph">
+            <li>A combo worth knowing, the cards it takes, and what happens when they come together.</li>
+            <li>Two cards that work better together than apart.</li>
+          </ul>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+        </div>
+      </details>
+      <details class="deck" id="first-flight" style="--spine: linear-gradient(to bottom, var(--m-w) 0.000% 50.000%, var(--m-u) 50.000% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>First Flight</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="White and blue"><span class="pip pip-w">W</span><span class="pip pip-u">U</span></span><span>Isperia, Supreme Judge</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Azorius: white and blue</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Isperia, Supreme Judge does, and how the rest of the deck feeds it.</p>
+          <h4>Combos and synergies</h4>
+          <ul class="ph">
+            <li>A combo worth knowing, the cards it takes, and what happens when they come together.</li>
+            <li>Two cards that work better together than apart.</li>
+          </ul>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+        </div>
+      </details>
+      <details class="deck" id="grave-danger" style="--spine: linear-gradient(to bottom, var(--m-u) 0.000% 50.000%, var(--m-b) 50.000% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Grave Danger</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="Blue and black"><span class="pip pip-u">U</span><span class="pip pip-b">B</span></span><span>Gisa and Geralf</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Dimir: blue and black</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Gisa and Geralf does, and how the rest of the deck feeds it.</p>
+          <h4>Combos and synergies</h4>
+          <ul class="ph">
+            <li>A combo worth knowing, the cards it takes, and what happens when they come together.</li>
+            <li>Two cards that work better together than apart.</li>
+          </ul>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+        </div>
+      </details>
+      <details class="deck" id="token-triumph" style="--spine: linear-gradient(to bottom, var(--m-w) 0.000% 50.000%, var(--m-g) 50.000% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Token Triumph</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="White and green"><span class="pip pip-w">W</span><span class="pip pip-g">G</span></span><span>Emmara, Soul of the Accord</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Selesnya: white and green</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Emmara, Soul of the Accord does, and how the rest of the deck feeds it.</p>
+          <h4>Combos and synergies</h4>
+          <ul class="ph">
+            <li>A combo worth knowing, the cards it takes, and what happens when they come together.</li>
+            <li>Two cards that work better together than apart.</li>
+          </ul>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+        </div>
+      </details>
+      </div>
+    </section>
+    <section class="set" aria-labelledby="set-sld">
+      <h2 id="set-sld"><span>Secret Lair Drop</span><span class="set-count">1 deck</span></h2>
+      <div class="decks">
+      <details class="deck" id="odds-and-ends" style="--spine: linear-gradient(to bottom, var(--m-w) 0.000% 33.333%, var(--m-u) 33.333% 66.667%, var(--m-b) 66.667% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Odds and Ends</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="White, blue and black"><span class="pip pip-w">W</span><span class="pip pip-u">U</span><span class="pip pip-b">B</span></span><span>Yennett, Cryptic Sovereign</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Esper: white, blue and black</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Yennett, Cryptic Sovereign does, and how the rest of the deck feeds it.</p>
+          <h4>Combos and synergies</h4>
+          <ul class="ph">
+            <li>A combo worth knowing, the cards it takes, and what happens when they come together.</li>
+            <li>Two cards that work better together than apart.</li>
+          </ul>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+        </div>
+      </details>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
