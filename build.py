@@ -24,11 +24,13 @@ three headings, each with its text under it:
     ## Standout mechanic
 
     Links are written [the words to show](https://the.address).
+    **Two asterisks** make bold, and *one asterisk* makes italics.
 
 Nothing else in Markdown is understood; it shows on the page as typed.
 The build stops without writing anything, and names the file, if a file
-matches no deck, has a heading it doesn't know, leaves a part out, or has
-a link it can't read.
+matches no deck, has a heading it doesn't know, leaves a part out, has
+a link it can't read, or has an asterisk that doesn't open and close
+bold or italics.
 
 Usage: python3 build.py decks.tsv index.html
 """
@@ -91,21 +93,36 @@ class DescriptionError(Exception):
     pass
 
 
+def emphasis(s, where):
+    """Turn **words** into bold and *words* into italics in already-escaped text."""
+    s = re.sub(r"\*\*(?=\S)(.+?)(?<=\S)\*\*", r"<strong>\1</strong>", s)
+    s = re.sub(r"\*(?=\S)(.+?)(?<=\S)\*", r"<em>\1</em>", s)
+    if "*" in s:
+        raise DescriptionError(
+            f"{where}: an asterisk that doesn't start and end bold (**words**) or italics (*words*)")
+    return s
+
+
 def inline(text, where):
-    """Escape a line of text for the page, turning [words](https://address) into a link."""
-    out, pos = [], 0
-    for m in LINK.finditer(text):
+    """Escape a line of text for the page, with its links, bold and italics."""
+    links = []
+
+    def set_aside(m):
         label, url = m.group(1).strip(), m.group(2)
         if not url.startswith("https://"):
             raise DescriptionError(f"{where}: a link must start with https://, and {url} doesn't")
-        out.append(e(text[pos:m.start()]))
-        out.append(f'<a href="{e(url)}">{e(label)}</a>')
-        pos = m.end()
-    out.append(e(text[pos:]))
-    rest = LINK.sub("", text)
+        links.append((label, url))
+        return f"\x00{len(links) - 1}\x00"
+
+    rest = LINK.sub(set_aside, text)
     if "](" in rest or re.search(r"\]\s+\(", rest):
         raise DescriptionError(f"{where}: a link isn't written as [words](https://address)")
-    return "".join(out)
+
+    def put_back(m):
+        label, url = links[int(m.group(1))]
+        return f'<a href="{e(url)}">{emphasis(e(label), where)}</a>'
+
+    return re.sub(r"\x00(\d+)\x00", put_back, emphasis(e(rest), where))
 
 
 def blocks_html(lines, where):
