@@ -19,12 +19,11 @@ three headings, each with its text under it:
 
     ## The commander
 
-    ...
+    - Bullets go one per line, starting with a dash.
 
-    ## Combos and synergies
+    ## Standout mechanic
 
-    - One bullet per line, starting with a dash.
-    - Links are written [the words to show](https://the.address).
+    Links are written [the words to show](https://the.address).
 
 Nothing else in Markdown is understood; it shows on the page as typed.
 The build stops without writing anything, and names the file, if a file
@@ -45,7 +44,7 @@ REAL_LINKS = {
     "Federation Fleet": "https://archidekt.com/decks/27859380/federation_fleet_star_trek_commander",
 }
 PLACEHOLDER_LINK = "https://archidekt.com/commander-precons"
-SECTIONS = ("What it wants to do", "The commander", "Combos and synergies")
+SECTIONS = ("What it wants to do", "The commander", "Standout mechanic")
 LINK = re.compile(r"\[([^\[\]]+)\]\(([^()\s]+)\)")
 
 COLOR_WORD = {"W": "white", "U": "blue", "B": "black", "R": "red", "G": "green"}
@@ -252,16 +251,14 @@ def deck_html(d, is_open, desc=None):
     cards = f'<div class="cards{" two" if len(grids) > 1 else ""}">{imgs}</div>' if imgs else ""
     if desc:
         chips = "".join(f'<span class="chip">{e(t)}</span>' for t in desc["themes"])
-        wants, about, combos = (desc["sections"][s] for s in SECTIONS)
+        wants, about, mechanic = (desc["sections"][s] for s in SECTIONS)
     else:
         chips = "".join(f'<span class="chip ph">{t}</span>' for t in ("Theme one", "Theme two", "Theme three"))
         wants = ('<p class="ph">Two or three sentences on how this deck wins and what a good turn looks like,'
                  ' written for someone who has never played it.</p>')
         about = f'<p class="ph">{cmdr_sentence}</p>'
-        combos = """<ul class="ph">
-            <li>A combo worth knowing, the cards it takes, and what happens when they come together.</li>
-            <li>Two cards that work better together than apart.</li>
-          </ul>"""
+        mechanic = ('<p class="ph">The one mechanic that sets this deck apart, what it does,'
+                    ' and the card that shows it off best.</p>')
     return f"""
       <details class="deck" id="{slug(name)}" style="--spine: {spine(ident)}"{" open" if is_open else ""}>
         <summary>
@@ -278,12 +275,12 @@ def deck_html(d, is_open, desc=None):
             <div><dt>Colors</dt><dd>{colors_line(ident)}</dd></div>
             <div><dt>Themes</dt><dd><span class="chips">{chips}</span></dd></div>
           </dl>
-          <h4>What it wants to do</h4>
+          <h4>{SECTIONS[0]}</h4>
           {wants}
-          <h4>The commander</h4>
+          <h4>{SECTIONS[1]}</h4>
           {about}
-          <h4>Combos and synergies</h4>
-          {combos}
+          <h4>{SECTIONS[2]}</h4>
+          {mechanic}
           <a class="arch" href="{href}">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
           </div>
         </div></div>
