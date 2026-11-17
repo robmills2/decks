@@ -10,4 +10,4 @@ Picard draws you a card whenever another artifact or legendary card costing 3 or
 
 ## Standout mechanic
 
-Many of the deck's characters have Seek out, a bonus for drawing your second card in a turn. Your first comes at the start of your turn, and Picard often provides the second, setting off every Seek out card you have at once. Picard has it too: his grows a creature and powers up a ship. Others make mana or damage every opponent, and [Tom Paris](https://scryfall.com/card/trc/105/tom-paris-risk-taker) gives your whole team flying and double strike (they deal their damage twice) for the turn.
+Many of the deck's characters have *Seek out*, a bonus for drawing your second card in a turn. Your first comes at the start of your turn, and Picard often provides the second, setting off every Seek out card you have at once. Picard has it too: his grows a creature and powers up a ship. Others make mana or damage every opponent, and [Tom Paris](https://scryfall.com/card/trc/105/tom-paris-risk-taker) gives your whole team flying and double strike (they deal their damage twice) for the turn.
