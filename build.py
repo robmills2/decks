@@ -1,9 +1,35 @@
 #!/usr/bin/env python3
-"""Build the precon page mockup from a TSV of decks.
+"""Build the precon page mockup from a TSV of decks and their description files.
 
 Real: deck names, commanders, colors, each commander's card image (linked
-from Scryfall, filled in by images.py), and Federation Fleet's Archidekt link.
-Placeholder: every description, and every other Archidekt link.
+from Scryfall, filled in by images.py), Federation Fleet's Archidekt link,
+and the description of every deck that has a file in descriptions/.
+Placeholder: every other description, and every other Archidekt link.
+
+A deck's description file is descriptions/<name>.md, where <name> is the
+deck's name in lower case with hyphens between the words, such as
+descriptions/federation-fleet.md. It has a Themes line, then the page's
+three headings, each with its text under it:
+
+    Themes: First theme, Second theme, Third theme
+
+    ## What it wants to do
+
+    A paragraph. A blank line starts a new one.
+
+    ## The commander
+
+    ...
+
+    ## Combos and synergies
+
+    - One bullet per line, starting with a dash.
+    - Links are written [the words to show](https://the.address).
+
+Nothing else in Markdown is understood; it shows on the page as typed.
+The build stops without writing anything, and names the file, if a file
+matches no deck, has a heading it doesn't know, leaves a part out, or has
+a link it can't read.
 
 Usage: python3 build.py decks.tsv index.html
 """
@@ -19,6 +45,8 @@ REAL_LINKS = {
     "Federation Fleet": "https://archidekt.com/decks/27859380/federation_fleet_star_trek_commander",
 }
 PLACEHOLDER_LINK = "https://archidekt.com/commander-precons"
+SECTIONS = ("What it wants to do", "The commander", "Combos and synergies")
+LINK = re.compile(r"\[([^\[\]]+)\]\(([^()\s]+)\)")
 
 COLOR_WORD = {"W": "white", "U": "blue", "B": "black", "R": "red", "G": "green"}
 GROUP_NAME = {
@@ -60,7 +88,149 @@ def slug(s):
     return re.sub(r"[^a-z0-9]+", "-", s.lower()).strip("-")
 
 
-def deck_html(d, is_open):
+class DescriptionError(Exception):
+    pass
+
+
+def inline(text, where):
+    """Escape a line of text for the page, turning [words](https://address) into a link."""
+    out, pos = [], 0
+    for m in LINK.finditer(text):
+        label, url = m.group(1).strip(), m.group(2)
+        if not url.startswith("https://"):
+            raise DescriptionError(f"{where}: a link must start with https://, and {url} doesn't")
+        out.append(e(text[pos:m.start()]))
+        out.append(f'<a href="{e(url)}">{e(label)}</a>')
+        pos = m.end()
+    out.append(e(text[pos:]))
+    rest = LINK.sub("", text)
+    if "](" in rest or re.search(r"\]\s+\(", rest):
+        raise DescriptionError(f"{where}: a link isn't written as [words](https://address)")
+    return "".join(out)
+
+
+def blocks_html(lines, where):
+    """Turn one section's lines into paragraphs and bulleted lists."""
+    out, para, items = [], [], []
+    after_blank = False
+
+    def end_para():
+        if para:
+            out.append(f"<p>{inline(' '.join(para), where)}</p>")
+            para.clear()
+
+    def end_list():
+        if items:
+            lis = "".join(f"\n            <li>{inline(' '.join(item), where)}</li>" for item in items)
+            out.append(f"<ul>{lis}\n          </ul>")
+            items.clear()
+
+    for line in lines:
+        if not line:
+            end_para()
+            after_blank = True
+            continue
+        bullet = re.match(r"[-*]\s+(.*)", line)
+        if bullet:
+            end_para()
+            items.append([bullet.group(1)])
+        elif items and not after_blank:
+            items[-1].append(line)  # a bullet that runs on to the next line
+        else:
+            end_list()
+            para.append(line)
+        after_blank = False
+    end_para()
+    end_list()
+    return "\n          ".join(out)
+
+
+def read_description(path):
+    """Read one description file: its themes, and each section as HTML."""
+    headings = {s.lower(): s for s in SECTIONS}
+    themes, lines, current = None, {}, None
+    for n, raw in enumerate(path.read_text(encoding="utf-8-sig").splitlines(), 1):
+        line = raw.strip()
+        where = f"{path}, line {n}"
+        if line.startswith("#"):
+            name = headings.get(line[3:].strip().lower()) if line.startswith("## ") else None
+            if name is None:
+                raise DescriptionError(
+                    f'{where}: "{line}" is not one of the headings '
+                    + ", ".join(f'"## {s}"' for s in SECTIONS))
+            if name in lines:
+                raise DescriptionError(f'{where}: "## {name}" is in the file twice')
+            current = name
+            lines[name] = []
+        elif current is not None:
+            lines[current].append(line)
+        elif line:
+            m = re.fullmatch(r"Themes:\s*(.*)", line)
+            if not m or themes is not None:
+                raise DescriptionError(
+                    f'{where}: before the first heading, the file can only have one line, "Themes: ..."')
+            themes = [t.strip() for t in m.group(1).split(",") if t.strip()]
+    if not themes:
+        raise DescriptionError(f'{path}: no themes. Start the file with a line like "Themes: First, Second, Third"')
+    missing = [s for s in SECTIONS if not any(lines.get(s, []))]
+    if missing:
+        raise DescriptionError(f"{path}: nothing under " + ", ".join(f'"## {s}"' for s in missing))
+    return {"themes": themes, "sections": {s: blocks_html(lines[s], f"{path}, {s}") for s in SECTIONS}}
+
+
+def load_descriptions(folder, decks):
+    """Read every description file, by deck name, checking each matches a deck."""
+    by_slug = {slug(d["name"]): d["name"] for d in decks}
+    found = {}
+    for path in sorted(folder.glob("*.md")) if folder.is_dir() else []:
+        if path.stem not in by_slug:
+            raise DescriptionError(
+                f"{path}: matches no deck in decks.tsv. The file's name must be the deck's name"
+                " in lower case with hyphens between the words, such as federation-fleet.md")
+        found[by_slug[path.stem]] = read_description(path)
+    return found
+
+
+def name_list(names):
+    names = [e(n) for n in names]
+    return names[0] if len(names) == 1 else ", ".join(names[:-1]) + " and " + names[-1]
+
+
+def mockup_note(decks, descriptions):
+    """The note at the top of the page, saying which parts are real so far."""
+    total = len(decks)
+    described = [d["name"] for d in decks if d["name"] in descriptions]
+    linked = [d["name"] for d in decks if d["name"] in REAL_LINKS]
+    if len(described) == total and len(linked) == total:
+        return ""
+    elsewhere = "Archidekt&#8217;s list of precons"
+
+    def only(names, one, many):
+        if len(names) > 3:
+            return f"{len(names)} of the {total} decks {many}"
+        return f"Only {name_list(names)} {one if len(names) == 1 else many}"
+
+    if described == linked:
+        said = (f"The descriptions are placeholder text, and every deck links to {elsewhere}." if not described else
+                only(described, "has its real description and its own Archidekt link",
+                     "have their real descriptions and their own Archidekt links")
+                + f" so far; the others show placeholder text and link to {elsewhere}.")
+    else:
+        said = " ".join([
+            "The descriptions are placeholder text." if not described else
+            "Every deck has its real description." if len(described) == total else
+            only(described, "has its real description", "have their real descriptions")
+            + " so far; the others are placeholder text.",
+            f"Every deck links to {elsewhere}." if not linked else
+            "Every deck links to its own Archidekt page." if len(linked) == total else
+            only(linked, "links to its own Archidekt page", "link to their own Archidekt pages")
+            + f"; the others go to {elsewhere}.",
+        ])
+    return ('\n      <p class="note"><strong>Mockup.</strong> Deck names, commanders, colors and card'
+            f" images are real. {said}</p>")
+
+
+def deck_html(d, is_open, desc=None):
     name, ident = d["name"], d["identity"]
     cmdrs = d["commanders"].split(" + ")
     label = words(ident)
@@ -80,6 +250,18 @@ def deck_html(d, is_open):
         for g, big, c in zip(grids, displays, cmdrs)
     )
     cards = f'<div class="cards{" two" if len(grids) > 1 else ""}">{imgs}</div>' if imgs else ""
+    if desc:
+        chips = "".join(f'<span class="chip">{e(t)}</span>' for t in desc["themes"])
+        wants, about, combos = (desc["sections"][s] for s in SECTIONS)
+    else:
+        chips = "".join(f'<span class="chip ph">{t}</span>' for t in ("Theme one", "Theme two", "Theme three"))
+        wants = ('<p class="ph">Two or three sentences on how this deck wins and what a good turn looks like,'
+                 ' written for someone who has never played it.</p>')
+        about = f'<p class="ph">{cmdr_sentence}</p>'
+        combos = """<ul class="ph">
+            <li>A combo worth knowing, the cards it takes, and what happens when they come together.</li>
+            <li>Two cards that work better together than apart.</li>
+          </ul>"""
     return f"""
       <details class="deck" id="{slug(name)}" style="--spine: {spine(ident)}"{" open" if is_open else ""}>
         <summary>
@@ -94,17 +276,14 @@ def deck_html(d, is_open):
           <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>{colors_line(ident)}</dd></div>
-            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+            <div><dt>Themes</dt><dd><span class="chips">{chips}</span></dd></div>
           </dl>
           <h4>What it wants to do</h4>
-          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          {wants}
           <h4>The commander</h4>
-          <p class="ph">{cmdr_sentence}</p>
+          {about}
           <h4>Combos and synergies</h4>
-          <ul class="ph">
-            <li>A combo worth knowing, the cards it takes, and what happens when they come together.</li>
-            <li>Two cards that work better together than apart.</li>
-          </ul>
+          {combos}
           <a class="arch" href="{href}">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
           </div>
         </div></div>
@@ -213,10 +392,13 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
 .facts dt { font-size: .75rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
 .facts dd { margin: 0; }
 .chips { display: flex; flex-wrap: wrap; gap: .375rem; }
-.chip { padding: .1rem .55rem; border: 1px dashed var(--muted); border-radius: 999px; font-size: .8125rem; font-style: italic; color: var(--muted); }
+.chip { padding: .1rem .55rem; border: 1px solid var(--line); border-radius: 999px; background: var(--bg); font-size: .8125rem; }
+.chip.ph { border: 1px dashed var(--muted); background: none; }
 .panel h4 { margin: 1.25rem 0 .25rem; font-family: var(--display); font-weight: 680; font-size: 1rem; }
 .panel p, .panel ul { margin: 0; max-width: 62ch; }
+.panel p + p, .panel p + ul, .panel ul + p { margin-top: .5rem; }
 .panel ul { display: grid; gap: .25rem; padding-left: 1.125rem; }
+.panel p a, .panel li a { color: var(--accent); text-underline-offset: .15em; }
 .ph { font-style: italic; color: var(--muted); }
 .arch {
   display: inline-flex; align-items: center; margin-top: 1.25rem; padding: .55rem .9rem;
@@ -239,14 +421,18 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
 def main(src, out):
     with open(src, newline="", encoding="utf-8") as f:
         decks = list(csv.DictReader(f, delimiter="\t"))
-    sets = [(k, list(g)) for k, g in groupby(decks, key=lambda d: (d["set_code"], d["set_name"]))]
+    try:
+        descriptions = load_descriptions(Path(src).parent / "descriptions", decks)
+    except DescriptionError as err:
+        sys.exit(f"Nothing written. {err}")
+    sets =[(k, list(g)) for k, g in groupby(decks, key=lambda d: (d["set_code"], d["set_name"]))]
     parts = []
     first = True
     for (code, set_name), group in sets:
         n = len(group)
         items = []
         for d in group:
-            items.append(deck_html(d, first))
+            items.append(deck_html(d, first, descriptions.get(d["name"])))
             first = False
         parts.append(f"""
     <section class="set" aria-labelledby="set-{code}">
@@ -269,8 +455,7 @@ def main(src, out):
   <main class="wrap">
     <header class="top">
       <h1>Rob&#8217;s Precons</h1>
-      <p class="lede">{len(decks)} Commander decks you can borrow. Tap one to see what it does.</p>
-      <p class="note"><strong>Mockup.</strong> Deck names, commanders, colors and card images are real. The descriptions are placeholder text, and only Federation Fleet links to its own Archidekt page; the others go to Archidekt&#8217;s list of precons.</p>
+      <p class="lede">{len(decks)} Commander decks you can borrow. Tap one to see what it does.</p>{mockup_note(decks, descriptions)}
     </header>{"".join(parts)}
     <footer class="foot">
       <p>Rob&#8217;s Precons is unofficial Fan Content permitted under the Fan Content Policy. Not approved/endorsed by Wizards. Portions of the materials used are property of Wizards of the Coast. &#169;Wizards of the Coast LLC.</p>
@@ -281,7 +466,8 @@ def main(src, out):
 </html>
 """
     Path(out).write_text(page, encoding="utf-8")
-    print(f"{len(decks)} decks in {len(sets)} sets -> {out} ({len(page):,} characters)")
+    print(f"{len(decks)} decks in {len(sets)} sets, {len(descriptions)} with a real description"
+          f" -> {out} ({len(page):,} characters)")
 
 
 if __name__ == "__main__":

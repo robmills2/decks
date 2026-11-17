@@ -109,10 +109,13 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
 .facts dt { font-size: .75rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
 .facts dd { margin: 0; }
 .chips { display: flex; flex-wrap: wrap; gap: .375rem; }
-.chip { padding: .1rem .55rem; border: 1px dashed var(--muted); border-radius: 999px; font-size: .8125rem; font-style: italic; color: var(--muted); }
+.chip { padding: .1rem .55rem; border: 1px solid var(--line); border-radius: 999px; background: var(--bg); font-size: .8125rem; }
+.chip.ph { border: 1px dashed var(--muted); background: none; }
 .panel h4 { margin: 1.25rem 0 .25rem; font-family: var(--display); font-weight: 680; font-size: 1rem; }
 .panel p, .panel ul { margin: 0; max-width: 62ch; }
+.panel p + p, .panel p + ul, .panel ul + p { margin-top: .5rem; }
 .panel ul { display: grid; gap: .25rem; padding-left: 1.125rem; }
+.panel p a, .panel li a { color: var(--accent); text-underline-offset: .15em; }
 .ph { font-style: italic; color: var(--muted); }
 .arch {
   display: inline-flex; align-items: center; margin-top: 1.25rem; padding: .55rem .9rem;
@@ -136,7 +139,7 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
     <header class="top">
       <h1>Rob&#8217;s Precons</h1>
       <p class="lede">57 Commander decks you can borrow. Tap one to see what it does.</p>
-      <p class="note"><strong>Mockup.</strong> Deck names, commanders, colors and card images are real. The descriptions are placeholder text, and only Federation Fleet links to its own Archidekt page; the others go to Archidekt&#8217;s list of precons.</p>
+      <p class="note"><strong>Mockup.</strong> Deck names, commanders, colors and card images are real. Only Federation Fleet has its real description and its own Archidekt link so far; the others show placeholder text and link to Archidekt&#8217;s list of precons.</p>
     </header>
     <section class="set" aria-labelledby="set-trc">
       <h2 id="set-trc"><span>Star Trek Commander</span><span class="set-count">4 decks</span></h2>
@@ -154,16 +157,16 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Jeskai: white, blue and red</dd></div>
-            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Card draw</span><span class="chip">Legendary characters</span><span class="chip">Spacecraft</span></span></dd></div>
           </dl>
           <h4>What it wants to do</h4>
-          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <p>Federation Fleet turns extra cards into a growing crew and a fleet of starships. Most of its creatures are legendary Star Trek characters, and many have Seek out: a bonus that happens whenever you draw your second card in a turn. Its Spacecraft start out as artifacts and become flying creatures once they collect enough charge counters, which you add by tapping your other creatures. Early turns go to mana-making artifacts. Once Picard arrives, the deck draws steadily, builds its board and usually wins by attacking in the air.</p>
           <h4>The commander</h4>
-          <p class="ph">What Jean-Luc Picard, Luminary does, and how the rest of the deck feeds it.</p>
+          <p>Jean-Luc Picard draws a card whenever another artifact or legendary card costing 3 or more mana enters under your control, and more than 30 cards in the deck qualify. That draw is often your second of the turn, so it sets off every Seek out card you have, including Picard&#x27;s own, which puts a +1/+1 counter on another creature and two charge counters on a Spacecraft. For a more aggressive game, Captain Janeway, also in the deck, can be the commander instead.</p>
           <h4>Combos and synergies</h4>
-          <ul class="ph">
-            <li>A combo worth knowing, the cards it takes, and what happens when they come together.</li>
-            <li>Two cards that work better together than apart.</li>
+          <ul>
+            <li><a href="https://scryfall.com/card/trc/3/jean-luc-picard-luminary">Jean-Luc Picard</a> and <a href="https://scryfall.com/card/trc/105/tom-paris-risk-taker">Tom Paris</a>. With Picard out, casting Tom draws a card. If that&#x27;s your second of the turn, Tom&#x27;s Seek out goes off at once: until the turn ends, all your creatures fly, can attack right away and deal their combat damage twice. It takes six mana with Picard already out, and Tom is one card in 99, so expect it in about one game in six or seven.</li>
+            <li>Otherwise the deck has no single winning combination: extra draws set off Seek out, which grows your creatures and charges your ships.</li>
           </ul>
           <a class="arch" href="https://archidekt.com/decks/27859380/federation_fleet_star_trek_commander">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
           </div>
@@ -182,7 +185,7 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Mardu: white, black and red</dd></div>
-            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
           </dl>
           <h4>What it wants to do</h4>
           <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
@@ -210,7 +213,7 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Bant: white, blue and green</dd></div>
-            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
           </dl>
           <h4>What it wants to do</h4>
           <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
@@ -238,7 +241,7 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Esper: white, blue and black</dd></div>
-            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
           </dl>
           <h4>What it wants to do</h4>
           <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
@@ -271,7 +274,7 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Four colors: white, blue, black and red</dd></div>
-            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
           </dl>
           <h4>What it wants to do</h4>
           <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
@@ -304,7 +307,7 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Jeskai: white, blue and red</dd></div>
-            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
           </dl>
           <h4>What it wants to do</h4>
           <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
@@ -332,7 +335,7 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Grixis: blue, black and red</dd></div>
-            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
           </dl>
           <h4>What it wants to do</h4>
           <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
@@ -360,7 +363,7 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Four colors: white, blue, red and green</dd></div>
-            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
           </dl>
           <h4>What it wants to do</h4>
           <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
@@ -388,7 +391,7 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Selesnya: white and green</dd></div>
-            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
           </dl>
           <h4>What it wants to do</h4>
           <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
@@ -421,7 +424,7 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Boros: white and red</dd></div>
-            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
           </dl>
           <h4>What it wants to do</h4>
           <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
@@ -449,7 +452,7 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Izzet: blue and red</dd></div>
-            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
           </dl>
           <h4>What it wants to do</h4>
           <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
@@ -477,7 +480,7 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Simic: blue and green</dd></div>
-            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
           </dl>
           <h4>What it wants to do</h4>
           <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
@@ -505,7 +508,7 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Orzhov: white and black</dd></div>
-            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
           </dl>
           <h4>What it wants to do</h4>
           <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
@@ -538,7 +541,7 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>All five colors</dd></div>
-            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
           </dl>
           <h4>What it wants to do</h4>
           <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
@@ -571,7 +574,7 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>All five colors</dd></div>
-            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
           </dl>
           <h4>What it wants to do</h4>
           <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
@@ -604,7 +607,7 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Jeskai: white, blue and red</dd></div>
-            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
           </dl>
           <h4>What it wants to do</h4>
           <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
@@ -637,7 +640,7 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Abzan: white, black and green</dd></div>
-            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
           </dl>
           <h4>What it wants to do</h4>
           <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
@@ -665,7 +668,7 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Mardu: white, black and red</dd></div>
-            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
           </dl>
           <h4>What it wants to do</h4>
           <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
@@ -693,7 +696,7 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Sultai: blue, black and green</dd></div>
-            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
           </dl>
           <h4>What it wants to do</h4>
           <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
@@ -721,7 +724,7 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Temur: blue, red and green</dd></div>
-            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
           </dl>
           <h4>What it wants to do</h4>
           <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
@@ -754,7 +757,7 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Esper: white, blue and black</dd></div>
-            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
           </dl>
           <h4>What it wants to do</h4>
           <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
@@ -782,7 +785,7 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Temur: blue, red and green</dd></div>
-            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
           </dl>
           <h4>What it wants to do</h4>
           <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
@@ -815,7 +818,7 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Mono-white</dd></div>
-            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
           </dl>
           <h4>What it wants to do</h4>
           <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
@@ -843,7 +846,7 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Mono-blue</dd></div>
-            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
           </dl>
           <h4>What it wants to do</h4>
           <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
@@ -871,7 +874,7 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Mono-red</dd></div>
-            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
           </dl>
           <h4>What it wants to do</h4>
           <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
@@ -899,7 +902,7 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Mono-green</dd></div>
-            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
           </dl>
           <h4>What it wants to do</h4>
           <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
@@ -927,7 +930,7 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Mono-black</dd></div>
-            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
           </dl>
           <h4>What it wants to do</h4>
           <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
@@ -960,7 +963,7 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Golgari: black and green</dd></div>
-            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
           </dl>
           <h4>What it wants to do</h4>
           <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
@@ -988,7 +991,7 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Rakdos: black and red</dd></div>
-            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
           </dl>
           <h4>What it wants to do</h4>
           <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
@@ -1016,7 +1019,7 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Simic: blue and green</dd></div>
-            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
           </dl>
           <h4>What it wants to do</h4>
           <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
@@ -1044,7 +1047,7 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Esper: white, blue and black</dd></div>
-            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
           </dl>
           <h4>What it wants to do</h4>
           <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
@@ -1077,7 +1080,7 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Gruul: red and green</dd></div>
-            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
           </dl>
           <h4>What it wants to do</h4>
           <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
@@ -1105,7 +1108,7 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Jeskai: white, blue and red</dd></div>
-            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
           </dl>
           <h4>What it wants to do</h4>
           <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
@@ -1133,7 +1136,7 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Bant: white, blue and green</dd></div>
-            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
           </dl>
           <h4>What it wants to do</h4>
           <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
@@ -1166,7 +1169,7 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Jeskai: white, blue and red</dd></div>
-            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
           </dl>
           <h4>What it wants to do</h4>
           <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
@@ -1194,7 +1197,7 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>All five colors</dd></div>
-            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
           </dl>
           <h4>What it wants to do</h4>
           <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
@@ -1222,7 +1225,7 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Jund: black, red and green</dd></div>
-            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
           </dl>
           <h4>What it wants to do</h4>
           <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
@@ -1250,7 +1253,7 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Simic: blue and green</dd></div>
-            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
           </dl>
           <h4>What it wants to do</h4>
           <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
@@ -1283,7 +1286,7 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Mardu: white, black and red</dd></div>
-            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
           </dl>
           <h4>What it wants to do</h4>
           <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
@@ -1316,7 +1319,7 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Boros: white and red</dd></div>
-            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
           </dl>
           <h4>What it wants to do</h4>
           <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
@@ -1344,7 +1347,7 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Naya: white, red and green</dd></div>
-            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
           </dl>
           <h4>What it wants to do</h4>
           <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
@@ -1372,7 +1375,7 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Bant: white, blue and green</dd></div>
-            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
           </dl>
           <h4>What it wants to do</h4>
           <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
@@ -1400,7 +1403,7 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Dimir: blue and black</dd></div>
-            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
           </dl>
           <h4>What it wants to do</h4>
           <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
@@ -1433,7 +1436,7 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Grixis: blue, black and red</dd></div>
-            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
           </dl>
           <h4>What it wants to do</h4>
           <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
@@ -1461,7 +1464,7 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Orzhov: white and black</dd></div>
-            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
           </dl>
           <h4>What it wants to do</h4>
           <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
@@ -1489,7 +1492,7 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Simic: blue and green</dd></div>
-            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
           </dl>
           <h4>What it wants to do</h4>
           <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
@@ -1517,7 +1520,7 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Naya: white, red and green</dd></div>
-            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
           </dl>
           <h4>What it wants to do</h4>
           <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
@@ -1550,7 +1553,7 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Simic: blue and green</dd></div>
-            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
           </dl>
           <h4>What it wants to do</h4>
           <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
@@ -1578,7 +1581,7 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Abzan: white, black and green</dd></div>
-            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
           </dl>
           <h4>What it wants to do</h4>
           <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
@@ -1606,7 +1609,7 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Jeskai: white, blue and red</dd></div>
-            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
           </dl>
           <h4>What it wants to do</h4>
           <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
@@ -1634,7 +1637,7 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Grixis: blue, black and red</dd></div>
-            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
           </dl>
           <h4>What it wants to do</h4>
           <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
@@ -1667,7 +1670,7 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Rakdos: black and red</dd></div>
-            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
           </dl>
           <h4>What it wants to do</h4>
           <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
@@ -1695,7 +1698,7 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Gruul: red and green</dd></div>
-            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
           </dl>
           <h4>What it wants to do</h4>
           <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
@@ -1723,7 +1726,7 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Azorius: white and blue</dd></div>
-            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
           </dl>
           <h4>What it wants to do</h4>
           <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
@@ -1751,7 +1754,7 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Dimir: blue and black</dd></div>
-            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
           </dl>
           <h4>What it wants to do</h4>
           <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
@@ -1779,7 +1782,7 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Selesnya: white and green</dd></div>
-            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
           </dl>
           <h4>What it wants to do</h4>
           <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
@@ -1812,7 +1815,7 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
           <div class="text">
           <dl class="facts">
             <div><dt>Colors</dt><dd>Esper: white, blue and black</dd></div>
-            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Theme one</span><span class="chip">Theme two</span><span class="chip">Theme three</span></span></dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
           </dl>
           <h4>What it wants to do</h4>
           <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
