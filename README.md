@@ -11,4 +11,4 @@ One page listing the Commander precons Rob lends out. Tap a deck to see what it 
 
 GitHub doesn't run `build.py`. After changing `decks.tsv` or a description, run it and commit the new `index.html`; until then the page stays as it was.
 
-This is still a mockup: only the decks with a file in `descriptions/` have real descriptions, and the others show placeholder text. Only Federation Fleet links to its own Archidekt page.
+This is still a mockup: only the decks with a file in `descriptions/` have real descriptions, and the others show placeholder text. The decks listed in `REAL_LINKS` near the top of `build.py` link to their own Archidekt pages; the others go to Archidekt's list of precons.

@@ -2,8 +2,8 @@
 """Build the precon page mockup from a TSV of decks and their description files.
 
 Real: deck names, commanders, colors, each commander's card image (linked
-from Scryfall, filled in by images.py), Federation Fleet's Archidekt link,
-and the description of every deck that has a file in descriptions/.
+from Scryfall, filled in by images.py), the Archidekt links in REAL_LINKS
+below, and the description of every deck that has a file in descriptions/.
 Placeholder: every other description, and every other Archidekt link.
 
 A deck's description file is descriptions/<name>.md, where <name> is the
@@ -44,6 +44,7 @@ from pathlib import Path
 
 REAL_LINKS = {
     "Federation Fleet": "https://archidekt.com/decks/27859380/federation_fleet_star_trek_commander",
+    "Klingon Fury": "https://archidekt.com/decks/27883780/klingon_fury_star_trek_commander",
 }
 PLACEHOLDER_LINK = "https://archidekt.com/commander-precons"
 SECTIONS = ("What it wants to do", "The commander", "Standout mechanic")
