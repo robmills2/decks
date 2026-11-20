@@ -46,6 +46,7 @@ REAL_LINKS = {
     "Federation Fleet": "https://archidekt.com/decks/27859380/federation_fleet_star_trek_commander",
     "Klingon Fury": "https://archidekt.com/decks/27883780/klingon_fury_star_trek_commander",
     "Landing Party": "https://archidekt.com/decks/28009052/landing_party_star_trek_commander",
+    "We Are the Borg": "https://archidekt.com/decks/27814567/we_are_the_borg_star_trek_commander",
 }
 PLACEHOLDER_LINK = "https://archidekt.com/commander-precons"
 SECTIONS = ("What it wants to do", "The commander", "Standout mechanic")
