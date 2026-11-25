@@ -93,6 +93,11 @@ GROUP_NAME = {
 #     ## What beats it
 #     ...
 #
+# A deck with a sideboard in the Cards app (the sideboard column of
+# decks/decks.tsv) also has a "## Sideboard" section, last, saying which cards
+# to swap in and why; a deck without one has no such section. The build
+# checks both ways.
+#
 # A deck with no file shows placeholder text. The build stops without writing
 # anything, and names the file, on the same mistakes as on the precon page.
 # A link to the page that ends in a deck's name, such as #splinter-group,
@@ -100,6 +105,7 @@ GROUP_NAME = {
 DECK_SECTIONS = ("What it wants to do", "The commander", "Opening hand", "Key cards", "How it wins",
                  "What beats it")
 DECK_FIELDS = ("Themes", "Difficulty")
+SIDEBOARD = "Sideboard"
 BRACKET_NAME = {"1": "Exhibition", "2": "Core", "3": "Upgraded", "4": "Optimized", "5": "cEDH"}
 NO_BRACKET = "No bracket set yet"
 ARCHIDEKT = "https://archidekt.com/decks/"
@@ -209,12 +215,14 @@ def blocks_html(lines, where):
     return "\n          ".join(out)
 
 
-def read_description(path, sections=SECTIONS, fields=("Themes",)):
+def read_description(path, sections=SECTIONS, fields=("Themes",), optional=()):
     """Read one description file: the lines before its first heading, and each section as HTML.
 
     fields names the lines allowed before the first heading, Themes first; every one is needed.
+    sections are the headings every file needs; optional ones may be left out.
     """
-    headings = {s.lower(): s for s in sections}
+    allowed = tuple(sections) + tuple(optional)
+    headings = {s.lower(): s for s in allowed}
     found, lines, current = {}, {}, None
     for n, raw in enumerate(path.read_text(encoding="utf-8-sig").splitlines(), 1):
         line = raw.strip()
@@ -224,7 +232,7 @@ def read_description(path, sections=SECTIONS, fields=("Themes",)):
             if name is None:
                 raise DescriptionError(
                     f'{where}: "{line}" is not one of the headings '
-                    + ", ".join(f'"## {s}"' for s in sections))
+                    + ", ".join(f'"## {s}"' for s in allowed))
             if name in lines:
                 raise DescriptionError(f'{where}: "## {name}" is in the file twice')
             current = name
@@ -246,15 +254,15 @@ def read_description(path, sections=SECTIONS, fields=("Themes",)):
     for field in fields[1:]:
         if not found.get(field):
             raise DescriptionError(f'{path}: no "{field}: ..." line before the first heading')
-    missing = [s for s in sections if not any(lines.get(s, []))]
+    missing = [s for s in allowed if (s in sections or s in lines) and not any(lines.get(s, []))]
     if missing:
         raise DescriptionError(f"{path}: nothing under " + ", ".join(f'"## {s}"' for s in missing))
     return {"themes": themes, "fields": found,
-            "sections": {s: blocks_html(lines[s], f"{path}, {s}") for s in sections}}
+            "sections": {s: blocks_html(lines[s], f"{path}, {s}") for s in allowed if s in lines}}
 
 
 def load_descriptions(folder, decks, sections=SECTIONS, fields=("Themes",),
-                      tsv="decks.tsv", example="federation-fleet.md"):
+                      tsv="decks.tsv", example="federation-fleet.md", optional=()):
     """Read every description file, by deck name, checking each matches a deck."""
     by_slug = {slug(d["name"]): d["name"] for d in decks}
     found = {}
@@ -263,7 +271,7 @@ def load_descriptions(folder, decks, sections=SECTIONS, fields=("Themes",),
             raise DescriptionError(
                 f"{path}: matches no deck in {tsv}. The file's name must be the deck's name"
                 f" in lower case with hyphens between the words, such as {example}")
-        found[by_slug[path.stem]] = read_description(path, sections, fields)
+        found[by_slug[path.stem]] = read_description(path, sections, fields, optional)
     return found
 
 
@@ -630,7 +638,12 @@ def own_deck_html(d, is_open, desc=None):
         chips = "".join(f'<span class="chip ph">{t}</span>' for t in ("Theme one", "Theme two", "Theme three"))
         difficulty = '<span class="ph">Easy, medium or hard</span>'
         sections = deck_placeholders(cmdrs)
-    body = "".join(f"\n          <h4>{s}</h4>\n          {sections[s]}" for s in DECK_SECTIONS)
+    if d.get("sideboard", "").strip():
+        sections = dict(sections)
+        sections.setdefault(SIDEBOARD, '<p class="ph">Which sideboard cards to swap in, and what changes'
+                                       ' when you do.</p>')
+    body = "".join(f"\n          <h4>{s}</h4>\n          {sections[s]}"
+                   for s in DECK_SECTIONS + (SIDEBOARD,) if s in sections)
     arrow = '<span aria-hidden="true">&nbsp;&#8599;</span>'
     return f"""
       <details class="deck" id="{slug(name)}" style="--spine: {spine(ident)}"{" open" if is_open else ""}>
@@ -684,9 +697,21 @@ def own_decks_note(decks, descriptions):
 def own_decks_page(src, out, decks):
     try:
         descriptions = load_descriptions(Path(src).parent / "descriptions", decks, DECK_SECTIONS, DECK_FIELDS,
-                                         tsv=src, example="splinter-group.md")
+                                         tsv=src, example="splinter-group.md", optional=(SIDEBOARD,))
     except DescriptionError as err:
         sys.exit(f"Nothing written. {err}")
+    for d in decks:
+        desc = descriptions.get(d["name"])
+        if not desc:
+            continue
+        where = Path(src).parent / "descriptions" / f"{slug(d['name'])}.md"
+        cards = d.get("sideboard", "").strip()
+        if SIDEBOARD in desc["sections"] and not cards:
+            sys.exit(f'Nothing written. {where} has a "## Sideboard" section, but {src} lists no sideboard'
+                     f" for {d['name']}. Only a deck with a sideboard has that section.")
+        if cards and SIDEBOARD not in desc["sections"]:
+            sys.exit(f"Nothing written. {d['name']} has a sideboard ({cards}), so {where} needs a"
+                     ' "## Sideboard" section, last.')
     groups, slugs = {}, {}
     for d in decks:
         bracket = d["bracket"].strip()
