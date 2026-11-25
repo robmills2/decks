@@ -3,11 +3,11 @@ Difficulty: Medium
 
 ## What it wants to do
 
-Every time you gain life, an opponent loses the same amount. The deck gains life in small, steady ways: lifelink creatures, a mana rock that gains 1 when it taps, and creatures that drain whenever something dies. Vito turns each gain into damage, so the table bleeds every turn. With the right enchantment or creature, one small gain becomes a loop that ends the game.
+It's death by a thousand cuts. The deck slowly drains life from the table, and Vito (and some of his friends) turn lifegain into damage. With the right combo in place, one small gain becomes a loop that ends the game. Or drop a bomb and kill a player in a single turn. 
 
 ## The commander
 
-[Vito, Thorn of the Dusk Rose](https://scryfall.com/card/sld/2282/vito-thorn-of-the-dusk-rose) costs three, so cast him on turn three. Each time you gain life, he makes an opponent of your choice lose that much, so you can spread the damage or focus one player. For five mana he gives your creatures lifelink for the turn, so each hit lands again on an opponent you pick. Protect him with [Swiftfoot Boots](https://scryfall.com/card/fdc/291/swiftfoot-boots).
+[Vito, Thorn of the Dusk Rose](https://scryfall.com/card/sld/2282/vito-thorn-of-the-dusk-rose) is low-cost, but fragile. Each time you gain life, he makes an opponent of your choice lose that much, so you can spread the damage or focus one player. For five mana he gives your creatures lifelink for the turn, feeding his ping effect. Protect him with [Swiftfoot Boots](https://scryfall.com/card/fdc/291/swiftfoot-boots).
 
 ## Opening hand
 
@@ -27,9 +27,9 @@ Every time you gain life, an opponent loses the same amount. The deck gains life
 
 Usually slowly: your drains hit everyone each turn, Vito adds a second hit to each, and Exsanguinate or Torment of Hailfire finishes whoever is left.
 
-The fast way: with Vito and Exquisite Blood or Bloodthirsty Conqueror out, any life gain starts a loop. An opponent loses 1, you gain 1, and so on until every opponent is at 0. It runs until the game ends unless someone removes a piece. Both pieces cost five, so it rarely happens before turn five or six.
+The fast way: with Vito and Exquisite Blood or Bloodthirsty Conqueror out, any life gain starts a loop. An opponent loses 1, you gain 1, and so on until every opponent is at 0. It runs until the game ends unless someone removes a piece. Both combo pieces cost five, so it rarely happens before turn five or six.
 
-[Blood Tribute](https://scryfall.com/card/zen/81/blood-tribute) kills one player: tap Vito to kick it, and they lose half their life, you gain it, and Vito takes the rest.
+[Blood Tribute](https://scryfall.com/card/zen/81/blood-tribute) kills one player: tap Vito to kick it, and they lose half their life, you gain it, and Vito takes care of the rest.
 
 ## What beats it
 
@@ -37,11 +37,11 @@ The fast way: with Vito and Exquisite Blood or Bloodthirsty Conqueror out, any l
 - Instant-speed removal can break the loop while it runs. [Imp's Mischief](https://scryfall.com/card/cmm/167/imps-mischief) can redirect one removal spell.
 - Enchantment removal hits Exquisite Blood, Sanguine Bond and Whip of Erebos.
 - With only two board wipes, a wide army can get ahead of you. [No Mercy](https://scryfall.com/card/dmr/427/no-mercy) makes attacking you costly.
-- Once the table knows about the loop, expect Vito to die first.
+- Once the table knows about the loop, expect Vito to die on sight.
 
 ## Sideboard
 
-For a Bracket 2 table, take out Exquisite Blood, Bloodthirsty Conqueror and Blood Tribute, and put in [Pontiff of Blight](https://scryfall.com/card/clb/768/pontiff-of-blight), [Vein Ripper](https://scryfall.com/card/mkm/110/vein-ripper) and [Grave Venerations](https://scryfall.com/card/ecc/9/grave-venerations). That removes the loop and the Blood Tribute kill.
+For a Bracket 2 table, take out Exquisite Blood, Bloodthirsty Conqueror and Blood Tribute, and put in [Pontiff of Blight](https://scryfall.com/card/clb/768/pontiff-of-blight), [Vein Ripper](https://scryfall.com/card/mkm/110/vein-ripper) and [Grave Venerations](https://scryfall.com/card/ecc/9/grave-venerations). That removes the loop and OTK.
 
 - Pontiff gives all your creatures extort, so each spell you cast lets you pay extra black mana to drain everyone a little more.
 - Vein Ripper drains an opponent for 2 whenever any creature dies.
