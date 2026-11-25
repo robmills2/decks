@@ -7,7 +7,7 @@ No deck at the table is more generous, and every gift has a price. Everyone gets
 
 ## The commander
 
-[Sheoldred, the Apocalypse](https://scryfall.com/card/dmu/369/sheoldred-the-apocalypse) is a 4/5 with deathtouch that nobody wants to fight, but her real damage is quieter. Whenever you draw a card, you gain 2 life, and whenever an opponent draws one, they lose 2. She's the engine, so she draws removal like a magnet. [Swiftfoot Boots](https://scryfall.com/card/fdn/258/swiftfoot-boots) gives her hexproof, and [Malakir Rebirth](https://scryfall.com/card/znr/111/malakir-rebirth-malakir-mire) can save her from a kill spell.
+[Sheoldred, the Apocalypse](https://scryfall.com/card/dmu/107/sheoldred-the-apocalypse) is a 4/5 with deathtouch that nobody wants to fight, but her real damage is quieter. Whenever you draw a card, you gain 2 life, and whenever an opponent draws one, they lose 2. She's the engine, so she draws removal like a magnet. [Swiftfoot Boots](https://scryfall.com/card/fdn/258/swiftfoot-boots) gives her hexproof, and [Malakir Rebirth](https://scryfall.com/card/znr/111/malakir-rebirth-malakir-mire) can save her from a kill spell.
 
 ## Opening hand
 
