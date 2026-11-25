@@ -3,7 +3,7 @@ Difficulty: Medium
 
 ## What it wants to do
 
-It's death by a thousand cuts. The deck slowly drains life from the table, and Vito (and some of his friends) turn lifegain into damage. With the right combo in place, one small gain becomes a loop that ends the game. Or drop a bomb and kill a player in a single turn. 
+It's death by a thousand cuts. The deck slowly drains life from the table, and Vito (and some of his friends) turns lifegain into damage. With the right combo in place, one small gain becomes a loop that ends the game. Or drop a bomb and kill a player in a single turn.
 
 ## The commander
 
@@ -27,7 +27,7 @@ It's death by a thousand cuts. The deck slowly drains life from the table, and V
 
 Usually slowly: your drains hit everyone each turn, Vito adds a second hit to each, and Exsanguinate or Torment of Hailfire finishes whoever is left.
 
-The fast way: with Vito and Exquisite Blood or Bloodthirsty Conqueror out, any life gain starts a loop. An opponent loses 1, you gain 1, and so on until every opponent is at 0. It runs until the game ends unless someone removes a piece. Both combo pieces cost five, so it rarely happens before turn five or six.
+The fast way: with Vito and Exquisite Blood or Bloodthirsty Conqueror out, any lifegain starts a loop. An opponent loses 1, you gain 1, and so on until every opponent is at 0. It runs until the game ends unless someone removes a piece. Both combo pieces cost five, so it rarely happens before turn five or six.
 
 [Blood Tribute](https://scryfall.com/card/zen/81/blood-tribute) kills one player: tap Vito to kick it, and they lose half their life, you gain it, and Vito takes care of the rest.
 
@@ -41,7 +41,7 @@ The fast way: with Vito and Exquisite Blood or Bloodthirsty Conqueror out, any l
 
 ## Sideboard
 
-For a Bracket 2 table, take out Exquisite Blood, Bloodthirsty Conqueror and Blood Tribute, and put in [Pontiff of Blight](https://scryfall.com/card/clb/768/pontiff-of-blight), [Vein Ripper](https://scryfall.com/card/mkm/110/vein-ripper) and [Grave Venerations](https://scryfall.com/card/ecc/9/grave-venerations). That removes the loop and OTK.
+For a Bracket 2 table, take out Exquisite Blood, Bloodthirsty Conqueror and Blood Tribute, and put in [Pontiff of Blight](https://scryfall.com/card/clb/768/pontiff-of-blight), [Vein Ripper](https://scryfall.com/card/mkm/110/vein-ripper) and [Grave Venerations](https://scryfall.com/card/ecc/9/grave-venerations). That removes the loop and the OTK.
 
 - Pontiff gives all your creatures extort, so each spell you cast lets you pay extra black mana to drain everyone a little more.
 - Vein Ripper drains an opponent for 2 whenever any creature dies.
