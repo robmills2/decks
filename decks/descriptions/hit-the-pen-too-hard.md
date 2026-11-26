@@ -3,7 +3,7 @@ Difficulty: Hard
 
 ## What it wants to do
 
-Your opponents' creatures don't stay dead here. They switch sides. The deck spreads -1/-1 counters around the table, shrinking creatures until they die, and once a turn the Reaper claims one of the dead for you. Counters can also make tokens or drain life, and with the right three cards out, one counter starts a chain reaction that drains the whole table.
+Sometimes dead is better. The deck spreads -1/-1 counters around the table, shrinking creatures until they die, and once a turn the Reaper claims one of the dead for you. Counters can also make tokens or drain life, and with the right three cards out, one counter starts a chain reaction that drains the whole table.
 
 ## The commander
 
