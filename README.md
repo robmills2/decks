@@ -32,7 +32,7 @@ A link to the page that ends in a deck's name opens that deck, such as https://r
 
 ### Refreshing the deck list
 
-The list is every deck in the Cards app that isn't a precon, a container or dismantled. In a Brewing chat, run this with run_query and write its rows into `decks/decks.tsv`, keeping each deck's bracket from the file as it was. Then run `images.py` and `build.py` as above:
+The list is every deck in the Cards app that isn't a precon, a container or dismantled. In a Brewing chat, run this with run_query and write its rows into `decks/decks.tsv`, keeping each deck's bracket from the file as it was, and the commander printings listed after the query. Then run `images.py` and `build.py` as above:
 
 ```sql
 WITH d AS (
@@ -58,5 +58,9 @@ FROM d LEFT JOIN c ON c.deck_id = d.id
 GROUP BY d.id, d.name, d.archidekt_id
 ORDER BY lower(d.name)
 ```
+
+Keep these commander printings when you refresh. The page shows them in place of the printing the Cards app has, so the card on the page is readable:
+
+- PLNH: `dmu 107`, the English Sheoldred, the Apocalypse. The Cards app has the Phyrexian-language printing, `dmu 369`.
 
 This page is still a mockup too: only the decks with a file in `decks/descriptions/` have real explanations so far.
