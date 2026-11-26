@@ -584,7 +584,18 @@ DECKS_CSS = """
 .deck { scroll-margin-top: 3.5rem; }
 .links { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1.25rem; }
 .links .arch { margin-top: 0; }
+.nw { white-space: nowrap; }
 """
+
+# Browsers will break a line after the hyphen in -1/-1, leaving "-1/-" at the end of a line, so the
+# explanations keep counters like -1/-1 and +1/+1 together.
+SIGNED_PT = re.compile(r"[+-]\d+/[+-]\d+")
+
+
+def keep_together(section_html):
+    parts = re.split(r"(<[^>]+>)", section_html)
+    return "".join(p if p.startswith("<") else SIGNED_PT.sub(r'<span class="nw">\g<0></span>', p)
+                   for p in parts)
 
 OPEN_FROM_ADDRESS = """
   <script>
@@ -633,7 +644,7 @@ def own_deck_html(d, is_open, desc=None):
     if desc:
         chips = "".join(f'<span class="chip">{e(t)}</span>' for t in desc["themes"])
         difficulty = e(desc["fields"]["Difficulty"])
-        sections = desc["sections"]
+        sections = {s: keep_together(h) for s, h in desc["sections"].items()}
     else:
         chips = "".join(f'<span class="chip ph">{t}</span>' for t in ("Theme one", "Theme two", "Theme three"))
         difficulty = '<span class="ph">Easy, medium or hard</span>'
