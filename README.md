@@ -1,10 +1,10 @@
-# Rob's Commander Decks
+# REM's Commander Decks
 
-Three pages of Rob's Commander decks, which GitHub Pages publishes from this repository's main branch:
+Three pages of Commander decks, which GitHub Pages publishes from this repository's main branch:
 
-- **The top page**, at https://robmills2.github.io/decks/, links to the other two.
-- **Rob's Precons**, at https://robmills2.github.io/decks/precons/, lists the Commander precons Rob lends out. Tap a deck to see what it does.
-- **Rob's Decks**, at https://robmills2.github.io/decks/constructed/, lists the decks Rob built himself, grouped by bracket. Tap a deck to see how it plays.
+- **REM's Commander Decks**, the top page at https://robmills2.github.io/decks/, links to the other two.
+- **Precon Decks**, at https://robmills2.github.io/decks/precons/, lists the Commander precons Rob lends out. Tap a deck to see what it does.
+- **Constructed Decks**, at https://robmills2.github.io/decks/constructed/, lists the decks Rob built himself, grouped by bracket. Tap a deck to see how it plays.
 
 `build.py` makes all three pages, so they share one look. GitHub doesn't run it: after changing a deck list or a description, run it and commit the new page; until then the page stays as it was. If you change `build.py`, rebuild all three pages and check them.
 
@@ -13,7 +13,7 @@ Until November 2026 this repository was called `precons`, and the pages were at 
 ## The top page
 
 - `index.html` is the page.
-- `python3 build.py --home index.html` makes it. Its two links and their wording are `HOME_LINKS` in `build.py`. It reads no deck list, so it needs rebuilding only when `build.py` changes.
+- `python3 build.py --home index.html` makes it. Its two links and their wording are `HOME_LINKS` in `build.py`. The site's name, REM's Commander Decks, is `SITE` there: it's the top page's title and the name in every page's footer. It reads no deck list, so it needs rebuilding only when `build.py` changes.
 
 ## The precon page
 
@@ -24,9 +24,9 @@ Until November 2026 this repository was called `precons`, and the pages were at 
 - `build.py` makes `precons/index.html` from `precons/decks.tsv` and `precons/descriptions/`: `python3 build.py precons/decks.tsv precons/index.html`. It stops without writing anything, and names the file, if a description file matches no deck or isn't in the format above.
 - `.nojekyll`, at the top of the repository, tells GitHub Pages to show the files as they are.
 
-This is still a mockup: only the decks with a file in `precons/descriptions/` have real descriptions, and the others show placeholder text. The decks listed in `REAL_LINKS` near the top of `build.py` link to their own Archidekt pages; the others go to Archidekt's list of precons.
+Only the decks with a file in `precons/descriptions/` have real descriptions; the others show placeholder text. The decks listed in `REAL_LINKS` near the top of `build.py` link to their own Archidekt pages; the others go to Archidekt's list of precons.
 
-## Rob's Decks
+## Constructed Decks
 
 - `constructed/index.html` is the page.
 - `constructed/decks.tsv` lists the decks: name, bracket (1 to 5, or empty if none is set yet), Archidekt number, commanders, colors, each commander's printing (set and collector number), the deck's sideboard (the cards the Cards app marks as sideboard, joined by ` + `) and the commanders' card image addresses. The list comes from the Cards app (the query is below). A deck's bracket is settled when its explanation is written, and Rob sets the same one on Archidekt.
@@ -71,4 +71,4 @@ Keep these commander printings when you refresh. The page shows them in place of
 
 - PLNH: `dmu 107`, the English Sheoldred, the Apocalypse. The Cards app has the Phyrexian-language printing, `dmu 369`.
 
-This page is still a mockup too: only the decks with a file in `constructed/descriptions/` have real explanations so far.
+Only the decks with a file in `constructed/descriptions/` have real explanations so far; the others show placeholder text.

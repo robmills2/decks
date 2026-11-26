@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Rob&#8217;s Decks</title>
+<title>Constructed Decks</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&amp;family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&amp;display=swap">
@@ -57,8 +57,8 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
   font-size: clamp(2.5rem, 1.75rem + 3.5vw, 3.75rem); line-height: .95; letter-spacing: -0.025em; text-wrap: balance;
 }
 .lede { margin: .75rem 0 0; max-width: 34ch; font-size: 1.125rem; color: var(--muted); text-wrap: pretty; }
-.note { margin: 1.5rem 0 0; max-width: 60ch; padding: .75rem 1rem; border: 1px dashed var(--muted); border-radius: 10px; font-size: .875rem; color: var(--muted); }
-.note strong { color: var(--ink); }
+.also { margin: .5rem 0 0; color: var(--muted); }
+.also a { color: var(--accent); text-underline-offset: .15em; }
 .set { margin-top: 2.25rem; }
 .set h2 {
   position: sticky; top: 0; z-index: 2; display: flex; justify-content: space-between; align-items: baseline; gap: 1rem;
@@ -133,8 +133,6 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
   .chev { transition: none; }
 }
 
-.also { margin: .5rem 0 0; color: var(--muted); }
-.also a { color: var(--accent); text-underline-offset: .15em; }
 .deck { scroll-margin-top: 3.5rem; }
 .links { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1.25rem; }
 .links .arch { margin-top: 0; }
@@ -144,10 +142,9 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
 <body>
   <main class="wrap">
     <header class="top">
-      <h1>Rob&#8217;s Decks</h1>
-      <p class="lede">25 Commander decks Rob built, grouped by bracket. Tap one to see how it plays.</p>
-      <p class="also">Looking for a precon? <a href="../precons/">See Rob&#8217;s Precons</a>.</p>
-      <p class="note"><strong>Mockup.</strong> Deck names, commanders, colors, card images and both links are real. 8 of the 25 decks have their real explanations so far; the others are placeholder text. 9 of the 25 decks have their brackets so far; the others sit under &#8220;No bracket set yet&#8221;.</p>
+      <h1>Constructed Decks</h1>
+      <p class="lede">Custom-built Commander decks, grouped by bracket from most casual to most powerful. Tap one to see how it plays.</p>
+      <p class="also">Looking for a precon? <a href="../precons/">Click Here</a></p>
     </header>
     <section class="set" aria-labelledby="bracket-2">
       <h2 id="bracket-2"><span>Bracket 2: Core</span><span class="set-count">3 decks</span></h2>
@@ -1309,7 +1306,7 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
       </div>
     </section>
     <footer class="foot">
-      <p>Rob&#8217;s Decks is unofficial Fan Content permitted under the Fan Content Policy. Not approved/endorsed by Wizards. Portions of the materials used are property of Wizards of the Coast. &#169;Wizards of the Coast LLC.</p>
+      <p>REM&#8217;s Commander Decks is unofficial Fan Content permitted under the Fan Content Policy. Not approved/endorsed by Wizards. Portions of the materials used are property of Wizards of the Coast. &#169;Wizards of the Coast LLC.</p>
       <p>Card images come from <a href="https://scryfall.com">Scryfall</a>.</p>
     </footer>
   </main>

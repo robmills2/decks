@@ -4,12 +4,12 @@
 Three pages are built with this script, and they share its look:
 
     python3 build.py precons/decks.tsv precons/index.html          the precon page
-    python3 build.py constructed/decks.tsv constructed/index.html  Rob's own decks
+    python3 build.py constructed/decks.tsv constructed/index.html  the constructed decks
     python3 build.py --home index.html                             the top page, linking both
 
 A TSV with a set_code column makes the precon page; one with a bracket
-column makes the page of Rob's own decks. The rest of this note is about
-the precon page; the page of Rob's own decks is described above
+column makes the constructed decks page. The rest of this note is about
+the precon page; the constructed decks page is described above
 DECK_SECTIONS below, and the top page above HOME_CSS.
 
 Real: deck names, commanders, colors, each commander's card image (linked
@@ -62,6 +62,7 @@ REAL_LINKS = {
     "We Are the Borg": "https://archidekt.com/decks/27814567/we_are_the_borg_star_trek_commander",
 }
 PLACEHOLDER_LINK = "https://archidekt.com/commander-precons"
+SITE = "REM&#8217;s Commander Decks"  # the top page's title, and the name in every footer
 SECTIONS = ("What it wants to do", "The commander", "Standout mechanic")
 LINK = re.compile(r"\[([^\[\]]+)\]\(([^()\s]+)\)")
 
@@ -73,7 +74,7 @@ GROUP_NAME = {
     "WBG": "Abzan", "WUR": "Jeskai", "UBG": "Sultai", "WBR": "Mardu", "URG": "Temur",
 }
 
-# The page of Rob's own decks: constructed/decks.tsv makes constructed/index.html.
+# The constructed decks page: constructed/decks.tsv makes constructed/index.html.
 #
 # constructed/decks.tsv has a row for each deck: its name, its bracket (1 to 5, or
 # empty if none is set yet), its Archidekt number, its commanders, its colors,
@@ -277,45 +278,6 @@ def load_descriptions(folder, decks, sections=SECTIONS, fields=("Themes",),
     return found
 
 
-def name_list(names):
-    names = [e(n) for n in names]
-    return names[0] if len(names) == 1 else ", ".join(names[:-1]) + " and " + names[-1]
-
-
-def mockup_note(decks, descriptions):
-    """The note at the top of the page, saying which parts are real so far."""
-    total = len(decks)
-    described = [d["name"] for d in decks if d["name"] in descriptions]
-    linked = [d["name"] for d in decks if d["name"] in REAL_LINKS]
-    if len(described) == total and len(linked) == total:
-        return ""
-    elsewhere = "Archidekt&#8217;s list of precons"
-
-    def only(names, one, many):
-        if len(names) > 3:
-            return f"{len(names)} of the {total} decks {many}"
-        return f"Only {name_list(names)} {one if len(names) == 1 else many}"
-
-    if described == linked:
-        said = (f"The descriptions are placeholder text, and every deck links to {elsewhere}." if not described else
-                only(described, "has its real description and its own Archidekt link",
-                     "have their real descriptions and their own Archidekt links")
-                + f" so far; the others show placeholder text and link to {elsewhere}.")
-    else:
-        said = " ".join([
-            "The descriptions are placeholder text." if not described else
-            "Every deck has its real description." if len(described) == total else
-            only(described, "has its real description", "have their real descriptions")
-            + " so far; the others are placeholder text.",
-            f"Every deck links to {elsewhere}." if not linked else
-            "Every deck links to its own Archidekt page." if len(linked) == total else
-            only(linked, "links to its own Archidekt page", "link to their own Archidekt pages")
-            + f"; the others go to {elsewhere}.",
-        ])
-    return ('\n      <p class="note"><strong>Mockup.</strong> Deck names, commanders, colors and card'
-            f" images are real. {said}</p>")
-
-
 def pips_html(ident):
     """The deck's colors as small mana symbols, with their names for screen readers."""
     label = words(ident)
@@ -439,8 +401,8 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 
   font-size: clamp(2.5rem, 1.75rem + 3.5vw, 3.75rem); line-height: .95; letter-spacing: -0.025em; text-wrap: balance;
 }
 .lede { margin: .75rem 0 0; max-width: 34ch; font-size: 1.125rem; color: var(--muted); text-wrap: pretty; }
-.note { margin: 1.5rem 0 0; max-width: 60ch; padding: .75rem 1rem; border: 1px dashed var(--muted); border-radius: 10px; font-size: .875rem; color: var(--muted); }
-.note strong { color: var(--ink); }
+.also { margin: .5rem 0 0; color: var(--muted); }
+.also a { color: var(--accent); text-underline-offset: .15em; }
 .set { margin-top: 2.25rem; }
 .set h2 {
   position: sticky; top: 0; z-index: 2; display: flex; justify-content: space-between; align-items: baseline; gap: 1rem;
@@ -536,7 +498,7 @@ def page_html(title, header, parts, css=CSS, script=""):
       <h1>{title}</h1>{header}
     </header>{"".join(parts)}
     <footer class="foot">
-      <p>{title} is unofficial Fan Content permitted under the Fan Content Policy. Not approved/endorsed by Wizards. Portions of the materials used are property of Wizards of the Coast. &#169;Wizards of the Coast LLC.</p>
+      <p>{SITE} is unofficial Fan Content permitted under the Fan Content Policy. Not approved/endorsed by Wizards. Portions of the materials used are property of Wizards of the Coast. &#169;Wizards of the Coast LLC.</p>
       <p>Card images come from <a href="https://scryfall.com">Scryfall</a>.</p>
     </footer>
   </main>{script}
@@ -570,19 +532,18 @@ def precons_page(src, out, decks):
             items.append(deck_html(d, first, descriptions.get(d["name"])))
             first = False
         parts.append(shelf_html(f"set-{code}", e(set_name), items))
-    header = (f'\n      <p class="lede">{len(decks)} Commander decks you can borrow. Tap one to see what it does.</p>'
-              f"{mockup_note(decks, descriptions)}")
-    page = page_html("Rob&#8217;s Precons", header, parts)
+    header = ('\n      <p class="lede">Preconstructed Commander decks you can borrow, grouped by set.'
+              " Tap one to see what it does.</p>"
+              '\n      <p class="also">Looking for a constructed deck? <a href="../constructed/">Click Here</a></p>')
+    page = page_html("Precon Decks", header, parts)
     Path(out).write_text(page, encoding="utf-8")
     print(f"{len(decks)} decks in {len(sets)} sets, {len(descriptions)} with a real description"
           f" -> {out} ({len(page):,} characters)")
 
 
-# ---- The page of Rob's own decks ----
+# ---- The constructed decks page ----
 
 DECKS_CSS = """
-.also { margin: .5rem 0 0; color: var(--muted); }
-.also a { color: var(--accent); text-underline-offset: .15em; }
 .deck { scroll-margin-top: 3.5rem; }
 .links { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1.25rem; }
 .links .arch { margin-top: 0; }
@@ -682,31 +643,6 @@ def own_deck_html(d, is_open, desc=None):
       </details>"""
 
 
-def own_decks_note(decks, descriptions):
-    """The note at the top of the page, saying which parts are real so far."""
-    total = len(decks)
-    described = [d["name"] for d in decks if d["name"] in descriptions]
-    bracketed = [d["name"] for d in decks if d["bracket"].strip()]
-    if len(described) == total and len(bracketed) == total:
-        return ""
-
-    def only(names, one, many):
-        if len(names) > 3:
-            return f"{len(names)} of the {total} decks {many}"
-        return f"Only {name_list(names)} {one if len(names) == 1 else many}"
-
-    said = ["The explanations are placeholder text." if not described else
-            "Every deck has its real explanation." if len(described) == total else
-            only(described, "has its real explanation", "have their real explanations")
-            + " so far; the others are placeholder text."]
-    if len(bracketed) < total:
-        said.append(f"No deck has its bracket yet, so they all sit under &#8220;{NO_BRACKET}&#8221;." if not bracketed
-                    else only(bracketed, "has its bracket", "have their brackets")
-                    + f" so far; the others sit under &#8220;{NO_BRACKET}&#8221;.")
-    return ('\n      <p class="note"><strong>Mockup.</strong> Deck names, commanders, colors, card images and'
-            f" both links are real. {' '.join(said)}</p>")
-
-
 def own_decks_page(src, out, decks):
     try:
         descriptions = load_descriptions(Path(src).parent / "descriptions", decks, DECK_SECTIONS, DECK_FIELDS,
@@ -747,11 +683,10 @@ def own_decks_page(src, out, decks):
             first = False
         label = f"Bracket {bracket}: {BRACKET_NAME[bracket]}" if bracket else NO_BRACKET
         parts.append(shelf_html(f"bracket-{bracket or 'none'}", label, items))
-    header = (f'\n      <p class="lede">{len(decks)} Commander decks Rob built, grouped by bracket.'
-              " Tap one to see how it plays.</p>"
-              '\n      <p class="also">Looking for a precon? <a href="../precons/">See Rob&#8217;s Precons</a>.</p>'
-              f"{own_decks_note(decks, descriptions)}")
-    page = page_html("Rob&#8217;s Decks", header, parts, CSS + DECKS_CSS, OPEN_FROM_ADDRESS)
+    header = ('\n      <p class="lede">Custom-built Commander decks, grouped by bracket from most casual to most'
+              " powerful. Tap one to see how it plays.</p>"
+              '\n      <p class="also">Looking for a precon? <a href="../precons/">Click Here</a></p>')
+    page = page_html("Constructed Decks", header, parts, CSS + DECKS_CSS, OPEN_FROM_ADDRESS)
     Path(out).write_text(page, encoding="utf-8")
     print(f"{len(decks)} decks in {len(order)} brackets, {len(descriptions)} with a real explanation"
           f" -> {out} ({len(page):,} characters)")
@@ -777,25 +712,23 @@ HOME_CSS = """
 }
 .site:hover { background: color-mix(in srgb, var(--accent) 6%, var(--surface)); }
 .site:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-.site-name { display: block; font-family: var(--display); font-weight: 680; font-size: 1.1875rem; line-height: 1.2; }
-.site-what { display: block; margin-top: .3rem; font-size: .9375rem; line-height: 1.35; color: var(--muted); }
+.site-name { font-family: var(--display); font-weight: 680; font-size: 1.1875rem; line-height: 1.2; }
 .site .chev { transform: rotate(-90deg); }
 """
 
 HOME_LINKS = (
-    ("precons/", "Rob&#8217;s Precons", "Commander precons you can borrow at game night."),
-    ("constructed/", "Rob&#8217;s Decks", "The decks Rob built himself, grouped by bracket, with how each one plays."),
+    ("precons/", "Precons"),
+    ("constructed/", "Constructed Decks"),
 )
 
 
 def home_page(out):
     items = "".join(
-        f'\n      <a class="site" href="{href}"><span><span class="site-name">{name}</span>'
-        f'<span class="site-what">{what}</span></span>{CHEVRON}</a>'
-        for href, name, what in HOME_LINKS)
-    header = '\n      <p class="lede">Borrow a precon, or see how Rob&#8217;s own decks play.</p>'
-    parts = [f'\n    <nav class="sites" aria-label="Rob&#8217;s two lists of decks">{items}\n    </nav>']
-    page = page_html("Rob&#8217;s Commander Decks", header, parts, CSS + HOME_CSS)
+        f'\n      <a class="site" href="{href}"><span class="site-name">{name}</span>{CHEVRON}</a>'
+        for href, name in HOME_LINKS)
+    header = '\n      <p class="lede">Commander decks you can borrow at game night.</p>'
+    parts = [f'\n    <nav class="sites" aria-label="The two lists of decks">{items}\n    </nav>']
+    page = page_html(SITE, header, parts, CSS + HOME_CSS)
     Path(out).write_text(page, encoding="utf-8")
     print(f"top page linking {len(HOME_LINKS)} pages -> {out} ({len(page):,} characters)")
 
@@ -811,7 +744,7 @@ def main(src, out):
         own_decks_page(src, out, decks)
     else:
         sys.exit(f"Nothing written. {src} has neither a set_code column (the precon page)"
-                 " nor a bracket column (Rob's own decks).")
+                 " nor a bracket column (the constructed decks).")
 
 
 if __name__ == "__main__":
