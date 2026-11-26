@@ -3,7 +3,7 @@ Difficulty: Medium
 
 ## What it wants to do
 
-Nobody in this army dies of old age. The deck fills the board with cheap creatures, many of which leave a token when they die, and Bartolomé sacrifices them one by one, growing with every meal. Each death costs your opponents life, and when the board runs dry, the army climbs back out of the graveyard. A well-fed Bartolomé can also knock out a player on its own.
+It's cannibal + colonialism. Get it?! Because he's a conquistador AND it's an aristocrats deck! COMEDY! The deck fills the board with cheap creatures, many of which leave a token when they die, and Bartolomé sacrifices them one by one, growing with every meal. Each death costs your opponents life, and when the board runs dry, the army climbs back out of the graveyard. A well-fed Bartolomé can also knock out a player on its own.
 
 ## The commander
 
