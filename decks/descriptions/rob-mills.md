@@ -3,8 +3,7 @@ Difficulty: Hard
 
 ## What it wants to do
 
-This is Rob. Rob mills. Mill, Rob Mills, mill!
-Milling moves cards from the top of a library to the graveyard, and anyone who has to draw from an empty library loses. Neerdiv mills a little with every tap, until a loop taps and untaps it endlessly, emptying every opponent's library in one turn. Until then, the deck counters threats and digs for the pieces.
+Ever wanted an anime mermaid to get your deck wet? Wish granted! Milling moves cards from the top of a library to the graveyard, and anyone who has to draw from an empty library loses. Neerdiv mills a little with every tap, until a loop taps and untaps it endlessly, emptying every opponent's library in one turn. Until then, the deck counters threats and digs for the pieces.
 
 ## The commander
 
