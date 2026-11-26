@@ -8,7 +8,8 @@ and display (672 x 936) into commander_display. It checks that each
 printing's name matches the commanders column, and writes nothing if any
 does not.
 
-Usage: python3 images.py decks.tsv
+Usage: python3 images.py precons/decks.tsv
+       python3 images.py constructed/decks.tsv
 """
 import csv
 import json

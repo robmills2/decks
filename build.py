@@ -1,24 +1,25 @@
 #!/usr/bin/env python3
 """Build a page of decks from a TSV of decks and their description files.
 
-Two pages are built with this script, and they share its look:
+Three pages are built with this script, and they share its look:
 
-    python3 build.py decks.tsv index.html              the precon page
-    python3 build.py decks/decks.tsv decks/index.html  Rob's own decks
+    python3 build.py precons/decks.tsv precons/index.html          the precon page
+    python3 build.py constructed/decks.tsv constructed/index.html  Rob's own decks
+    python3 build.py --home index.html                             the top page, linking both
 
 A TSV with a set_code column makes the precon page; one with a bracket
 column makes the page of Rob's own decks. The rest of this note is about
 the precon page; the page of Rob's own decks is described above
-DECK_SECTIONS below.
+DECK_SECTIONS below, and the top page above HOME_CSS.
 
 Real: deck names, commanders, colors, each commander's card image (linked
 from Scryfall, filled in by images.py), the Archidekt links in REAL_LINKS
 below, and the description of every deck that has a file in descriptions/.
 Placeholder: every other description, and every other Archidekt link.
 
-A deck's description file is descriptions/<name>.md, where <name> is the
-deck's name in lower case with hyphens between the words, such as
-descriptions/federation-fleet.md. It has a Themes line, then the page's
+A deck's description file is precons/descriptions/<name>.md, where <name>
+is the deck's name in lower case with hyphens between the words, such as
+precons/descriptions/federation-fleet.md. It has a Themes line, then the page's
 three headings, each with its text under it:
 
     Themes: First theme, Second theme, Third theme
@@ -43,6 +44,7 @@ a link it can't read, or has an asterisk that doesn't open and close
 bold or italics.
 
 Usage: python3 build.py <decks TSV> <page to write>
+       python3 build.py --home <page to write>
 """
 import csv
 import html
@@ -71,16 +73,16 @@ GROUP_NAME = {
     "WBG": "Abzan", "WUR": "Jeskai", "UBG": "Sultai", "WBR": "Mardu", "URG": "Temur",
 }
 
-# The page of Rob's own decks: decks/decks.tsv makes decks/index.html.
+# The page of Rob's own decks: constructed/decks.tsv makes constructed/index.html.
 #
-# decks/decks.tsv has a row for each deck: its name, its bracket (1 to 5, or
+# constructed/decks.tsv has a row for each deck: its name, its bracket (1 to 5, or
 # empty if none is set yet), its Archidekt number, its commanders, its colors,
 # and each commander's printing and card images (filled in by images.py).
 # The page groups the decks by bracket, lowest first, with the decks that have
 # no bracket last; within a bracket they go in alphabetical order. Each deck
 # links to its list on Archidekt and to its combos on Commander Spellbook.
 #
-# A deck's explanation is decks/descriptions/<name>.md, named as on the precon
+# A deck's explanation is constructed/descriptions/<name>.md, named as on the precon
 # page. It has a Themes line and a Difficulty line, then the six headings in
 # DECK_SECTIONS, each with its text under it, in the same Markdown as the
 # precon page's descriptions:
@@ -94,7 +96,7 @@ GROUP_NAME = {
 #     ...
 #
 # A deck with a sideboard in the Cards app (the sideboard column of
-# decks/decks.tsv) also has a "## Sideboard" section, last, saying which cards
+# constructed/decks.tsv) also has a "## Sideboard" section, last, saying which cards
 # to swap in and why; a deck without one has no such section. The build
 # checks both ways.
 #
@@ -747,12 +749,55 @@ def own_decks_page(src, out, decks):
         parts.append(shelf_html(f"bracket-{bracket or 'none'}", label, items))
     header = (f'\n      <p class="lede">{len(decks)} Commander decks Rob built, grouped by bracket.'
               " Tap one to see how it plays.</p>"
-              '\n      <p class="also">Looking for a precon? <a href="../">See Rob&#8217;s Precons</a>.</p>'
+              '\n      <p class="also">Looking for a precon? <a href="../precons/">See Rob&#8217;s Precons</a>.</p>'
               f"{own_decks_note(decks, descriptions)}")
     page = page_html("Rob&#8217;s Decks", header, parts, CSS + DECKS_CSS, OPEN_FROM_ADDRESS)
     Path(out).write_text(page, encoding="utf-8")
     print(f"{len(decks)} decks in {len(order)} brackets, {len(descriptions)} with a real explanation"
           f" -> {out} ({len(page):,} characters)")
+
+
+# ---- The top page, linking both ----
+#
+# python3 build.py --home index.html makes the page at the top of the site,
+# robmills2.github.io/decks/, with one link to each of the other two pages.
+# It reads no deck list, so it changes only when this script does.
+
+HOME_CSS = """
+.sites { display: grid; gap: .625rem; margin-top: 2.25rem; }
+.site {
+  position: relative; display: grid; grid-template-columns: 1fr auto; align-items: center; gap: .75rem;
+  padding: 1rem 1rem 1rem 1.5rem; background: var(--surface); border: 1px solid var(--line); border-radius: 12px;
+  color: var(--ink); text-decoration: none; overflow: hidden;
+}
+.site::before {
+  content: ""; position: absolute; top: 0; bottom: 0; left: 0; width: 8px;
+  background: linear-gradient(to bottom, var(--m-w) 0% 20%, var(--m-u) 20% 40%, var(--m-b) 40% 60%,
+                                         var(--m-r) 60% 80%, var(--m-g) 80% 100%);
+}
+.site:hover { background: color-mix(in srgb, var(--accent) 6%, var(--surface)); }
+.site:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.site-name { display: block; font-family: var(--display); font-weight: 680; font-size: 1.1875rem; line-height: 1.2; }
+.site-what { display: block; margin-top: .3rem; font-size: .9375rem; line-height: 1.35; color: var(--muted); }
+.site .chev { transform: rotate(-90deg); }
+"""
+
+HOME_LINKS = (
+    ("precons/", "Rob&#8217;s Precons", "Commander precons you can borrow at game night."),
+    ("constructed/", "Rob&#8217;s Decks", "The decks Rob built himself, grouped by bracket, with how each one plays."),
+)
+
+
+def home_page(out):
+    items = "".join(
+        f'\n      <a class="site" href="{href}"><span><span class="site-name">{name}</span>'
+        f'<span class="site-what">{what}</span></span>{CHEVRON}</a>'
+        for href, name, what in HOME_LINKS)
+    header = '\n      <p class="lede">Borrow a precon, or see how Rob&#8217;s own decks play.</p>'
+    parts = [f'\n    <nav class="sites" aria-label="Rob&#8217;s two lists of decks">{items}\n    </nav>']
+    page = page_html("Rob&#8217;s Commander Decks", header, parts, CSS + HOME_CSS)
+    Path(out).write_text(page, encoding="utf-8")
+    print(f"top page linking {len(HOME_LINKS)} pages -> {out} ({len(page):,} characters)")
 
 
 def main(src, out):
@@ -770,4 +815,7 @@ def main(src, out):
 
 
 if __name__ == "__main__":
-    main(sys.argv[1], sys.argv[2])
+    if sys.argv[1] == "--home":
+        home_page(sys.argv[2])
+    else:
+        main(sys.argv[1], sys.argv[2])

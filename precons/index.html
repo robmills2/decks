@@ -1,0 +1,1775 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rob&#8217;s Precons</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&amp;family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&amp;display=swap">
+<style>
+:root {
+  /* Layout: one narrow column of deck boxes under shelf labels, one label per set;
+     each deck's colors run down its left edge like the spine of a deck box. */
+  --bg: #ECEFEB;
+  --surface: #FAFBF9;
+  --ink: #16201B;
+  --muted: #56645D;
+  --line: #D2D9D4;
+  --accent: #1C6A51;
+  --m-w: #E3D294;
+  --m-u: #3D83CA;
+  --m-b: #564E4A;
+  --m-r: #D3513A;
+  --m-g: #3A9257;
+  --display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --body: "Atkinson Hyperlegible", "Segoe UI", system-ui, -apple-system, sans-serif;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0E1412;
+    --surface: #161F1B;
+    --ink: #E6ECE8;
+    --muted: #98A7A0;
+    --line: #27332E;
+    --accent: #69C7A0;
+    --m-b: #9A8E87;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0E1412;
+  --surface: #161F1B;
+  --ink: #E6ECE8;
+  --muted: #98A7A0;
+  --line: #27332E;
+  --accent: #69C7A0;
+  --m-b: #9A8E87;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.55 var(--body); }
+.wrap { max-width: 46rem; margin: 0 auto; padding: 2.5rem max(1rem, 4vw) 4rem; }
+.top h1 {
+  margin: 0; font-family: var(--display); font-weight: 760; font-variation-settings: "opsz" 96;
+  font-size: clamp(2.5rem, 1.75rem + 3.5vw, 3.75rem); line-height: .95; letter-spacing: -0.025em; text-wrap: balance;
+}
+.lede { margin: .75rem 0 0; max-width: 34ch; font-size: 1.125rem; color: var(--muted); text-wrap: pretty; }
+.note { margin: 1.5rem 0 0; max-width: 60ch; padding: .75rem 1rem; border: 1px dashed var(--muted); border-radius: 10px; font-size: .875rem; color: var(--muted); }
+.note strong { color: var(--ink); }
+.set { margin-top: 2.25rem; }
+.set h2 {
+  position: sticky; top: 0; z-index: 2; display: flex; justify-content: space-between; align-items: baseline; gap: 1rem;
+  margin: 0 0 .75rem; padding: .75rem 0 .5rem; background: var(--bg); border-bottom: 1px solid var(--line);
+  font-family: var(--display); font-weight: 700; font-variation-settings: "wdth" 75, "opsz" 14;
+  font-size: .875rem; line-height: 1.3; letter-spacing: .09em; text-transform: uppercase;
+}
+.set-count { flex: none; font-family: var(--body); font-weight: 400; font-size: .8125rem; letter-spacing: 0; text-transform: none; color: var(--muted); font-variant-numeric: tabular-nums; }
+.decks { display: grid; gap: .625rem; }
+.deck { position: relative; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+.deck::before { content: ""; position: absolute; top: 0; bottom: 0; left: 0; width: 8px; background: var(--spine); }
+.deck summary {
+  display: grid; grid-template-columns: 1fr auto; align-items: center; gap: .75rem;
+  padding: .875rem 1rem .875rem 1.5rem; cursor: pointer; list-style: none;
+}
+.deck summary::-webkit-details-marker { display: none; }
+.deck summary:hover { background: color-mix(in srgb, var(--accent) 6%, transparent); }
+.deck summary:focus-visible { outline: 2px solid var(--accent); outline-offset: -3px; border-radius: 12px; }
+.deck h3 { margin: 0; font-family: var(--display); font-weight: 680; font-size: 1.1875rem; line-height: 1.2; letter-spacing: -0.005em; text-wrap: balance; }
+.meta { display: flex; flex-wrap: wrap; align-items: center; gap: .25rem .5rem; margin-top: .3rem; font-size: .9375rem; line-height: 1.35; color: var(--muted); }
+.pips { display: inline-flex; gap: 3px; }
+.pip {
+  display: inline-grid; place-items: center; width: 18px; height: 18px; border-radius: 50%;
+  font: 700 10px/1 var(--body); color: #1D1A17; box-shadow: inset 0 0 0 1px rgb(0 0 0 / .2);
+}
+.pip-w { background: #F8F6D8; }
+.pip-u { background: #C1D7E9; }
+.pip-b { background: #BAB1AB; }
+.pip-r { background: #E49977; }
+.pip-g { background: #A3C095; }
+.chev { width: 20px; height: 20px; color: var(--muted); transition: transform .2s ease; }
+.deck[open] .chev { transform: rotate(180deg); }
+.panel { padding: 0 1.25rem 1.25rem 1.5rem; }
+.panel-body { display: grid; gap: 1rem; margin-top: .25rem; padding-top: 1rem; border-top: 1px solid var(--line); }
+.cards { display: flex; gap: .75rem; }
+.cards img {
+  display: block; width: 15rem; max-width: 100%; height: auto; border-radius: 4.76% / 3.41%;
+  background: var(--line); box-shadow: 0 1px 2px rgb(0 0 0 / .18), 0 6px 18px rgb(0 0 0 / .12);
+}
+.cards.two img { width: calc(50% - .375rem); max-width: 11rem; }
+@media (min-width: 40rem) {
+  .panel-body { grid-template-columns: 13rem 1fr; gap: 1.5rem; align-items: start; }
+  .cards { flex-direction: column; }
+  .cards img, .cards.two img { width: 13rem; max-width: 100%; }
+}
+.facts { display: grid; gap: .5rem; margin: 0; }
+.facts > div { display: grid; grid-template-columns: 5.5rem 1fr; gap: .75rem; align-items: baseline; }
+.facts dt { font-size: .75rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.facts dd { margin: 0; }
+.chips { display: flex; flex-wrap: wrap; gap: .375rem; }
+.chip { padding: .1rem .55rem; border: 1px solid var(--line); border-radius: 999px; background: var(--bg); font-size: .8125rem; }
+.chip.ph { border: 1px dashed var(--muted); background: none; }
+.panel h4 { margin: 1.25rem 0 .25rem; font-family: var(--display); font-weight: 680; font-size: 1rem; }
+.panel p, .panel ul { margin: 0; max-width: 62ch; }
+.panel p + p, .panel p + ul, .panel ul + p { margin-top: .5rem; }
+.panel ul { display: grid; gap: .25rem; padding-left: 1.125rem; }
+.panel p a, .panel li a { color: var(--accent); text-underline-offset: .15em; }
+.ph { font-style: italic; color: var(--muted); }
+.arch {
+  display: inline-flex; align-items: center; margin-top: 1.25rem; padding: .55rem .9rem;
+  border: 1px solid var(--accent); border-radius: 8px; color: var(--accent); font-weight: 700; text-decoration: none;
+}
+.arch:hover { background: var(--accent); color: var(--surface); }
+.arch:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.foot { max-width: 60ch; margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--line); font-size: .8125rem; color: var(--muted); }
+.foot p { margin: 0 0 .5rem; }
+.foot a { color: var(--accent); }
+@media (max-width: 420px) {
+  .facts > div { grid-template-columns: 1fr; gap: .1rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .chev { transition: none; }
+}
+</style>
+</head>
+<body>
+  <main class="wrap">
+    <header class="top">
+      <h1>Rob&#8217;s Precons</h1>
+      <p class="lede">61 Commander decks you can borrow. Tap one to see what it does.</p>
+      <p class="note"><strong>Mockup.</strong> Deck names, commanders, colors and card images are real. 4 of the 61 decks have their real descriptions and their own Archidekt links so far; the others show placeholder text and link to Archidekt&#8217;s list of precons.</p>
+    </header>
+    <section class="set" aria-labelledby="set-trc">
+      <h2 id="set-trc"><span>Star Trek Commander</span><span class="set-count">4 decks</span></h2>
+      <div class="decks">
+      <details class="deck" id="federation-fleet" style="--spine: linear-gradient(to bottom, var(--m-w) 0.000% 33.333%, var(--m-u) 33.333% 66.667%, var(--m-r) 66.667% 100.000%)" open>
+        <summary>
+          <span class="head">
+            <h3>Federation Fleet</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="White, blue and red"><span class="pip pip-w">W</span><span class="pip pip-u">U</span><span class="pip pip-r">R</span></span><span>Jean-Luc Picard, Luminary</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/9/0/901eaed9-dbea-4a31-87b0-e17e9bcabfed.webp?1792507924" srcset="https://cards.scryfall.io/grid/front/9/0/901eaed9-dbea-4a31-87b0-e17e9bcabfed.webp?1792507924 488w, https://cards.scryfall.io/display/front/9/0/901eaed9-dbea-4a31-87b0-e17e9bcabfed.webp?1792507924 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Jean-Luc Picard, Luminary" loading="lazy" decoding="async"></div>
+          <div class="text">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Jeskai: white, blue and red</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Card draw</span><span class="chip">Legendary characters</span><span class="chip">Spacecraft</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p>Federation Fleet is a crew of Star Trek legends backed by a fleet of starships. Start the game by playing artifacts that give you extra mana, then cast Picard and keep the characters coming. Your ships start out as artifacts and turn into flying creatures once you power them up by tapping your other creatures. Most games are won by attacking in the air.</p>
+          <h4>The commander</h4>
+          <p>Picard draws you a card whenever another artifact or legendary card costing 3 or more mana comes into play on your side. That&#x27;s almost every character and ship in the deck, so your hand stays full. Captain Janeway, also in the deck, can be the commander instead for a more aggressive game.</p>
+          <h4>Standout mechanic</h4>
+          <p>Many of the deck&#x27;s characters have <strong>Seek out</strong>, a bonus for drawing your second card in a turn. Your first comes at the start of your turn, and Picard often provides the second, setting off every Seek out card you have at once. Picard has it too: his grows a creature and powers up a ship. Others make mana or damage every opponent, and <a href="https://scryfall.com/card/trc/105/tom-paris-risk-taker">Tom Paris</a> gives your whole team flying and double strike (they deal their damage twice) for the turn.</p>
+          <a class="arch" href="https://archidekt.com/decks/27859380/federation_fleet_star_trek_commander">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+          </div>
+        </div></div>
+      </details>
+      <details class="deck" id="klingon-fury" style="--spine: linear-gradient(to bottom, var(--m-w) 0.000% 33.333%, var(--m-b) 33.333% 66.667%, var(--m-r) 66.667% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Klingon Fury</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="White, black and red"><span class="pip pip-w">W</span><span class="pip pip-b">B</span><span class="pip pip-r">R</span></span><span>Worf, Defiant Commander</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/d/a/da030114-a4ee-46d7-a6fd-6c0d8e779bcf.webp?1792507927" srcset="https://cards.scryfall.io/grid/front/d/a/da030114-a4ee-46d7-a6fd-6c0d8e779bcf.webp?1792507927 488w, https://cards.scryfall.io/display/front/d/a/da030114-a4ee-46d7-a6fd-6c0d8e779bcf.webp?1792507927 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Worf, Defiant Commander" loading="lazy" decoding="async"></div>
+          <div class="text">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Mardu: white, black and red</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">All-out attacks</span><span class="chip">Klingon Warriors</span><span class="chip">Team boosts</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p>Klingon Fury never stops attacking. It gets cheap Warriors onto the table early, then keeps the war band growing with Warrior tokens that attack the moment they arrive, cards that make your whole team hit harder, and a few ways to attack twice in one turn. A few cards even force your opponents&#x27; creatures to attack each other, so the whole table ends up at war.</p>
+          <h4>The commander</h4>
+          <p>Worf arrives with a 2/1 Klingon Warrior that can attack right away. Whenever you attack, he exiles the top card of your library for each opponent you attacked, and you can play those cards until the end of your next turn. Kor, the deck&#x27;s backup commander, takes a different route: each time you attack, he lets you sacrifice one of your creatures to draw a card and make your Klingons and Warriors bigger.</p>
+          <h4>Standout mechanic</h4>
+          <p>Worf is one of eight cards with <strong>Battlefront</strong>, which counts how many opponents you attacked this turn, so it pays to spread your attackers across the table instead of picking on one player. In a four-player game, attacking all three opponents means <a href="https://scryfall.com/card/trc/60/kurn-son-of-mogh">Kurn</a> draws you three cards for 3 life and <a href="https://scryfall.com/card/trc/103/rite-of-ascension">Rite of Ascension</a> adds three more Warriors to the attack.</p>
+          <a class="arch" href="https://archidekt.com/decks/27883780/klingon_fury_star_trek_commander">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+          </div>
+        </div></div>
+      </details>
+      <details class="deck" id="landing-party" style="--spine: linear-gradient(to bottom, var(--m-w) 0.000% 33.333%, var(--m-u) 33.333% 66.667%, var(--m-g) 66.667% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Landing Party</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="White, blue and green"><span class="pip pip-w">W</span><span class="pip pip-u">U</span><span class="pip pip-g">G</span></span><span>Commander Spock</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/c/f/cf114392-a38d-4117-aa41-911d6dc1051b.webp?1792551005" srcset="https://cards.scryfall.io/grid/front/c/f/cf114392-a38d-4117-aa41-911d6dc1051b.webp?1792551005 488w, https://cards.scryfall.io/display/front/c/f/cf114392-a38d-4117-aa41-911d6dc1051b.webp?1792551005 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Commander Spock" loading="lazy" decoding="async"></div>
+          <div class="text">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Bant: white, blue and green</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Extra lands</span><span class="chip">Landfall</span><span class="chip">Free spells</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p>Landing Party explores. The plan is to get as many lands into play as fast as you can, with extra land drops, spells that fetch lands, and creatures that dig for them. Every land that arrives sets off the deck&#x27;s landfall cards, which make Officer and Insect tokens, grow your creatures or power up the Starship Enterprise. Once the lands pile up, huge creatures and free spells take over.</p>
+          <h4>The commander</h4>
+          <p>Spock beams in a bonus every time he enters or attacks: he reveals the top card of your library and lets you cast it for free if it costs no more than the number of differently named lands you control. A land goes straight onto the battlefield instead, and anything you don&#x27;t use, you draw. If you&#x27;d rather fly, Captain Kirk can take command: he fetches the Starship Enterprise and makes your Spacecraft bigger.</p>
+          <h4>Standout mechanic</h4>
+          <p>Cards with <strong>Strange new worlds</strong> count how many differently named lands you control: a Forest, an Island and Risa make three, but three Forests make only one. That&#x27;s why the deck&#x27;s 40 lands have 35 different names. Besides Spock, <a href="https://scryfall.com/card/trc/98/lt-arex-ever-adapting">Lt. Arex</a> is as big as your count, and <a href="https://scryfall.com/card/trc/46/lieutenant-nyota-uhura">Lieutenant Uhura</a> can cast a free instant or sorcery from that many cards off the top of an opponent&#x27;s library.</p>
+          <a class="arch" href="https://archidekt.com/decks/28009052/landing_party_star_trek_commander">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+          </div>
+        </div></div>
+      </details>
+      <details class="deck" id="we-are-the-borg" style="--spine: linear-gradient(to bottom, var(--m-w) 0.000% 33.333%, var(--m-u) 33.333% 66.667%, var(--m-b) 66.667% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>We Are the Borg</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="White, blue and black"><span class="pip pip-w">W</span><span class="pip pip-u">U</span><span class="pip pip-b">B</span></span><span>The Borg Queen</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/8/e/8ed939ba-bf8d-4a68-ae9f-f8ca4eb301ab.webp?1792507909" srcset="https://cards.scryfall.io/grid/front/8/e/8ed939ba-bf8d-4a68-ae9f-f8ca4eb301ab.webp?1792507909 488w, https://cards.scryfall.io/display/front/8/e/8ed939ba-bf8d-4a68-ae9f-f8ca4eb301ab.webp?1792507909 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="The Borg Queen" loading="lazy" decoding="async"></div>
+          <div class="text">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Esper: white, blue and black</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip">Artifact creatures</span><span class="chip">Borg tokens</span><span class="chip">Stealing creatures</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p>Every creature in this deck is a Borg, and the Borg share everything: more than a dozen cards hand an upgrade to all your artifact creatures, so each new drone makes the whole collective stronger. The Queen costs seven mana, so expect a slow start spent playing artifacts. Then the deck floods the board with 1/1 Borg tokens and stolen creatures, and the collective grows until nothing can stand in its way.</p>
+          <h4>The commander</h4>
+          <p>The Borg Queen gives your artifact creatures +2/+2, and whenever she arrives or attacks, she digs into an opponent&#x27;s library for its first creature and adds it to your forces. Getting her out is the hard part, so protect her once she lands. If seven mana is too long a wait, Locutus of Borg makes a four-mana commander instead: every artifact creature of yours that hits a player brings another Borg token with it.</p>
+          <h4>Standout mechanic</h4>
+          <p><strong>Assimilate</strong> means taking an opponent&#x27;s creature and making it yours, with a +1/+1 counter. It becomes a Borg artifact creature, so it gets every upgrade the collective shares. <a href="https://scryfall.com/card/trc/44/gift-of-perfection">Gift of Perfection</a> makes every opponent reveal cards until they hit a creature, then lets you take your pick, and <a href="https://scryfall.com/card/trc/56/assimilation-assessor">Assimilation Assessor</a> exiles an opponent&#x27;s graveyard, then brings back one of its creatures for you each time it attacks.</p>
+          <a class="arch" href="https://archidekt.com/decks/27814567/we_are_the_borg_star_trek_commander">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+          </div>
+        </div></div>
+      </details>
+      </div>
+    </section>
+    <section class="set" aria-labelledby="set-frc">
+      <h2 id="set-frc"><span>Reality Fracture Commander</span><span class="set-count">1 deck</span></h2>
+      <div class="decks">
+      <details class="deck" id="multiverse-reforged" style="--spine: linear-gradient(to bottom, var(--m-w) 0.000% 25.000%, var(--m-u) 25.000% 50.000%, var(--m-b) 50.000% 75.000%, var(--m-r) 75.000% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Multiverse Reforged</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="White, blue, black and red"><span class="pip pip-w">W</span><span class="pip pip-u">U</span><span class="pip pip-b">B</span><span class="pip pip-r">R</span></span><span>Jace, Multiverse Architect</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/5/5/55cd03d9-2535-4cf3-a8b2-1418e1190f4a.webp?1789644316" srcset="https://cards.scryfall.io/grid/front/5/5/55cd03d9-2535-4cf3-a8b2-1418e1190f4a.webp?1789644316 488w, https://cards.scryfall.io/display/front/5/5/55cd03d9-2535-4cf3-a8b2-1418e1190f4a.webp?1789644316 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Jace, Multiverse Architect" loading="lazy" decoding="async"></div>
+          <div class="text">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Four colors: white, blue, black and red</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Jace, Multiverse Architect does, and how the rest of the deck feeds it.</p>
+          <h4>Standout mechanic</h4>
+          <p class="ph">The one mechanic that sets this deck apart, what it does, and the card that shows it off best.</p>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+          </div>
+        </div></div>
+      </details>
+      </div>
+    </section>
+    <section class="set" aria-labelledby="set-msc">
+      <h2 id="set-msc"><span>Marvel Super Heroes Commander</span><span class="set-count">4 decks</span></h2>
+      <div class="decks">
+      <details class="deck" id="avengers-assemble" style="--spine: linear-gradient(to bottom, var(--m-w) 0.000% 33.333%, var(--m-u) 33.333% 66.667%, var(--m-r) 66.667% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Avengers Assemble</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="White, blue and red"><span class="pip pip-w">W</span><span class="pip pip-u">U</span><span class="pip pip-r">R</span></span><span>Captain America, Team Leader</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/6/1/61a51b67-d941-4e07-9c12-ffe583cb65d4.webp?1783903303" srcset="https://cards.scryfall.io/grid/front/6/1/61a51b67-d941-4e07-9c12-ffe583cb65d4.webp?1783903303 488w, https://cards.scryfall.io/display/front/6/1/61a51b67-d941-4e07-9c12-ffe583cb65d4.webp?1783903303 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Captain America, Team Leader" loading="lazy" decoding="async"></div>
+          <div class="text">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Jeskai: white, blue and red</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Captain America, Team Leader does, and how the rest of the deck feeds it.</p>
+          <h4>Standout mechanic</h4>
+          <p class="ph">The one mechanic that sets this deck apart, what it does, and the card that shows it off best.</p>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+          </div>
+        </div></div>
+      </details>
+      <details class="deck" id="doom-prevails" style="--spine: linear-gradient(to bottom, var(--m-u) 0.000% 33.333%, var(--m-b) 33.333% 66.667%, var(--m-r) 66.667% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Doom Prevails</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="Blue, black and red"><span class="pip pip-u">U</span><span class="pip pip-b">B</span><span class="pip pip-r">R</span></span><span>Doctor Doom, King of Latveria</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/0/9/099ed408-9178-4403-8b2d-479ca3cbda9b.webp?1783903303" srcset="https://cards.scryfall.io/grid/front/0/9/099ed408-9178-4403-8b2d-479ca3cbda9b.webp?1783903303 488w, https://cards.scryfall.io/display/front/0/9/099ed408-9178-4403-8b2d-479ca3cbda9b.webp?1783903303 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Doctor Doom, King of Latveria" loading="lazy" decoding="async"></div>
+          <div class="text">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Grixis: blue, black and red</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Doctor Doom, King of Latveria does, and how the rest of the deck feeds it.</p>
+          <h4>Standout mechanic</h4>
+          <p class="ph">The one mechanic that sets this deck apart, what it does, and the card that shows it off best.</p>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+          </div>
+        </div></div>
+      </details>
+      <details class="deck" id="the-fantastic-four" style="--spine: linear-gradient(to bottom, var(--m-w) 0.000% 25.000%, var(--m-u) 25.000% 50.000%, var(--m-r) 50.000% 75.000%, var(--m-g) 75.000% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>The Fantastic Four</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="White, blue, red and green"><span class="pip pip-w">W</span><span class="pip pip-u">U</span><span class="pip pip-r">R</span><span class="pip pip-g">G</span></span><span>Invisible Woman</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/d/8/d8e13ecb-98be-4d9b-86a2-24eaa98f7f0d.webp?1783903304" srcset="https://cards.scryfall.io/grid/front/d/8/d8e13ecb-98be-4d9b-86a2-24eaa98f7f0d.webp?1783903304 488w, https://cards.scryfall.io/display/front/d/8/d8e13ecb-98be-4d9b-86a2-24eaa98f7f0d.webp?1783903304 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Invisible Woman" loading="lazy" decoding="async"></div>
+          <div class="text">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Four colors: white, blue, red and green</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Invisible Woman does, and how the rest of the deck feeds it.</p>
+          <h4>Standout mechanic</h4>
+          <p class="ph">The one mechanic that sets this deck apart, what it does, and the card that shows it off best.</p>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+          </div>
+        </div></div>
+      </details>
+      <details class="deck" id="wakanda-forever" style="--spine: linear-gradient(to bottom, var(--m-w) 0.000% 50.000%, var(--m-g) 50.000% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Wakanda Forever</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="White and green"><span class="pip pip-w">W</span><span class="pip pip-g">G</span></span><span>T&#x27;Challa, the Black Panther</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/c/1/c1c8ad61-b7e1-446c-8b74-6e29371ea1d5.webp?1783903301" srcset="https://cards.scryfall.io/grid/front/c/1/c1c8ad61-b7e1-446c-8b74-6e29371ea1d5.webp?1783903301 488w, https://cards.scryfall.io/display/front/c/1/c1c8ad61-b7e1-446c-8b74-6e29371ea1d5.webp?1783903301 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="T&#x27;Challa, the Black Panther" loading="lazy" decoding="async"></div>
+          <div class="text">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Selesnya: white and green</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What T&#x27;Challa, the Black Panther does, and how the rest of the deck feeds it.</p>
+          <h4>Standout mechanic</h4>
+          <p class="ph">The one mechanic that sets this deck apart, what it does, and the card that shows it off best.</p>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+          </div>
+        </div></div>
+      </details>
+      </div>
+    </section>
+    <section class="set" aria-labelledby="set-soc">
+      <h2 id="set-soc"><span>Secrets of Strixhaven Commander</span><span class="set-count">4 decks</span></h2>
+      <div class="decks">
+      <details class="deck" id="lorehold-spirit" style="--spine: linear-gradient(to bottom, var(--m-w) 0.000% 50.000%, var(--m-r) 50.000% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Lorehold Spirit</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="White and red"><span class="pip pip-w">W</span><span class="pip pip-r">R</span></span><span>Quintorius, History Chaser</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/0/7/0742f19d-179c-43c4-ab95-4160c56b4384.webp?1783903867" srcset="https://cards.scryfall.io/grid/front/0/7/0742f19d-179c-43c4-ab95-4160c56b4384.webp?1783903867 488w, https://cards.scryfall.io/display/front/0/7/0742f19d-179c-43c4-ab95-4160c56b4384.webp?1783903867 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Quintorius, History Chaser" loading="lazy" decoding="async"></div>
+          <div class="text">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Boros: white and red</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Quintorius, History Chaser does, and how the rest of the deck feeds it.</p>
+          <h4>Standout mechanic</h4>
+          <p class="ph">The one mechanic that sets this deck apart, what it does, and the card that shows it off best.</p>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+          </div>
+        </div></div>
+      </details>
+      <details class="deck" id="prismari-artistry" style="--spine: linear-gradient(to bottom, var(--m-u) 0.000% 50.000%, var(--m-r) 50.000% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Prismari Artistry</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="Blue and red"><span class="pip pip-u">U</span><span class="pip pip-r">R</span></span><span>Rootha, Mastering the Moment</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/a/5/a5b3dbb2-c090-4118-9e47-56c16202572c.webp?1783903866" srcset="https://cards.scryfall.io/grid/front/a/5/a5b3dbb2-c090-4118-9e47-56c16202572c.webp?1783903866 488w, https://cards.scryfall.io/display/front/a/5/a5b3dbb2-c090-4118-9e47-56c16202572c.webp?1783903866 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Rootha, Mastering the Moment" loading="lazy" decoding="async"></div>
+          <div class="text">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Izzet: blue and red</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Rootha, Mastering the Moment does, and how the rest of the deck feeds it.</p>
+          <h4>Standout mechanic</h4>
+          <p class="ph">The one mechanic that sets this deck apart, what it does, and the card that shows it off best.</p>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+          </div>
+        </div></div>
+      </details>
+      <details class="deck" id="quandrix-unlimited" style="--spine: linear-gradient(to bottom, var(--m-u) 0.000% 50.000%, var(--m-g) 50.000% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Quandrix Unlimited</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="Blue and green"><span class="pip pip-u">U</span><span class="pip pip-g">G</span></span><span>Zimone, Infinite Analyst</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/6/0/605afac4-d2e5-4e68-97d2-3ac2ead5f3a9.webp?1783903866" srcset="https://cards.scryfall.io/grid/front/6/0/605afac4-d2e5-4e68-97d2-3ac2ead5f3a9.webp?1783903866 488w, https://cards.scryfall.io/display/front/6/0/605afac4-d2e5-4e68-97d2-3ac2ead5f3a9.webp?1783903866 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Zimone, Infinite Analyst" loading="lazy" decoding="async"></div>
+          <div class="text">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Simic: blue and green</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Zimone, Infinite Analyst does, and how the rest of the deck feeds it.</p>
+          <h4>Standout mechanic</h4>
+          <p class="ph">The one mechanic that sets this deck apart, what it does, and the card that shows it off best.</p>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+          </div>
+        </div></div>
+      </details>
+      <details class="deck" id="silverquill-influence" style="--spine: linear-gradient(to bottom, var(--m-w) 0.000% 50.000%, var(--m-b) 50.000% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Silverquill Influence</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="White and black"><span class="pip pip-w">W</span><span class="pip pip-b">B</span></span><span>Killian, Decisive Mentor</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/7/6/76b6c35a-bb92-4ad3-8f85-88b9bafc6266.webp?1783903867" srcset="https://cards.scryfall.io/grid/front/7/6/76b6c35a-bb92-4ad3-8f85-88b9bafc6266.webp?1783903867 488w, https://cards.scryfall.io/display/front/7/6/76b6c35a-bb92-4ad3-8f85-88b9bafc6266.webp?1783903867 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Killian, Decisive Mentor" loading="lazy" decoding="async"></div>
+          <div class="text">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Orzhov: white and black</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Killian, Decisive Mentor does, and how the rest of the deck feeds it.</p>
+          <h4>Standout mechanic</h4>
+          <p class="ph">The one mechanic that sets this deck apart, what it does, and the card that shows it off best.</p>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+          </div>
+        </div></div>
+      </details>
+      </div>
+    </section>
+    <section class="set" aria-labelledby="set-tmc">
+      <h2 id="set-tmc"><span>Teenage Mutant Ninja Turtles Eternal</span><span class="set-count">1 deck</span></h2>
+      <div class="decks">
+      <details class="deck" id="turtle-power" style="--spine: linear-gradient(to bottom, var(--m-w) 0.000% 20.000%, var(--m-u) 20.000% 40.000%, var(--m-b) 40.000% 60.000%, var(--m-r) 60.000% 80.000%, var(--m-g) 80.000% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Turtle Power!</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="White, blue, black, red and green"><span class="pip pip-w">W</span><span class="pip pip-u">U</span><span class="pip pip-b">B</span><span class="pip pip-r">R</span><span class="pip pip-g">G</span></span><span>Heroes in a Half Shell</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/c/c/ccc2a4e6-f505-4040-9d8a-c7b8e1a2b55e.webp?1783904172" srcset="https://cards.scryfall.io/grid/front/c/c/ccc2a4e6-f505-4040-9d8a-c7b8e1a2b55e.webp?1783904172 488w, https://cards.scryfall.io/display/front/c/c/ccc2a4e6-f505-4040-9d8a-c7b8e1a2b55e.webp?1783904172 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Heroes in a Half Shell" loading="lazy" decoding="async"></div>
+          <div class="text">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>All five colors</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Heroes in a Half Shell does, and how the rest of the deck feeds it.</p>
+          <h4>Standout mechanic</h4>
+          <p class="ph">The one mechanic that sets this deck apart, what it does, and the card that shows it off best.</p>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+          </div>
+        </div></div>
+      </details>
+      </div>
+    </section>
+    <section class="set" aria-labelledby="set-ecc">
+      <h2 id="set-ecc"><span>Lorwyn Eclipsed Commander</span><span class="set-count">1 deck</span></h2>
+      <div class="decks">
+      <details class="deck" id="dance-of-the-elements" style="--spine: linear-gradient(to bottom, var(--m-w) 0.000% 20.000%, var(--m-u) 20.000% 40.000%, var(--m-b) 40.000% 60.000%, var(--m-r) 60.000% 80.000%, var(--m-g) 80.000% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Dance of the Elements</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="White, blue, black, red and green"><span class="pip pip-w">W</span><span class="pip pip-u">U</span><span class="pip pip-b">B</span><span class="pip pip-r">R</span><span class="pip pip-g">G</span></span><span>Ashling, the Limitless</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/5/9/5924c01f-2815-4e37-b700-3ba6cc81e0e4.webp?1783904607" srcset="https://cards.scryfall.io/grid/front/5/9/5924c01f-2815-4e37-b700-3ba6cc81e0e4.webp?1783904607 488w, https://cards.scryfall.io/display/front/5/9/5924c01f-2815-4e37-b700-3ba6cc81e0e4.webp?1783904607 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Ashling, the Limitless" loading="lazy" decoding="async"></div>
+          <div class="text">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>All five colors</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Ashling, the Limitless does, and how the rest of the deck feeds it.</p>
+          <h4>Standout mechanic</h4>
+          <p class="ph">The one mechanic that sets this deck apart, what it does, and the card that shows it off best.</p>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+          </div>
+        </div></div>
+      </details>
+      </div>
+    </section>
+    <section class="set" aria-labelledby="set-eoc">
+      <h2 id="set-eoc"><span>Edge of Eternities Commander</span><span class="set-count">1 deck</span></h2>
+      <div class="decks">
+      <details class="deck" id="counter-intelligence" style="--spine: linear-gradient(to bottom, var(--m-w) 0.000% 33.333%, var(--m-u) 33.333% 66.667%, var(--m-r) 66.667% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Counter Intelligence</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="White, blue and red"><span class="pip pip-w">W</span><span class="pip pip-u">U</span><span class="pip pip-r">R</span></span><span>Inspirit, Flagship Vessel</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/4/6/46900ec7-eb18-45c4-8e90-a48b665cfdee.webp?1783906067" srcset="https://cards.scryfall.io/grid/front/4/6/46900ec7-eb18-45c4-8e90-a48b665cfdee.webp?1783906067 488w, https://cards.scryfall.io/display/front/4/6/46900ec7-eb18-45c4-8e90-a48b665cfdee.webp?1783906067 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Inspirit, Flagship Vessel" loading="lazy" decoding="async"></div>
+          <div class="text">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Jeskai: white, blue and red</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Inspirit, Flagship Vessel does, and how the rest of the deck feeds it.</p>
+          <h4>Standout mechanic</h4>
+          <p class="ph">The one mechanic that sets this deck apart, what it does, and the card that shows it off best.</p>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+          </div>
+        </div></div>
+      </details>
+      </div>
+    </section>
+    <section class="set" aria-labelledby="set-tdc">
+      <h2 id="set-tdc"><span>Tarkir: Dragonstorm Commander</span><span class="set-count">4 decks</span></h2>
+      <div class="decks">
+      <details class="deck" id="abzan-armor" style="--spine: linear-gradient(to bottom, var(--m-w) 0.000% 33.333%, var(--m-b) 33.333% 66.667%, var(--m-g) 66.667% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Abzan Armor</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="White, black and green"><span class="pip pip-w">W</span><span class="pip pip-b">B</span><span class="pip pip-g">G</span></span><span>Felothar the Steadfast</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/2/c/2c3549f6-25df-4ea7-84ad-922ccd4af6b2.webp?1783907190" srcset="https://cards.scryfall.io/grid/front/2/c/2c3549f6-25df-4ea7-84ad-922ccd4af6b2.webp?1783907190 488w, https://cards.scryfall.io/display/front/2/c/2c3549f6-25df-4ea7-84ad-922ccd4af6b2.webp?1783907190 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Felothar the Steadfast" loading="lazy" decoding="async"></div>
+          <div class="text">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Abzan: white, black and green</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Felothar the Steadfast does, and how the rest of the deck feeds it.</p>
+          <h4>Standout mechanic</h4>
+          <p class="ph">The one mechanic that sets this deck apart, what it does, and the card that shows it off best.</p>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+          </div>
+        </div></div>
+      </details>
+      <details class="deck" id="mardu-surge" style="--spine: linear-gradient(to bottom, var(--m-w) 0.000% 33.333%, var(--m-b) 33.333% 66.667%, var(--m-r) 66.667% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Mardu Surge</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="White, black and red"><span class="pip pip-w">W</span><span class="pip pip-b">B</span><span class="pip pip-r">R</span></span><span>Zurgo Stormrender</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/d/c/dc8eb325-75c9-4331-830d-3f7d62d77290.webp?1783907186" srcset="https://cards.scryfall.io/grid/front/d/c/dc8eb325-75c9-4331-830d-3f7d62d77290.webp?1783907186 488w, https://cards.scryfall.io/display/front/d/c/dc8eb325-75c9-4331-830d-3f7d62d77290.webp?1783907186 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Zurgo Stormrender" loading="lazy" decoding="async"></div>
+          <div class="text">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Mardu: white, black and red</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Zurgo Stormrender does, and how the rest of the deck feeds it.</p>
+          <h4>Standout mechanic</h4>
+          <p class="ph">The one mechanic that sets this deck apart, what it does, and the card that shows it off best.</p>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+          </div>
+        </div></div>
+      </details>
+      <details class="deck" id="sultai-arisen" style="--spine: linear-gradient(to bottom, var(--m-u) 0.000% 33.333%, var(--m-b) 33.333% 66.667%, var(--m-g) 66.667% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Sultai Arisen</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="Blue, black and green"><span class="pip pip-u">U</span><span class="pip pip-b">B</span><span class="pip pip-g">G</span></span><span>Teval, the Balanced Scale</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/b/5/b5d1955a-9ff0-4f8b-9af8-341371957299.webp?1783907184" srcset="https://cards.scryfall.io/grid/front/b/5/b5d1955a-9ff0-4f8b-9af8-341371957299.webp?1783907184 488w, https://cards.scryfall.io/display/front/b/5/b5d1955a-9ff0-4f8b-9af8-341371957299.webp?1783907184 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Teval, the Balanced Scale" loading="lazy" decoding="async"></div>
+          <div class="text">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Sultai: blue, black and green</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Teval, the Balanced Scale does, and how the rest of the deck feeds it.</p>
+          <h4>Standout mechanic</h4>
+          <p class="ph">The one mechanic that sets this deck apart, what it does, and the card that shows it off best.</p>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+          </div>
+        </div></div>
+      </details>
+      <details class="deck" id="temur-roar" style="--spine: linear-gradient(to bottom, var(--m-u) 0.000% 33.333%, var(--m-r) 33.333% 66.667%, var(--m-g) 66.667% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Temur Roar</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="Blue, red and green"><span class="pip pip-u">U</span><span class="pip pip-r">R</span><span class="pip pip-g">G</span></span><span>Eshki, Temur&#x27;s Roar</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/f/f/ff9aa863-8773-452d-946c-ae334c632e11.webp?1790528795" srcset="https://cards.scryfall.io/grid/front/f/f/ff9aa863-8773-452d-946c-ae334c632e11.webp?1790528795 488w, https://cards.scryfall.io/display/front/f/f/ff9aa863-8773-452d-946c-ae334c632e11.webp?1790528795 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Eshki, Temur&#x27;s Roar" loading="lazy" decoding="async"></div>
+          <div class="text">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Temur: blue, red and green</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Eshki, Temur&#x27;s Roar does, and how the rest of the deck feeds it.</p>
+          <h4>Standout mechanic</h4>
+          <p class="ph">The one mechanic that sets this deck apart, what it does, and the card that shows it off best.</p>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+          </div>
+        </div></div>
+      </details>
+      </div>
+    </section>
+    <section class="set" aria-labelledby="set-drc">
+      <h2 id="set-drc"><span>Aetherdrift Commander</span><span class="set-count">2 decks</span></h2>
+      <div class="decks">
+      <details class="deck" id="eternal-might" style="--spine: linear-gradient(to bottom, var(--m-w) 0.000% 33.333%, var(--m-u) 33.333% 66.667%, var(--m-b) 66.667% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Eternal Might</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="White, blue and black"><span class="pip pip-w">W</span><span class="pip pip-u">U</span><span class="pip pip-b">B</span></span><span>Temmet, Naktamun&#x27;s Will</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/c/0/c0629894-0b72-4abe-9771-03becfdb241c.webp?1783907753" srcset="https://cards.scryfall.io/grid/front/c/0/c0629894-0b72-4abe-9771-03becfdb241c.webp?1783907753 488w, https://cards.scryfall.io/display/front/c/0/c0629894-0b72-4abe-9771-03becfdb241c.webp?1783907753 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Temmet, Naktamun&#x27;s Will" loading="lazy" decoding="async"></div>
+          <div class="text">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Esper: white, blue and black</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Temmet, Naktamun&#x27;s Will does, and how the rest of the deck feeds it.</p>
+          <h4>Standout mechanic</h4>
+          <p class="ph">The one mechanic that sets this deck apart, what it does, and the card that shows it off best.</p>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+          </div>
+        </div></div>
+      </details>
+      <details class="deck" id="living-energy" style="--spine: linear-gradient(to bottom, var(--m-u) 0.000% 33.333%, var(--m-r) 33.333% 66.667%, var(--m-g) 66.667% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Living Energy</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="Blue, red and green"><span class="pip pip-u">U</span><span class="pip pip-r">R</span><span class="pip pip-g">G</span></span><span>Saheeli, Radiant Creator</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/5/f/5fea0781-e933-47ef-9414-92c8652a7778.webp?1783907753" srcset="https://cards.scryfall.io/grid/front/5/f/5fea0781-e933-47ef-9414-92c8652a7778.webp?1783907753 488w, https://cards.scryfall.io/display/front/5/f/5fea0781-e933-47ef-9414-92c8652a7778.webp?1783907753 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Saheeli, Radiant Creator" loading="lazy" decoding="async"></div>
+          <div class="text">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Temur: blue, red and green</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Saheeli, Radiant Creator does, and how the rest of the deck feeds it.</p>
+          <h4>Standout mechanic</h4>
+          <p class="ph">The one mechanic that sets this deck apart, what it does, and the card that shows it off best.</p>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+          </div>
+        </div></div>
+      </details>
+      </div>
+    </section>
+    <section class="set" aria-labelledby="set-fdc">
+      <h2 id="set-fdc"><span>Foundations Commander</span><span class="set-count">5 decks</span></h2>
+      <div class="decks">
+      <details class="deck" id="calling-all-angels" style="--spine: linear-gradient(to bottom, var(--m-w) 0.000% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Calling All Angels</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="White"><span class="pip pip-w">W</span></span><span>Giada, Font of Hope</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/4/e/4ebc7622-08a1-4f43-92dd-8675d395e8f6.webp?1789752341" srcset="https://cards.scryfall.io/grid/front/4/e/4ebc7622-08a1-4f43-92dd-8675d395e8f6.webp?1789752341 488w, https://cards.scryfall.io/display/front/4/e/4ebc7622-08a1-4f43-92dd-8675d395e8f6.webp?1789752341 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Giada, Font of Hope" loading="lazy" decoding="async"></div>
+          <div class="text">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Mono-white</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Giada, Font of Hope does, and how the rest of the deck feeds it.</p>
+          <h4>Standout mechanic</h4>
+          <p class="ph">The one mechanic that sets this deck apart, what it does, and the card that shows it off best.</p>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+          </div>
+        </div></div>
+      </details>
+      <details class="deck" id="keen-engineering" style="--spine: linear-gradient(to bottom, var(--m-u) 0.000% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Keen Engineering</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="Blue"><span class="pip pip-u">U</span></span><span>Sai, Master Thopterist</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/5/6/5650587a-27a5-4d68-97e2-5745627bd094.webp?1789776685" srcset="https://cards.scryfall.io/grid/front/5/6/5650587a-27a5-4d68-97e2-5745627bd094.webp?1789776685 488w, https://cards.scryfall.io/display/front/5/6/5650587a-27a5-4d68-97e2-5745627bd094.webp?1789776685 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Sai, Master Thopterist" loading="lazy" decoding="async"></div>
+          <div class="text">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Mono-blue</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Sai, Master Thopterist does, and how the rest of the deck feeds it.</p>
+          <h4>Standout mechanic</h4>
+          <p class="ph">The one mechanic that sets this deck apart, what it does, and the card that shows it off best.</p>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+          </div>
+        </div></div>
+      </details>
+      <details class="deck" id="reign-of-dragons" style="--spine: linear-gradient(to bottom, var(--m-r) 0.000% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Reign of Dragons</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="Red"><span class="pip pip-r">R</span></span><span>Lathliss, Dragon Queen</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/8/a/8a17ec4e-b508-41af-803b-32acd863e598.webp?1789752347" srcset="https://cards.scryfall.io/grid/front/8/a/8a17ec4e-b508-41af-803b-32acd863e598.webp?1789752347 488w, https://cards.scryfall.io/display/front/8/a/8a17ec4e-b508-41af-803b-32acd863e598.webp?1789752347 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Lathliss, Dragon Queen" loading="lazy" decoding="async"></div>
+          <div class="text">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Mono-red</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Lathliss, Dragon Queen does, and how the rest of the deck feeds it.</p>
+          <h4>Standout mechanic</h4>
+          <p class="ph">The one mechanic that sets this deck apart, what it does, and the card that shows it off best.</p>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+          </div>
+        </div></div>
+      </details>
+      <details class="deck" id="tramplesaurus-rex" style="--spine: linear-gradient(to bottom, var(--m-g) 0.000% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Tramplesaurus Rex</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="Green"><span class="pip pip-g">G</span></span><span>Ghalta, Primal Hunger</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/5/d/5d9951d1-3228-4d69-8e63-6e6f0a893a86.webp?1789752351" srcset="https://cards.scryfall.io/grid/front/5/d/5d9951d1-3228-4d69-8e63-6e6f0a893a86.webp?1789752351 488w, https://cards.scryfall.io/display/front/5/d/5d9951d1-3228-4d69-8e63-6e6f0a893a86.webp?1789752351 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Ghalta, Primal Hunger" loading="lazy" decoding="async"></div>
+          <div class="text">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Mono-green</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Ghalta, Primal Hunger does, and how the rest of the deck feeds it.</p>
+          <h4>Standout mechanic</h4>
+          <p class="ph">The one mechanic that sets this deck apart, what it does, and the card that shows it off best.</p>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+          </div>
+        </div></div>
+      </details>
+      <details class="deck" id="wretched-ranks" style="--spine: linear-gradient(to bottom, var(--m-b) 0.000% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Wretched Ranks</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="Black"><span class="pip pip-b">B</span></span><span>Ghoulcaller Gisa</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/9/0/909e62fa-4585-495e-812b-5df56af24610.webp?1789752353" srcset="https://cards.scryfall.io/grid/front/9/0/909e62fa-4585-495e-812b-5df56af24610.webp?1789752353 488w, https://cards.scryfall.io/display/front/9/0/909e62fa-4585-495e-812b-5df56af24610.webp?1789752353 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Ghoulcaller Gisa" loading="lazy" decoding="async"></div>
+          <div class="text">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Mono-black</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Ghoulcaller Gisa does, and how the rest of the deck feeds it.</p>
+          <h4>Standout mechanic</h4>
+          <p class="ph">The one mechanic that sets this deck apart, what it does, and the card that shows it off best.</p>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+          </div>
+        </div></div>
+      </details>
+      </div>
+    </section>
+    <section class="set" aria-labelledby="set-dsc">
+      <h2 id="set-dsc"><span>Duskmourn: House of Horror Commander</span><span class="set-count">4 decks</span></h2>
+      <div class="decks">
+      <details class="deck" id="death-toll" style="--spine: linear-gradient(to bottom, var(--m-b) 0.000% 50.000%, var(--m-g) 50.000% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Death Toll</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="Black and green"><span class="pip pip-b">B</span><span class="pip pip-g">G</span></span><span>Winter, Cynical Opportunist</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/9/4/94dc35e4-a492-4019-afcd-cbef6f59a512.webp?1783909662" srcset="https://cards.scryfall.io/grid/front/9/4/94dc35e4-a492-4019-afcd-cbef6f59a512.webp?1783909662 488w, https://cards.scryfall.io/display/front/9/4/94dc35e4-a492-4019-afcd-cbef6f59a512.webp?1783909662 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Winter, Cynical Opportunist" loading="lazy" decoding="async"></div>
+          <div class="text">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Golgari: black and green</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Winter, Cynical Opportunist does, and how the rest of the deck feeds it.</p>
+          <h4>Standout mechanic</h4>
+          <p class="ph">The one mechanic that sets this deck apart, what it does, and the card that shows it off best.</p>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+          </div>
+        </div></div>
+      </details>
+      <details class="deck" id="endless-punishment" style="--spine: linear-gradient(to bottom, var(--m-b) 0.000% 50.000%, var(--m-r) 50.000% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Endless Punishment</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="Black and red"><span class="pip pip-b">B</span><span class="pip pip-r">R</span></span><span>Valgavoth, Harrower of Souls</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/8/d/8d7c1f6c-af45-4449-8cf8-e13830b3df8a.webp?1783909662" srcset="https://cards.scryfall.io/grid/front/8/d/8d7c1f6c-af45-4449-8cf8-e13830b3df8a.webp?1783909662 488w, https://cards.scryfall.io/display/front/8/d/8d7c1f6c-af45-4449-8cf8-e13830b3df8a.webp?1783909662 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Valgavoth, Harrower of Souls" loading="lazy" decoding="async"></div>
+          <div class="text">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Rakdos: black and red</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Valgavoth, Harrower of Souls does, and how the rest of the deck feeds it.</p>
+          <h4>Standout mechanic</h4>
+          <p class="ph">The one mechanic that sets this deck apart, what it does, and the card that shows it off best.</p>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+          </div>
+        </div></div>
+      </details>
+      <details class="deck" id="jump-scare" style="--spine: linear-gradient(to bottom, var(--m-u) 0.000% 50.000%, var(--m-g) 50.000% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Jump Scare!</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="Blue and green"><span class="pip pip-u">U</span><span class="pip pip-g">G</span></span><span>Zimone, Mystery Unraveler</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/3/0/30f23588-5064-48d9-a271-039df757f8d2.webp?1783909663" srcset="https://cards.scryfall.io/grid/front/3/0/30f23588-5064-48d9-a271-039df757f8d2.webp?1783909663 488w, https://cards.scryfall.io/display/front/3/0/30f23588-5064-48d9-a271-039df757f8d2.webp?1783909663 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Zimone, Mystery Unraveler" loading="lazy" decoding="async"></div>
+          <div class="text">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Simic: blue and green</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Zimone, Mystery Unraveler does, and how the rest of the deck feeds it.</p>
+          <h4>Standout mechanic</h4>
+          <p class="ph">The one mechanic that sets this deck apart, what it does, and the card that shows it off best.</p>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+          </div>
+        </div></div>
+      </details>
+      <details class="deck" id="miracle-worker" style="--spine: linear-gradient(to bottom, var(--m-w) 0.000% 33.333%, var(--m-u) 33.333% 66.667%, var(--m-b) 66.667% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Miracle Worker</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="White, blue and black"><span class="pip pip-w">W</span><span class="pip pip-u">U</span><span class="pip pip-b">B</span></span><span>Aminatou, Veil Piercer</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/9/f/9f868023-6035-403d-ba91-7a4840c6c392.webp?1783909663" srcset="https://cards.scryfall.io/grid/front/9/f/9f868023-6035-403d-ba91-7a4840c6c392.webp?1783909663 488w, https://cards.scryfall.io/display/front/9/f/9f868023-6035-403d-ba91-7a4840c6c392.webp?1783909663 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Aminatou, Veil Piercer" loading="lazy" decoding="async"></div>
+          <div class="text">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Esper: white, blue and black</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Aminatou, Veil Piercer does, and how the rest of the deck feeds it.</p>
+          <h4>Standout mechanic</h4>
+          <p class="ph">The one mechanic that sets this deck apart, what it does, and the card that shows it off best.</p>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+          </div>
+        </div></div>
+      </details>
+      </div>
+    </section>
+    <section class="set" aria-labelledby="set-blc">
+      <h2 id="set-blc"><span>Bloomburrow Commander</span><span class="set-count">3 decks</span></h2>
+      <div class="decks">
+      <details class="deck" id="animated-army" style="--spine: linear-gradient(to bottom, var(--m-r) 0.000% 50.000%, var(--m-g) 50.000% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Animated Army</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="Red and green"><span class="pip pip-r">R</span><span class="pip pip-g">G</span></span><span>Bello, Bard of the Brambles</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/3/1/31e4b7a1-b377-49d2-a92e-4bcb0db35f16.webp?1783910738" srcset="https://cards.scryfall.io/grid/front/3/1/31e4b7a1-b377-49d2-a92e-4bcb0db35f16.webp?1783910738 488w, https://cards.scryfall.io/display/front/3/1/31e4b7a1-b377-49d2-a92e-4bcb0db35f16.webp?1783910738 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Bello, Bard of the Brambles" loading="lazy" decoding="async"></div>
+          <div class="text">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Gruul: red and green</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Bello, Bard of the Brambles does, and how the rest of the deck feeds it.</p>
+          <h4>Standout mechanic</h4>
+          <p class="ph">The one mechanic that sets this deck apart, what it does, and the card that shows it off best.</p>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+          </div>
+        </div></div>
+      </details>
+      <details class="deck" id="family-matters" style="--spine: linear-gradient(to bottom, var(--m-w) 0.000% 33.333%, var(--m-u) 33.333% 66.667%, var(--m-r) 66.667% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Family Matters</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="White, blue and red"><span class="pip pip-w">W</span><span class="pip pip-u">U</span><span class="pip pip-r">R</span></span><span>Zinnia, Valley&#x27;s Voice</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/d/f/dfe36901-5841-4942-8b61-c273111f715e.webp?1783910737" srcset="https://cards.scryfall.io/grid/front/d/f/dfe36901-5841-4942-8b61-c273111f715e.webp?1783910737 488w, https://cards.scryfall.io/display/front/d/f/dfe36901-5841-4942-8b61-c273111f715e.webp?1783910737 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Zinnia, Valley&#x27;s Voice" loading="lazy" decoding="async"></div>
+          <div class="text">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Jeskai: white, blue and red</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Zinnia, Valley&#x27;s Voice does, and how the rest of the deck feeds it.</p>
+          <h4>Standout mechanic</h4>
+          <p class="ph">The one mechanic that sets this deck apart, what it does, and the card that shows it off best.</p>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+          </div>
+        </div></div>
+      </details>
+      <details class="deck" id="peace-offering" style="--spine: linear-gradient(to bottom, var(--m-w) 0.000% 33.333%, var(--m-u) 33.333% 66.667%, var(--m-g) 66.667% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Peace Offering</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="White, blue and green"><span class="pip pip-w">W</span><span class="pip pip-u">U</span><span class="pip pip-g">G</span></span><span>Ms. Bumbleflower</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/4/2/42bbedc1-6b83-46b4-8b3b-a4e05ce77d87.webp?1783910739" srcset="https://cards.scryfall.io/grid/front/4/2/42bbedc1-6b83-46b4-8b3b-a4e05ce77d87.webp?1783910739 488w, https://cards.scryfall.io/display/front/4/2/42bbedc1-6b83-46b4-8b3b-a4e05ce77d87.webp?1783910739 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Ms. Bumbleflower" loading="lazy" decoding="async"></div>
+          <div class="text">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Bant: white, blue and green</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Ms. Bumbleflower does, and how the rest of the deck feeds it.</p>
+          <h4>Standout mechanic</h4>
+          <p class="ph">The one mechanic that sets this deck apart, what it does, and the card that shows it off best.</p>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+          </div>
+        </div></div>
+      </details>
+      </div>
+    </section>
+    <section class="set" aria-labelledby="set-m3c">
+      <h2 id="set-m3c"><span>Modern Horizons 3 Commander</span><span class="set-count">4 decks</span></h2>
+      <div class="decks">
+      <details class="deck" id="creative-energy" style="--spine: linear-gradient(to bottom, var(--m-w) 0.000% 33.333%, var(--m-u) 33.333% 66.667%, var(--m-r) 66.667% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Creative Energy</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="White, blue and red"><span class="pip pip-w">W</span><span class="pip pip-u">U</span><span class="pip pip-r">R</span></span><span>Satya, Aetherflux Genius</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/3/b/3b964bbe-54cc-425c-9cc6-c877f82af7ba.webp?1783911437" srcset="https://cards.scryfall.io/grid/front/3/b/3b964bbe-54cc-425c-9cc6-c877f82af7ba.webp?1783911437 488w, https://cards.scryfall.io/display/front/3/b/3b964bbe-54cc-425c-9cc6-c877f82af7ba.webp?1783911437 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Satya, Aetherflux Genius" loading="lazy" decoding="async"></div>
+          <div class="text">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Jeskai: white, blue and red</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Satya, Aetherflux Genius does, and how the rest of the deck feeds it.</p>
+          <h4>Standout mechanic</h4>
+          <p class="ph">The one mechanic that sets this deck apart, what it does, and the card that shows it off best.</p>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+          </div>
+        </div></div>
+      </details>
+      <details class="deck" id="eldrazi-incursion" style="--spine: linear-gradient(to bottom, var(--m-w) 0.000% 20.000%, var(--m-u) 20.000% 40.000%, var(--m-b) 40.000% 60.000%, var(--m-r) 60.000% 80.000%, var(--m-g) 80.000% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Eldrazi Incursion</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="White, blue, black, red and green"><span class="pip pip-w">W</span><span class="pip pip-u">U</span><span class="pip pip-b">B</span><span class="pip pip-r">R</span><span class="pip pip-g">G</span></span><span>Ulalek, Fused Atrocity</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/f/d/fdad1b0e-d3cc-4d76-ae7e-fee12558cf2c.webp?1783911439" srcset="https://cards.scryfall.io/grid/front/f/d/fdad1b0e-d3cc-4d76-ae7e-fee12558cf2c.webp?1783911439 488w, https://cards.scryfall.io/display/front/f/d/fdad1b0e-d3cc-4d76-ae7e-fee12558cf2c.webp?1783911439 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Ulalek, Fused Atrocity" loading="lazy" decoding="async"></div>
+          <div class="text">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>All five colors</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Ulalek, Fused Atrocity does, and how the rest of the deck feeds it.</p>
+          <h4>Standout mechanic</h4>
+          <p class="ph">The one mechanic that sets this deck apart, what it does, and the card that shows it off best.</p>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+          </div>
+        </div></div>
+      </details>
+      <details class="deck" id="graveyard-overdrive" style="--spine: linear-gradient(to bottom, var(--m-b) 0.000% 33.333%, var(--m-r) 33.333% 66.667%, var(--m-g) 66.667% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Graveyard Overdrive</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="Black, red and green"><span class="pip pip-b">B</span><span class="pip pip-r">R</span><span class="pip pip-g">G</span></span><span>Disa the Restless</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/c/9/c976edeb-0fa1-4647-a16c-870d8a3c30c6.webp?1783911438" srcset="https://cards.scryfall.io/grid/front/c/9/c976edeb-0fa1-4647-a16c-870d8a3c30c6.webp?1783911438 488w, https://cards.scryfall.io/display/front/c/9/c976edeb-0fa1-4647-a16c-870d8a3c30c6.webp?1783911438 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Disa the Restless" loading="lazy" decoding="async"></div>
+          <div class="text">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Jund: black, red and green</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Disa the Restless does, and how the rest of the deck feeds it.</p>
+          <h4>Standout mechanic</h4>
+          <p class="ph">The one mechanic that sets this deck apart, what it does, and the card that shows it off best.</p>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+          </div>
+        </div></div>
+      </details>
+      <details class="deck" id="tricky-terrain" style="--spine: linear-gradient(to bottom, var(--m-u) 0.000% 50.000%, var(--m-g) 50.000% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Tricky Terrain</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="Blue and green"><span class="pip pip-u">U</span><span class="pip pip-g">G</span></span><span>Omo, Queen of Vesuva</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/e/5/e5d1c814-4c22-4917-95ae-dffaf491db32.webp?1783911439" srcset="https://cards.scryfall.io/grid/front/e/5/e5d1c814-4c22-4917-95ae-dffaf491db32.webp?1783911439 488w, https://cards.scryfall.io/display/front/e/5/e5d1c814-4c22-4917-95ae-dffaf491db32.webp?1783911439 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Omo, Queen of Vesuva" loading="lazy" decoding="async"></div>
+          <div class="text">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Simic: blue and green</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Omo, Queen of Vesuva does, and how the rest of the deck feeds it.</p>
+          <h4>Standout mechanic</h4>
+          <p class="ph">The one mechanic that sets this deck apart, what it does, and the card that shows it off best.</p>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+          </div>
+        </div></div>
+      </details>
+      </div>
+    </section>
+    <section class="set" aria-labelledby="set-otc">
+      <h2 id="set-otc"><span>Outlaws of Thunder Junction Commander</span><span class="set-count">1 deck</span></h2>
+      <div class="decks">
+      <details class="deck" id="most-wanted" style="--spine: linear-gradient(to bottom, var(--m-w) 0.000% 33.333%, var(--m-b) 33.333% 66.667%, var(--m-r) 66.667% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Most Wanted</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="White, black and red"><span class="pip pip-w">W</span><span class="pip pip-b">B</span><span class="pip pip-r">R</span></span><span>Olivia, Opulent Outlaw</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/5/5/55e6c31b-f9e9-4e42-a875-985d99300d9d.webp?1783911972" srcset="https://cards.scryfall.io/grid/front/5/5/55e6c31b-f9e9-4e42-a875-985d99300d9d.webp?1783911972 488w, https://cards.scryfall.io/display/front/5/5/55e6c31b-f9e9-4e42-a875-985d99300d9d.webp?1783911972 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Olivia, Opulent Outlaw" loading="lazy" decoding="async"></div>
+          <div class="text">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Mardu: white, black and red</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Olivia, Opulent Outlaw does, and how the rest of the deck feeds it.</p>
+          <h4>Standout mechanic</h4>
+          <p class="ph">The one mechanic that sets this deck apart, what it does, and the card that shows it off best.</p>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+          </div>
+        </div></div>
+      </details>
+      </div>
+    </section>
+    <section class="set" aria-labelledby="set-pip">
+      <h2 id="set-pip"><span>Fallout</span><span class="set-count">4 decks</span></h2>
+      <div class="decks">
+      <details class="deck" id="hail-caesar" style="--spine: linear-gradient(to bottom, var(--m-w) 0.000% 33.333%, var(--m-b) 33.333% 66.667%, var(--m-r) 66.667% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Hail, Caesar</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="White, black and red"><span class="pip pip-w">W</span><span class="pip pip-b">B</span><span class="pip pip-r">R</span></span><span>Caesar, Legion&#x27;s Emperor</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/2/4/246a7176-98bc-4f54-aa61-38747420f178.webp?1783912422" srcset="https://cards.scryfall.io/grid/front/2/4/246a7176-98bc-4f54-aa61-38747420f178.webp?1783912422 488w, https://cards.scryfall.io/display/front/2/4/246a7176-98bc-4f54-aa61-38747420f178.webp?1783912422 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Caesar, Legion&#x27;s Emperor" loading="lazy" decoding="async"></div>
+          <div class="text">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Mardu: white, black and red</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Caesar, Legion&#x27;s Emperor does, and how the rest of the deck feeds it.</p>
+          <h4>Standout mechanic</h4>
+          <p class="ph">The one mechanic that sets this deck apart, what it does, and the card that shows it off best.</p>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+          </div>
+        </div></div>
+      </details>
+      <details class="deck" id="mutant-menace" style="--spine: linear-gradient(to bottom, var(--m-u) 0.000% 33.333%, var(--m-b) 33.333% 66.667%, var(--m-g) 66.667% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Mutant Menace</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="Blue, black and green"><span class="pip pip-u">U</span><span class="pip pip-b">B</span><span class="pip pip-g">G</span></span><span>The Wise Mothman</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/3/d/3d6d6944-a364-41c2-b824-7a1bf6ad0d1e.webp?1783912422" srcset="https://cards.scryfall.io/grid/front/3/d/3d6d6944-a364-41c2-b824-7a1bf6ad0d1e.webp?1783912422 488w, https://cards.scryfall.io/display/front/3/d/3d6d6944-a364-41c2-b824-7a1bf6ad0d1e.webp?1783912422 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="The Wise Mothman" loading="lazy" decoding="async"></div>
+          <div class="text">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Sultai: blue, black and green</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What The Wise Mothman does, and how the rest of the deck feeds it.</p>
+          <h4>Standout mechanic</h4>
+          <p class="ph">The one mechanic that sets this deck apart, what it does, and the card that shows it off best.</p>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+          </div>
+        </div></div>
+      </details>
+      <details class="deck" id="science" style="--spine: linear-gradient(to bottom, var(--m-w) 0.000% 33.333%, var(--m-u) 33.333% 66.667%, var(--m-r) 66.667% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Science!</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="White, blue and red"><span class="pip pip-w">W</span><span class="pip pip-u">U</span><span class="pip pip-r">R</span></span><span>Dr. Madison Li</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/9/5/95af426d-a8af-4314-9ad0-ac61935e8e8e.webp?1783912422" srcset="https://cards.scryfall.io/grid/front/9/5/95af426d-a8af-4314-9ad0-ac61935e8e8e.webp?1783912422 488w, https://cards.scryfall.io/display/front/9/5/95af426d-a8af-4314-9ad0-ac61935e8e8e.webp?1783912422 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Dr. Madison Li" loading="lazy" decoding="async"></div>
+          <div class="text">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Jeskai: white, blue and red</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Dr. Madison Li does, and how the rest of the deck feeds it.</p>
+          <h4>Standout mechanic</h4>
+          <p class="ph">The one mechanic that sets this deck apart, what it does, and the card that shows it off best.</p>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+          </div>
+        </div></div>
+      </details>
+      <details class="deck" id="scrappy-survivors" style="--spine: linear-gradient(to bottom, var(--m-w) 0.000% 33.333%, var(--m-r) 33.333% 66.667%, var(--m-g) 66.667% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Scrappy Survivors</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="White, red and green"><span class="pip pip-w">W</span><span class="pip pip-r">R</span><span class="pip pip-g">G</span></span><span>Dogmeat, Ever Loyal</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/8/6/86b45e3e-8460-4678-87d1-d74479936c83.webp?1783912422" srcset="https://cards.scryfall.io/grid/front/8/6/86b45e3e-8460-4678-87d1-d74479936c83.webp?1783912422 488w, https://cards.scryfall.io/display/front/8/6/86b45e3e-8460-4678-87d1-d74479936c83.webp?1783912422 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Dogmeat, Ever Loyal" loading="lazy" decoding="async"></div>
+          <div class="text">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Naya: white, red and green</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Dogmeat, Ever Loyal does, and how the rest of the deck feeds it.</p>
+          <h4>Standout mechanic</h4>
+          <p class="ph">The one mechanic that sets this deck apart, what it does, and the card that shows it off best.</p>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+          </div>
+        </div></div>
+      </details>
+      </div>
+    </section>
+    <section class="set" aria-labelledby="set-mkc">
+      <h2 id="set-mkc"><span>Murders at Karlov Manor Commander</span><span class="set-count">4 decks</span></h2>
+      <div class="decks">
+      <details class="deck" id="blame-game" style="--spine: linear-gradient(to bottom, var(--m-w) 0.000% 50.000%, var(--m-r) 50.000% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Blame Game</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="White and red"><span class="pip pip-w">W</span><span class="pip pip-r">R</span></span><span>Nelly Borca, Impulsive Accuser</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/2/e/2ef59aa9-f5e1-413a-869b-d287db95efd0.webp?1783913057" srcset="https://cards.scryfall.io/grid/front/2/e/2ef59aa9-f5e1-413a-869b-d287db95efd0.webp?1783913057 488w, https://cards.scryfall.io/display/front/2/e/2ef59aa9-f5e1-413a-869b-d287db95efd0.webp?1783913057 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Nelly Borca, Impulsive Accuser" loading="lazy" decoding="async"></div>
+          <div class="text">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Boros: white and red</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Nelly Borca, Impulsive Accuser does, and how the rest of the deck feeds it.</p>
+          <h4>Standout mechanic</h4>
+          <p class="ph">The one mechanic that sets this deck apart, what it does, and the card that shows it off best.</p>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+          </div>
+        </div></div>
+      </details>
+      <details class="deck" id="deadly-disguise" style="--spine: linear-gradient(to bottom, var(--m-w) 0.000% 33.333%, var(--m-r) 33.333% 66.667%, var(--m-g) 66.667% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Deadly Disguise</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="White, red and green"><span class="pip pip-w">W</span><span class="pip pip-r">R</span><span class="pip pip-g">G</span></span><span>Kaust, Eyes of the Glade</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/6/4/648c15d1-a2a2-4f59-9b0a-5448be3e990f.webp?1783913056" srcset="https://cards.scryfall.io/grid/front/6/4/648c15d1-a2a2-4f59-9b0a-5448be3e990f.webp?1783913056 488w, https://cards.scryfall.io/display/front/6/4/648c15d1-a2a2-4f59-9b0a-5448be3e990f.webp?1783913056 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Kaust, Eyes of the Glade" loading="lazy" decoding="async"></div>
+          <div class="text">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Naya: white, red and green</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Kaust, Eyes of the Glade does, and how the rest of the deck feeds it.</p>
+          <h4>Standout mechanic</h4>
+          <p class="ph">The one mechanic that sets this deck apart, what it does, and the card that shows it off best.</p>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+          </div>
+        </div></div>
+      </details>
+      <details class="deck" id="deep-clue-sea" style="--spine: linear-gradient(to bottom, var(--m-w) 0.000% 33.333%, var(--m-u) 33.333% 66.667%, var(--m-g) 66.667% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Deep Clue Sea</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="White, blue and green"><span class="pip pip-w">W</span><span class="pip pip-u">U</span><span class="pip pip-g">G</span></span><span>Morska, Undersea Sleuth</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/a/e/ae9ccfec-05c6-469e-b1dd-dfbafa1e927f.webp?1783913056" srcset="https://cards.scryfall.io/grid/front/a/e/ae9ccfec-05c6-469e-b1dd-dfbafa1e927f.webp?1783913056 488w, https://cards.scryfall.io/display/front/a/e/ae9ccfec-05c6-469e-b1dd-dfbafa1e927f.webp?1783913056 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Morska, Undersea Sleuth" loading="lazy" decoding="async"></div>
+          <div class="text">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Bant: white, blue and green</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Morska, Undersea Sleuth does, and how the rest of the deck feeds it.</p>
+          <h4>Standout mechanic</h4>
+          <p class="ph">The one mechanic that sets this deck apart, what it does, and the card that shows it off best.</p>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+          </div>
+        </div></div>
+      </details>
+      <details class="deck" id="revenant-recon" style="--spine: linear-gradient(to bottom, var(--m-u) 0.000% 50.000%, var(--m-b) 50.000% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Revenant Recon</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="Blue and black"><span class="pip pip-u">U</span><span class="pip pip-b">B</span></span><span>Mirko, Obsessive Theorist</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/6/9/690acbbf-5e92-4323-b939-31bdb07f9905.webp?1783913056" srcset="https://cards.scryfall.io/grid/front/6/9/690acbbf-5e92-4323-b939-31bdb07f9905.webp?1783913056 488w, https://cards.scryfall.io/display/front/6/9/690acbbf-5e92-4323-b939-31bdb07f9905.webp?1783913056 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Mirko, Obsessive Theorist" loading="lazy" decoding="async"></div>
+          <div class="text">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Dimir: blue and black</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Mirko, Obsessive Theorist does, and how the rest of the deck feeds it.</p>
+          <h4>Standout mechanic</h4>
+          <p class="ph">The one mechanic that sets this deck apart, what it does, and the card that shows it off best.</p>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+          </div>
+        </div></div>
+      </details>
+      </div>
+    </section>
+    <section class="set" aria-labelledby="set-lcc">
+      <h2 id="set-lcc"><span>The Lost Caverns of Ixalan Commander</span><span class="set-count">4 decks</span></h2>
+      <div class="decks">
+      <details class="deck" id="ahoy-mateys" style="--spine: linear-gradient(to bottom, var(--m-u) 0.000% 33.333%, var(--m-b) 33.333% 66.667%, var(--m-r) 66.667% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Ahoy Mateys</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="Blue, black and red"><span class="pip pip-u">U</span><span class="pip pip-b">B</span><span class="pip pip-r">R</span></span><span>Admiral Brass, Unsinkable</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/b/d/bdc2d492-9d1e-4543-8b9c-c66ee67992ce.webp?1783913937" srcset="https://cards.scryfall.io/grid/front/b/d/bdc2d492-9d1e-4543-8b9c-c66ee67992ce.webp?1783913937 488w, https://cards.scryfall.io/display/front/b/d/bdc2d492-9d1e-4543-8b9c-c66ee67992ce.webp?1783913937 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Admiral Brass, Unsinkable" loading="lazy" decoding="async"></div>
+          <div class="text">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Grixis: blue, black and red</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Admiral Brass, Unsinkable does, and how the rest of the deck feeds it.</p>
+          <h4>Standout mechanic</h4>
+          <p class="ph">The one mechanic that sets this deck apart, what it does, and the card that shows it off best.</p>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+          </div>
+        </div></div>
+      </details>
+      <details class="deck" id="blood-rites" style="--spine: linear-gradient(to bottom, var(--m-w) 0.000% 50.000%, var(--m-b) 50.000% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Blood Rites</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="White and black"><span class="pip pip-w">W</span><span class="pip pip-b">B</span></span><span>Clavileño, First of the Blessed</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/9/f/9f55b648-b1ec-407a-a0c7-7647755793d1.webp?1783913936" srcset="https://cards.scryfall.io/grid/front/9/f/9f55b648-b1ec-407a-a0c7-7647755793d1.webp?1783913936 488w, https://cards.scryfall.io/display/front/9/f/9f55b648-b1ec-407a-a0c7-7647755793d1.webp?1783913936 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Clavileño, First of the Blessed" loading="lazy" decoding="async"></div>
+          <div class="text">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Orzhov: white and black</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Clavileño, First of the Blessed does, and how the rest of the deck feeds it.</p>
+          <h4>Standout mechanic</h4>
+          <p class="ph">The one mechanic that sets this deck apart, what it does, and the card that shows it off best.</p>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+          </div>
+        </div></div>
+      </details>
+      <details class="deck" id="explorers-of-the-deep" style="--spine: linear-gradient(to bottom, var(--m-u) 0.000% 50.000%, var(--m-g) 50.000% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Explorers of the Deep</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="Blue and green"><span class="pip pip-u">U</span><span class="pip pip-g">G</span></span><span>Hakbal of the Surging Soul</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/e/7/e738e675-4fd1-4bc3-97f5-71d0e2fc3f2e.webp?1783913937" srcset="https://cards.scryfall.io/grid/front/e/7/e738e675-4fd1-4bc3-97f5-71d0e2fc3f2e.webp?1783913937 488w, https://cards.scryfall.io/display/front/e/7/e738e675-4fd1-4bc3-97f5-71d0e2fc3f2e.webp?1783913937 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Hakbal of the Surging Soul" loading="lazy" decoding="async"></div>
+          <div class="text">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Simic: blue and green</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Hakbal of the Surging Soul does, and how the rest of the deck feeds it.</p>
+          <h4>Standout mechanic</h4>
+          <p class="ph">The one mechanic that sets this deck apart, what it does, and the card that shows it off best.</p>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+          </div>
+        </div></div>
+      </details>
+      <details class="deck" id="veloci-ramp-tor" style="--spine: linear-gradient(to bottom, var(--m-w) 0.000% 33.333%, var(--m-r) 33.333% 66.667%, var(--m-g) 66.667% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Veloci-Ramp-Tor</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="White, red and green"><span class="pip pip-w">W</span><span class="pip pip-r">R</span><span class="pip pip-g">G</span></span><span>Pantlaza, Sun-Favored</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/2/5/2524645e-b066-4351-885b-10faa8d819d7.webp?1783913937" srcset="https://cards.scryfall.io/grid/front/2/5/2524645e-b066-4351-885b-10faa8d819d7.webp?1783913937 488w, https://cards.scryfall.io/display/front/2/5/2524645e-b066-4351-885b-10faa8d819d7.webp?1783913937 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Pantlaza, Sun-Favored" loading="lazy" decoding="async"></div>
+          <div class="text">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Naya: white, red and green</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Pantlaza, Sun-Favored does, and how the rest of the deck feeds it.</p>
+          <h4>Standout mechanic</h4>
+          <p class="ph">The one mechanic that sets this deck apart, what it does, and the card that shows it off best.</p>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+          </div>
+        </div></div>
+      </details>
+      </div>
+    </section>
+    <section class="set" aria-labelledby="set-ltc">
+      <h2 id="set-ltc"><span>Tales of Middle-earth Commander</span><span class="set-count">4 decks</span></h2>
+      <div class="decks">
+      <details class="deck" id="elven-council" style="--spine: linear-gradient(to bottom, var(--m-u) 0.000% 50.000%, var(--m-g) 50.000% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Elven Council</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="Blue and green"><span class="pip pip-u">U</span><span class="pip pip-g">G</span></span><span>Galadriel, Elven-Queen</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/8/f/8fa46d54-563d-4b5c-9c69-5ab37dd529b3.webp?1783916039" srcset="https://cards.scryfall.io/grid/front/8/f/8fa46d54-563d-4b5c-9c69-5ab37dd529b3.webp?1783916039 488w, https://cards.scryfall.io/display/front/8/f/8fa46d54-563d-4b5c-9c69-5ab37dd529b3.webp?1783916039 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Galadriel, Elven-Queen" loading="lazy" decoding="async"></div>
+          <div class="text">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Simic: blue and green</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Galadriel, Elven-Queen does, and how the rest of the deck feeds it.</p>
+          <h4>Standout mechanic</h4>
+          <p class="ph">The one mechanic that sets this deck apart, what it does, and the card that shows it off best.</p>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+          </div>
+        </div></div>
+      </details>
+      <details class="deck" id="food-and-fellowship" style="--spine: linear-gradient(to bottom, var(--m-w) 0.000% 33.333%, var(--m-b) 33.333% 66.667%, var(--m-g) 66.667% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Food and Fellowship</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="White, black and green"><span class="pip pip-w">W</span><span class="pip pip-b">B</span><span class="pip pip-g">G</span></span><span>Frodo, Adventurous Hobbit + Sam, Loyal Attendant</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel"><div class="panel-body">
+          <div class="cards two"><img src="https://cards.scryfall.io/grid/front/3/2/328df403-7428-4b17-bdd1-9759fc0f32d8.webp?1783916041" srcset="https://cards.scryfall.io/grid/front/3/2/328df403-7428-4b17-bdd1-9759fc0f32d8.webp?1783916041 488w, https://cards.scryfall.io/display/front/3/2/328df403-7428-4b17-bdd1-9759fc0f32d8.webp?1783916041 672w" sizes="(min-width: 40rem) 13rem, 11rem" width="488" height="680" alt="Frodo, Adventurous Hobbit" loading="lazy" decoding="async"><img src="https://cards.scryfall.io/grid/front/6/8/687a2b76-3f05-4732-bd9b-513d06d16300.webp?1783916039" srcset="https://cards.scryfall.io/grid/front/6/8/687a2b76-3f05-4732-bd9b-513d06d16300.webp?1783916039 488w, https://cards.scryfall.io/display/front/6/8/687a2b76-3f05-4732-bd9b-513d06d16300.webp?1783916039 672w" sizes="(min-width: 40rem) 13rem, 11rem" width="488" height="680" alt="Sam, Loyal Attendant" loading="lazy" decoding="async"></div>
+          <div class="text">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Abzan: white, black and green</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Frodo, Adventurous Hobbit and Sam, Loyal Attendant do together, and how the rest of the deck feeds them.</p>
+          <h4>Standout mechanic</h4>
+          <p class="ph">The one mechanic that sets this deck apart, what it does, and the card that shows it off best.</p>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+          </div>
+        </div></div>
+      </details>
+      <details class="deck" id="riders-of-rohan" style="--spine: linear-gradient(to bottom, var(--m-w) 0.000% 33.333%, var(--m-u) 33.333% 66.667%, var(--m-r) 66.667% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Riders of Rohan</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="White, blue and red"><span class="pip pip-w">W</span><span class="pip pip-u">U</span><span class="pip pip-r">R</span></span><span>Éowyn, Shieldmaiden</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/d/d/dd4a00ff-2206-4e12-a0ab-61ed82c9e6c5.webp?1783916039" srcset="https://cards.scryfall.io/grid/front/d/d/dd4a00ff-2206-4e12-a0ab-61ed82c9e6c5.webp?1783916039 488w, https://cards.scryfall.io/display/front/d/d/dd4a00ff-2206-4e12-a0ab-61ed82c9e6c5.webp?1783916039 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Éowyn, Shieldmaiden" loading="lazy" decoding="async"></div>
+          <div class="text">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Jeskai: white, blue and red</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Éowyn, Shieldmaiden does, and how the rest of the deck feeds it.</p>
+          <h4>Standout mechanic</h4>
+          <p class="ph">The one mechanic that sets this deck apart, what it does, and the card that shows it off best.</p>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+          </div>
+        </div></div>
+      </details>
+      <details class="deck" id="the-hosts-of-mordor" style="--spine: linear-gradient(to bottom, var(--m-u) 0.000% 33.333%, var(--m-b) 33.333% 66.667%, var(--m-r) 66.667% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>The Hosts of Mordor</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="Blue, black and red"><span class="pip pip-u">U</span><span class="pip pip-b">B</span><span class="pip pip-r">R</span></span><span>Sauron, Lord of the Rings</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/f/c/fc53dec0-79fe-4f6f-9d5b-cf298588e808.webp?1783916038" srcset="https://cards.scryfall.io/grid/front/f/c/fc53dec0-79fe-4f6f-9d5b-cf298588e808.webp?1783916038 488w, https://cards.scryfall.io/display/front/f/c/fc53dec0-79fe-4f6f-9d5b-cf298588e808.webp?1783916038 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Sauron, Lord of the Rings" loading="lazy" decoding="async"></div>
+          <div class="text">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Grixis: blue, black and red</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Sauron, Lord of the Rings does, and how the rest of the deck feeds it.</p>
+          <h4>Standout mechanic</h4>
+          <p class="ph">The one mechanic that sets this deck apart, what it does, and the card that shows it off best.</p>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+          </div>
+        </div></div>
+      </details>
+      </div>
+    </section>
+    <section class="set" aria-labelledby="set-scd">
+      <h2 id="set-scd"><span>Starter Commander Decks</span><span class="set-count">5 decks</span></h2>
+      <div class="decks">
+      <details class="deck" id="chaos-incarnate" style="--spine: linear-gradient(to bottom, var(--m-b) 0.000% 50.000%, var(--m-r) 50.000% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Chaos Incarnate</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="Black and red"><span class="pip pip-b">B</span><span class="pip pip-r">R</span></span><span>Kardur, Doomscourge</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/1/9/19e4d494-e8b3-4ae2-93e3-70c65ab90f15.webp?1783918741" srcset="https://cards.scryfall.io/grid/front/1/9/19e4d494-e8b3-4ae2-93e3-70c65ab90f15.webp?1783918741 488w, https://cards.scryfall.io/display/front/1/9/19e4d494-e8b3-4ae2-93e3-70c65ab90f15.webp?1783918741 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Kardur, Doomscourge" loading="lazy" decoding="async"></div>
+          <div class="text">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Rakdos: black and red</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Kardur, Doomscourge does, and how the rest of the deck feeds it.</p>
+          <h4>Standout mechanic</h4>
+          <p class="ph">The one mechanic that sets this deck apart, what it does, and the card that shows it off best.</p>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+          </div>
+        </div></div>
+      </details>
+      <details class="deck" id="draconic-destruction" style="--spine: linear-gradient(to bottom, var(--m-r) 0.000% 50.000%, var(--m-g) 50.000% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Draconic Destruction</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="Red and green"><span class="pip pip-r">R</span><span class="pip pip-g">G</span></span><span>Atarka, World Render</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/7/1/719f172b-f9ad-4960-af66-757eb54147f6.webp?1783918742" srcset="https://cards.scryfall.io/grid/front/7/1/719f172b-f9ad-4960-af66-757eb54147f6.webp?1783918742 488w, https://cards.scryfall.io/display/front/7/1/719f172b-f9ad-4960-af66-757eb54147f6.webp?1783918742 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Atarka, World Render" loading="lazy" decoding="async"></div>
+          <div class="text">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Gruul: red and green</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Atarka, World Render does, and how the rest of the deck feeds it.</p>
+          <h4>Standout mechanic</h4>
+          <p class="ph">The one mechanic that sets this deck apart, what it does, and the card that shows it off best.</p>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+          </div>
+        </div></div>
+      </details>
+      <details class="deck" id="first-flight" style="--spine: linear-gradient(to bottom, var(--m-w) 0.000% 50.000%, var(--m-u) 50.000% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>First Flight</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="White and blue"><span class="pip pip-w">W</span><span class="pip pip-u">U</span></span><span>Isperia, Supreme Judge</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/d/e/de3278de-a045-4290-b05f-3b19e7055091.webp?1783918741" srcset="https://cards.scryfall.io/grid/front/d/e/de3278de-a045-4290-b05f-3b19e7055091.webp?1783918741 488w, https://cards.scryfall.io/display/front/d/e/de3278de-a045-4290-b05f-3b19e7055091.webp?1783918741 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Isperia, Supreme Judge" loading="lazy" decoding="async"></div>
+          <div class="text">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Azorius: white and blue</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Isperia, Supreme Judge does, and how the rest of the deck feeds it.</p>
+          <h4>Standout mechanic</h4>
+          <p class="ph">The one mechanic that sets this deck apart, what it does, and the card that shows it off best.</p>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+          </div>
+        </div></div>
+      </details>
+      <details class="deck" id="grave-danger" style="--spine: linear-gradient(to bottom, var(--m-u) 0.000% 50.000%, var(--m-b) 50.000% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Grave Danger</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="Blue and black"><span class="pip pip-u">U</span><span class="pip pip-b">B</span></span><span>Gisa and Geralf</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/4/d/4d8fd87c-caf7-402e-b543-e35ba3007bcb.webp?1783918740" srcset="https://cards.scryfall.io/grid/front/4/d/4d8fd87c-caf7-402e-b543-e35ba3007bcb.webp?1783918740 488w, https://cards.scryfall.io/display/front/4/d/4d8fd87c-caf7-402e-b543-e35ba3007bcb.webp?1783918740 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Gisa and Geralf" loading="lazy" decoding="async"></div>
+          <div class="text">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Dimir: blue and black</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Gisa and Geralf does, and how the rest of the deck feeds it.</p>
+          <h4>Standout mechanic</h4>
+          <p class="ph">The one mechanic that sets this deck apart, what it does, and the card that shows it off best.</p>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+          </div>
+        </div></div>
+      </details>
+      <details class="deck" id="token-triumph" style="--spine: linear-gradient(to bottom, var(--m-w) 0.000% 50.000%, var(--m-g) 50.000% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Token Triumph</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="White and green"><span class="pip pip-w">W</span><span class="pip pip-g">G</span></span><span>Emmara, Soul of the Accord</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/e/8/e8510a1e-62ca-462c-b036-d1312729f27d.webp?1783918741" srcset="https://cards.scryfall.io/grid/front/e/8/e8510a1e-62ca-462c-b036-d1312729f27d.webp?1783918741 488w, https://cards.scryfall.io/display/front/e/8/e8510a1e-62ca-462c-b036-d1312729f27d.webp?1783918741 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Emmara, Soul of the Accord" loading="lazy" decoding="async"></div>
+          <div class="text">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Selesnya: white and green</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Emmara, Soul of the Accord does, and how the rest of the deck feeds it.</p>
+          <h4>Standout mechanic</h4>
+          <p class="ph">The one mechanic that sets this deck apart, what it does, and the card that shows it off best.</p>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+          </div>
+        </div></div>
+      </details>
+      </div>
+    </section>
+    <section class="set" aria-labelledby="set-sld">
+      <h2 id="set-sld"><span>Secret Lair Drop</span><span class="set-count">1 deck</span></h2>
+      <div class="decks">
+      <details class="deck" id="odds-and-ends" style="--spine: linear-gradient(to bottom, var(--m-w) 0.000% 33.333%, var(--m-u) 33.333% 66.667%, var(--m-b) 66.667% 100.000%)">
+        <summary>
+          <span class="head">
+            <h3>Odds and Ends</h3>
+            <span class="meta"><span class="pips" role="img" aria-label="White, blue and black"><span class="pip pip-w">W</span><span class="pip pip-u">U</span><span class="pip pip-b">B</span></span><span>Yennett, Cryptic Sovereign</span></span>
+          </span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="panel"><div class="panel-body">
+          <div class="cards"><img src="https://cards.scryfall.io/grid/front/0/b/0ba9362f-eb35-4e72-8c51-7047c0a3f648.webp?1790743631" srcset="https://cards.scryfall.io/grid/front/0/b/0ba9362f-eb35-4e72-8c51-7047c0a3f648.webp?1790743631 488w, https://cards.scryfall.io/display/front/0/b/0ba9362f-eb35-4e72-8c51-7047c0a3f648.webp?1790743631 672w" sizes="(min-width: 40rem) 13rem, 15rem" width="488" height="680" alt="Yennett, Cryptic Sovereign" loading="lazy" decoding="async"></div>
+          <div class="text">
+          <dl class="facts">
+            <div><dt>Colors</dt><dd>Esper: white, blue and black</dd></div>
+            <div><dt>Themes</dt><dd><span class="chips"><span class="chip ph">Theme one</span><span class="chip ph">Theme two</span><span class="chip ph">Theme three</span></span></dd></div>
+          </dl>
+          <h4>What it wants to do</h4>
+          <p class="ph">Two or three sentences on how this deck wins and what a good turn looks like, written for someone who has never played it.</p>
+          <h4>The commander</h4>
+          <p class="ph">What Yennett, Cryptic Sovereign does, and how the rest of the deck feeds it.</p>
+          <h4>Standout mechanic</h4>
+          <p class="ph">The one mechanic that sets this deck apart, what it does, and the card that shows it off best.</p>
+          <a class="arch" href="https://archidekt.com/commander-precons">See the full list on Archidekt<span aria-hidden="true">&nbsp;&#8599;</span></a>
+          </div>
+        </div></div>
+      </details>
+      </div>
+    </section>
+    <footer class="foot">
+      <p>Rob&#8217;s Precons is unofficial Fan Content permitted under the Fan Content Policy. Not approved/endorsed by Wizards. Portions of the materials used are property of Wizards of the Coast. &#169;Wizards of the Coast LLC.</p>
+      <p>Card images come from <a href="https://scryfall.com">Scryfall</a>.</p>
+    </footer>
+  </main>
+</body>
+</html>
