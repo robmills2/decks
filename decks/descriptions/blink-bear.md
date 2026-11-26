@@ -3,17 +3,17 @@ Difficulty: Hard
 
 ## What it wants to do
 
-Now you see him, now you don't. This is a blink deck and a Shrine deck in one. Blink spells exile Hei Bai and bring him straight back, and each time he returns, he brings a Shrine with him. Shrines get stronger the more of them you control: one barely matters, but a pile of them takes over the game.
+Now you see it, now you don't. This is a blink deck and a Shrine deck in one. Blink spells exile Hei Bai and bring it straight back, and each time it returns, it brings a Shrine with it. Shrines get stronger the more of them you control: one barely matters, but a pile of them takes over the game.
 
 ## The commander
 
-[Hei Bai, Forest Guardian](https://scryfall.com/card/tle/139/hei-bai-forest-guardian) is a 4/4 for four who never arrives alone. When he enters, he digs through your library to the first Shrine and puts it onto the battlefield. For one mana of each color and a tap, he makes a 1/1 Spirit for each legendary enchantment you control, and every Shrine in the deck is one. Only Spirits can block them. Blink him when a removal spell targets him: the spell misses, and you get another Shrine.
+[Hei Bai, Forest Guardian](https://scryfall.com/card/tle/139/hei-bai-forest-guardian) is a 4/4 for four who never arrives alone. When it enters, it digs through your library to the first Shrine and puts that Shrine onto the battlefield. For one mana of each color and a tap, it makes a 1/1 Spirit for each legendary enchantment you control, and every Shrine in the deck is one. Only Spirits can block them. Blink it when a removal spell targets it: the spell misses, and you get another Shrine.
 
 ## Opening hand
 
 - [Birds of Paradise](https://scryfall.com/card/msc/170/birds-of-paradise), [Llanowar Elves](https://scryfall.com/card/fdn/227/llanowar-elves) and [Delighted Halfling](https://scryfall.com/card/ltr/363/delighted-halfling) get Hei Bai out a turn early, on turn three.
 - Each fetch land can grab a two- or three-color land, so five colors is easier than it looks.
-- A one-mana blink spell like [Cloudshift](https://scryfall.com/card/avr/12/cloudshift) or [Ephemerate](https://scryfall.com/card/mh1/7/ephemerate) gets a second Shrine soon after he lands.
+- A one-mana blink spell like [Cloudshift](https://scryfall.com/card/avr/12/cloudshift) or [Ephemerate](https://scryfall.com/card/mh1/7/ephemerate) gets a second Shrine soon after it lands.
 - Throw back hands with no green source: Hei Bai and the early mana creatures all need it.
 
 ## Key cards

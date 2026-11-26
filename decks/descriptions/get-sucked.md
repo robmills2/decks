@@ -3,22 +3,22 @@ Difficulty: Medium
 
 ## What it wants to do
 
-It's death by a thousand cuts. The deck slowly drains life from the table, and Vito (and some of his friends) turns lifegain into damage. With the right combo in place, one small gain becomes a loop that ends the game. Or drop a bomb and kill a player in a single turn.
+It's death by a thousand cuts. The deck slowly drains life from the table, and Vito (and some of its friends) turns lifegain into damage. With the right combo in place, one small gain becomes a loop that ends the game. Or drop a bomb and kill a player in a single turn.
 
 ## The commander
 
-[Vito, Thorn of the Dusk Rose](https://scryfall.com/card/sld/2282/vito-thorn-of-the-dusk-rose) is low-cost, but fragile. Each time you gain life, he makes an opponent of your choice lose that much, so you can spread the damage or focus one player. For five mana he gives your creatures lifelink for the turn, feeding his ping effect. Protect him with [Swiftfoot Boots](https://scryfall.com/card/fdc/291/swiftfoot-boots).
+[Vito, Thorn of the Dusk Rose](https://scryfall.com/card/sld/2282/vito-thorn-of-the-dusk-rose) is low-cost, but fragile. Each time you gain life, it makes an opponent of your choice lose that much, so you can spread the damage or focus one player. For five mana it gives your creatures lifelink for the turn, feeding its ping effect. Protect it with [Swiftfoot Boots](https://scryfall.com/card/fdc/291/swiftfoot-boots).
 
 ## Opening hand
 
 - Keep three or four lands, or two lands and a cheap mana rock.
 - Look for a cheap way to gain life, such as [Vampire of the Dire Moon](https://scryfall.com/card/m20/120/vampire-of-the-dire-moon), [Creeping Bloodsucker](https://scryfall.com/card/j25/415/creeping-bloodsucker) or [Pristine Talisman](https://scryfall.com/card/nph/151/pristine-talisman).
-- Send back hands with one land or only expensive cards. Vito starts in the command zone, so you never need him in hand.
+- Send back hands with one land or only expensive cards. Vito starts in the command zone, so you never need it in hand.
 
 ## Key cards
 
 - [Exquisite Blood](https://scryfall.com/card/avr/102/exquisite-blood) and [Bloodthirsty Conqueror](https://scryfall.com/card/fdn/58/bloodthirsty-conqueror): whenever an opponent loses life, you gain that much. With Vito, that's the loop.
-- [Sanguine Bond](https://scryfall.com/card/sld/1799/sanguine-bond) and [Enduring Tenacity](https://scryfall.com/card/dsk/400/enduring-tenacity) do Vito's job if he's removed.
+- [Sanguine Bond](https://scryfall.com/card/sld/1799/sanguine-bond) and [Enduring Tenacity](https://scryfall.com/card/dsk/400/enduring-tenacity) do Vito's job if it's removed.
 - [Gray Merchant of Asphodel](https://scryfall.com/card/ths/89/gray-merchant-of-asphodel) drains each opponent for every black mana symbol on your permanents, and Vito sends the total you gain at one player.
 - [Whip of Erebos](https://scryfall.com/card/ths/110/whip-of-erebos) gives all your creatures lifelink.
 - [Bloodletter of Aclazotz](https://scryfall.com/card/lci/336/bloodletter-of-aclazotz) doubles what opponents lose on your turn.
