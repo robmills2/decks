@@ -1,4 +1,4 @@
-Themes: Casting cheap spells, Multiplying Monks, Hitting the whole table
+Themes: Casting cheap spells, Multiplying Monks, Combat buffs
 Difficulty: Hard
 
 ## What it wants to do
