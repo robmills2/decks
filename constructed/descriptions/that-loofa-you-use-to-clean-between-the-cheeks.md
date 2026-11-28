@@ -7,7 +7,7 @@ You wouldn't borrow someone's loofa. Make an exception. Every creature here is a
 
 ## The commander
 
-[Jodah, the Unifier](https://scryfall.com/card/dmu/203/jodah-the-unifier) is a 5/5 for one mana of each color, and it plays favorites. Your legendary creatures get +1/+1 for each one you control, Jodah included. When you cast a legendary spell from your hand, exile cards from the top of your library until you hit a cheaper legend (not a land), and you may cast it for free. The free one doesn't set off another.
+[Jodah, the Unifier](https://scryfall.com/card/sld/1932/jodah-the-unifier) is a 5/5 for one mana of each color, and it plays favorites. Your legendary creatures get +1/+1 for each one you control, Jodah included. When you cast a legendary spell from your hand, exile cards from the top of your library until you hit a cheaper legend (not a land), and you may cast it for free. The free one doesn't set off another.
 
 ## Opening hand
 

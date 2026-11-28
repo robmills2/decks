@@ -67,8 +67,9 @@ GROUP BY d.id, d.name, d.archidekt_id
 ORDER BY lower(d.name)
 ```
 
-Keep these commander printings when you refresh. The page shows them in place of the printing the Cards app has, so the card on the page is readable:
+Keep these commander printings when you refresh. The page shows them in place of the printing the Cards app has, and each deck's explanation links its commander to the same printing:
 
-- PLNH: `dmu 107`, the English Sheoldred, the Apocalypse. The Cards app has the Phyrexian-language printing, `dmu 369`.
+- PLNH: `dmu 107`, the English Sheoldred, the Apocalypse, so the card on the page is readable. The Cards app has the Phyrexian-language printing, `dmu 369`.
+- That Loofa You Use to Clean Between the Cheeks: `sld 1932`, the SpongeBob SquarePants Secret Lair printing of Jodah, the Unifier, which Rob asked for (2026-11-28). The Cards app has `dmu 203`.
 
 Only the decks with a file in `constructed/descriptions/` have real explanations so far; the others show placeholder text.
